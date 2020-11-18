@@ -1,0 +1,38 @@
+<template>
+  <v-card>
+    <v-card-title>Your Annotations</v-card-title>
+    <v-card-text class="scroll-box">
+      <v-list dense>
+        <moment-line v-for="m in moments" :key="m.pk"
+          :moment="m"
+          @remove-click="onRemoveClick">
+        </moment-line>
+      </v-list>
+    </v-card-text>
+  </v-card>
+</template>
+
+<script>
+import MomentLine from './MomentLine.vue'
+export default {
+  name: 'MomentList',
+  props: {
+    moments: Array
+  },
+  components: {
+    MomentLine
+  },
+  methods: {
+    onRemoveClick: function (id) {
+      this.$emit('remove-click', id)
+    }
+  }
+}
+</script>
+
+<style scoped lang="scss">
+.scroll-box {
+  height: 25vh;
+  overflow-y: scroll;
+}
+</style>
