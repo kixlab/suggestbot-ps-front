@@ -39,7 +39,7 @@ export default {
       this.err = false
       this.msg = ''
       try {
-        const response = await axios.post('http://localhost:8000/register/', {
+        const response = await axios.post(`${process.env.API_URL}/register/`, {
           username: this.id,
           password: this.id,
           firstname: 'Plain'
