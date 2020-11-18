@@ -105,7 +105,7 @@ export default {
         return id === o.id
       })
       try {
-        const res = await axios.delete(`${process.env.API_URL}/moments/${id}/`, {
+        const res = await axios.delete(`${process.env.VUE_APP_API_URL}/moments/${id}/`, {
           headers: {
             Authorization: `Token ${this.token}`
           }
@@ -123,12 +123,12 @@ export default {
   },
   mounted: async function () {
     try {
-      const lines = await axios.get(`${process.env.API_URL}/lines/get_dataset/`, {
+      const lines = await axios.get(`${process.env.VUE_APP_API_URL}/lines/get_dataset/`, {
         params: {
           dataset: 'ES2016a'
         }
       })
-      const moments = await axios.get(`${process.env.API_URL}/moments/?dataset_id=ES2016a`, {
+      const moments = await axios.get(`${process.env.VUE_APP_API_URL}/moments/?dataset_id=ES2016a`, {
         headers: {
           Authorization: `Token ${this.token}`
         }

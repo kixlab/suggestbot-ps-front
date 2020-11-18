@@ -139,7 +139,7 @@ export default {
     submitMoment: async function () {
       try {
         this.err = false
-        const res = await axios.post(`${process.env.API_URL}/moments/`,
+        const res = await axios.post(`${process.env.VUE_APP_API_URL}/moments/`,
         {
           affected_speaker: this.speaker,
           timestamp: this.moment,

@@ -38,8 +38,9 @@ export default {
     onNextClick: async function () {
       this.err = false
       this.msg = ''
+      console.log(process.env.VUE_APP_API_URL)
       try {
-        const response = await axios.post(`${process.env.API_URL}/register/`, {
+        const response = await axios.post(`${process.env.VUE_APP_API_URL}/register/`, {
           username: this.id,
           password: this.id,
           firstname: 'Plain'

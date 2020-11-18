@@ -107,7 +107,7 @@ export default {
   methods: {
     onNextClick: async function () {
       try {
-        const res = await axios.post(`${process.env.API_URL}/surveys/`, this.answers, {
+        const res = await axios.post(`${process.env.VUE_APP_API_URL}/surveys/`, this.answers, {
           headers: {
             Authorization: `Token ${this.token}`
           }
