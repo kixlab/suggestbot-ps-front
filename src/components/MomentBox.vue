@@ -41,7 +41,7 @@
             @change="v => possibleComment = v">
           </v-text-field>
         </v-col>
-        <v-col md="12">
+        <v-col md="12" v-if="!plain">
           <div v-if="plain">Why do you think this line would negatively affect the psychological safety of the group? </div>
           <div v-else>
             <!-- <v-avatar size="1.2em" :color="color"> -->
@@ -55,8 +55,9 @@
             @change="v => reason = v">
           </v-text-field>
         </v-col>
-        <v-col md="12" v-if="plain">
-          <div v-if="plain">If you could intervene in the meeting, what would you like to say to {{currentLine ? currentLine.speaker : ''}}? </div>
+        <v-col md="12">
+          <div v-if="plain">If you were the moderator of this meeting, what would you advise to {{currentLine ? currentLine.speaker : ''}} to support others in easily speaking up their mind? </div>
+          <!-- <div v-if="plain">If you could intervene in the meeting, what would you like to say to {{currentLine ? currentLine.speaker : ''}}? </div> -->
           <div v-else>As a moderator, I'd like to say to {{currentLine ? currentLine.speaker : ''}}</div>
           <v-text-field
             dense
@@ -64,7 +65,7 @@
             @change="v => possibleComment = v">
           </v-text-field>
         </v-col>
-        <v-col md="12">
+        <v-col md="12" v-if="!plain">
           <div v-if="plain">If you could phrase {{currentLine ? currentLine.speaker : ''}}'s words differently, what would you like to say? </div>
           <div v-else>Next time, {{currentLine ? currentLine.speaker : ''}} might want to say </div>
 

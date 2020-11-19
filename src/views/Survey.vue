@@ -10,7 +10,13 @@
         <v-radio v-for="n in 5" :key="k+n" :label="scales[n]" :value="n"></v-radio>
       </v-radio-group>
     </v-col>
-    <v-col md="8" v-if="err">
+    <v-col md="8">
+      Please leave any comments on the task.
+      <v-textarea rows="5" v-model="answers.free_response">
+      </v-textarea>
+      <span v-if="isTextBlank" class="red--text">Please leave comments on the task!</span>
+    </v-col>
+    <v-col md="8" v-if="err" class="red--text">
       An error has occured. Please make sure you have answered all questions and try again. 
     </v-col>
     <v-col md="1" offset-md="7">
@@ -63,12 +69,13 @@ export default {
   data: function () {
     return {
       code: '',
+      err: '',
       validate: value => (value > 0 && value <= 5) ? true : 'Please select the value',
       questions: {
         // fas1: 'I lost myself in this experience.',
         // fas2: 'The time I spent on this task just slipped away.',
         // fas3: 'I was absorbed in this experiece.',
-        pus1: 'I felt frustrated while doing this task',
+        pus1: 'I felt frustrated while doing this task.',
         pus2: 'I found this task confusing to use.',
         pus3: 'Doing this task was taxing.',
         // aes1: 'This task was attractive.',
@@ -93,6 +100,7 @@ export default {
         rws2: 0,
         rws3: 0,
         sanity_check: 0,
+        free_response: '',
         status: 'Plain'
       },
       scales: {
@@ -106,7 +114,13 @@ export default {
   },
   methods: {
     onNextClick: async function () {
+      this.isTextBlank = false
+      this.err = false
       try {
+        if (this.answers.free_response.length <= 10) {
+          this.isTextBlank = true
+          return
+        }
         const res = await axios.post(`${process.env.VUE_APP_API_URL}/surveys/`, this.answers, {
           headers: {
             Authorization: `Token ${this.token}`
@@ -115,6 +129,7 @@ export default {
         console.log(res)
         this.$router.push('/Finish')
       } catch (err) {
+        this.err = true
         console.log(err)
       }
     }

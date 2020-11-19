@@ -2,10 +2,11 @@
   <v-row>
     <v-col md="12">
       <!-- <h3> Now, you'll see a replay of a chat stream of a collaboration meeting. Please label the line that harms psychological safety of the group and let us know how you'd intervene in such situations.</h3> -->
-      <h3>Please carefully read this meeting transcript and annotate the lines that negatively affected the psychological safety of the group. </h3>
+      <h3>Please carefully read this meeting transcript and annotate the lines that would make the meeting participants disagree with the statement </h3>
+      <h3 class="text-center red--text">"In this group, it is easy to speak up about what is on my mind." </h3>
     </v-col>
     <v-col md="7">
-      <div ref="scrollBox" class="scroll-box">
+      <div ref="scrollBox" @scroll="handleScroll" class="scroll-box">
         <v-list>
           <v-list-item-group v-model="selectedItem">
             <line-unit v-for="(l, idx) in lines" :key="idx"
@@ -27,12 +28,13 @@
       <moment-box
         :plain="true"
         v-show="isMomentBoxShown"
+        @close-moment-box="closeMomentBox"
         @moment-saved="onMomentSaved"
         :moment="currentMoment"
         :currentLine="selectedLine"
         ></moment-box>
     </v-col>
-    <v-col md="12" class="d-flex flex-row-reverse">
+    <v-col md="12" class="d-flex flex-row-reverse" v-if="touchBottom">
       <v-btn color="green" @click="onNextClick">NEXT</v-btn>
     </v-col>
   </v-row>
@@ -60,7 +62,8 @@ export default {
       selectedItem: undefined,
       timerHandle: 0,
       currentTime: 0,
-      startTime: new Date()
+      startTime: new Date(),
+      touchBottom: false
     }
   },
   computed: {
@@ -72,7 +75,8 @@ export default {
       }
     },
     ...mapState({
-      token: state => state.token
+      token: state => state.token,
+      dataset: state => state.dataset
     })
   },
   methods: {
@@ -80,6 +84,16 @@ export default {
       this.moments.push(moment)
       this.isMomentBoxShown = false
       this.currentMoment = 0
+      this.selectedItem = undefined
+    },
+    handleScroll: function(el) {
+      if ((el.srcElement.offsetHeight + el.srcElement.scrollTop) >= el.srcElement.scrollHeight) {
+        this.touchBottom = true
+      }
+    },
+    closeMomentBox: function () {
+      this.currentMoment = 0
+      this.isMomentBoxShown = false
       this.selectedItem = undefined
     },
     openMomentBox: function (starttime, idx) {
@@ -96,7 +110,20 @@ export default {
 
       console.log('aaaa')
     },
-    onNextClick: function () {
+    onNextClick: async function () {
+      const res = await axios.post(`${process.env.VUE_APP_API_URL}/logs/`, {
+        event_name: 'EndTask',
+        status: 'Plain',
+        payload: JSON.stringify({
+          clientTime: new Date(),
+          dataset: this.dataset
+        })
+      }, {
+        headers: {
+          Authorization: `Token ${this.token}`
+        }
+      })
+      console.log(res)
       this.$router.push('/Survey')
     },
     onRemoveClick: async function (id) {
@@ -121,18 +148,33 @@ export default {
     window.clearInterval(this.timerHandle)
   },
   mounted: async function () {
+    const dataset = 'ES2016a'
+
+    const res = await axios.post(`${process.env.VUE_APP_API_URL}/logs/`, {
+      event_name: 'StartTask',
+      status: 'Plain',
+      payload: JSON.stringify({
+        clientTime: new Date(),
+        dataset: dataset
+      })
+    }, {
+      headers: {
+        Authorization: `Token ${this.token}`
+      }
+    })
+    console.log(res)
     try {
       const lines = await axios.get(`${process.env.VUE_APP_API_URL}/lines/get_dataset/`, {
         params: {
-          dataset: 'ES2016a'
+          dataset: dataset
         }
       })
-      const moments = await axios.get(`${process.env.VUE_APP_API_URL}/moments/?dataset_id=ES2016a`, {
+      const moments = await axios.get(`${process.env.VUE_APP_API_URL}/moments/?dataset_id=${dataset}`, {
         headers: {
           Authorization: `Token ${this.token}`
         }
       })
-      this.$store.commit('setDataset', 'ES2016a')
+      this.$store.commit('setDataset', dataset)
       // console.log(lines)
       this.lines = lines.data
       this.moments = moments.data

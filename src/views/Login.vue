@@ -43,7 +43,7 @@ export default {
         const response = await axios.post(`${process.env.VUE_APP_API_URL}/register/`, {
           username: this.id,
           password: this.id,
-          firstname: 'Plain'
+          first_name: 'Plain'
         })
         const result = response.data
 
