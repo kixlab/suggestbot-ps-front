@@ -78,7 +78,10 @@
       </v-row>
     </v-card-text>
     <v-card-text v-if="err">
-      An error has occured. Please try submitting again.
+      <span class="red--text">An error has occured. Please try submitting again.</span>
+    </v-card-text>
+    <v-card-text v-if="long">
+      <span class="red--text">Please respond to the question with more than 25 characters.</span>
     </v-card-text>
     <v-card-actions class="d-flex flex-row-reverse">
       <v-btn
@@ -136,10 +139,17 @@ export default {
       this.possibleLine = ''
       this.$emit('close-moment-box')
       this.err = false
+      this.long = false
+
     },
     submitMoment: async function () {
       try {
         this.err = false
+        this.long = false
+        if (this.possibleComment.length < 25) {
+          this.long = true
+          return
+        }
         const res = await axios.post(`${process.env.VUE_APP_API_URL}/moments/`,
         {
           affected_speaker: this.speaker,
@@ -179,7 +189,8 @@ export default {
       possibleComment: '',
       possibleLine: '',
       speakers: ['A', 'B', 'C', 'D'],
-      err: false
+      err: false,
+      long: false
     }
   },
 }
