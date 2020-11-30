@@ -2,7 +2,7 @@
   <v-row>
     <v-col md="12">
       <!-- <h3> Now, you'll see a replay of a chat stream of a collaboration meeting. Please label the line that harms psychological safety of the group and let us know how you'd intervene in such situations.</h3> -->
-      <h3>Please carefully read this meeting transcript and annotate the lines that would make the meeting participants disagree with the statement </h3>
+      <h3>Please carefully read this meeting transcript and annotate <span class="red--text">at least five lines</span> that would make the meeting participants agree or disagree with the statement </h3>
       <h3 class="text-center red--text">"In this group, it is easy to speak up about what is on my mind." </h3>
     </v-col>
     <v-col md="7">
@@ -34,7 +34,7 @@
         :currentLine="selectedLine"
         ></moment-box>
     </v-col>
-    <v-col md="12" class="d-flex flex-row-reverse" v-if="touchBottom">
+    <v-col md="12" class="d-flex flex-row-reverse" v-if="touchBottom && (moments.length >= 5)">
       <v-btn color="green" @click="onNextClick">NEXT</v-btn>
     </v-col>
   </v-row>
@@ -113,7 +113,7 @@ export default {
     onNextClick: async function () {
       const res = await axios.post(`${process.env.VUE_APP_API_URL}/logs/`, {
         event_name: 'EndTask',
-        status: 'Plain',
+        status: 'Reason-Plain',
         payload: JSON.stringify({
           clientTime: new Date(),
           dataset: this.dataset
@@ -152,7 +152,7 @@ export default {
 
     const res = await axios.post(`${process.env.VUE_APP_API_URL}/logs/`, {
       event_name: 'StartTask',
-      status: 'Plain',
+      status: 'Reason-Plain',
       payload: JSON.stringify({
         clientTime: new Date(),
         dataset: dataset

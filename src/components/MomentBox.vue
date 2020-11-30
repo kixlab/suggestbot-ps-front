@@ -17,21 +17,23 @@
               {{s}}
             </v-btn>
           </v-btn-toggle>
-        </v-col>
+        </v-col> -->
         <v-col md="12">
-          <div>How is the psychological safety affected?</div>
-          <v-btn-toggle v-model="direction" mandatory>
-            <v-btn value="NEGATIVE" text color="red">
-              Negative
-            </v-btn>
-            <v-btn value="NEUTRAL" text color="grey">
-              Neutral
-            </v-btn>
+          <div>
+            After this line, how would the meeting participants think about the statement <span class="red--text">"In this group, it is easy to speak up about what is on my mind."</span>?  </div>
+          <v-btn-toggle block v-model="direction">
             <v-btn value="POSITIVE" text color="green">
-              Positive
+              Agree more
+            </v-btn>
+            <!-- <v-btn value="NEUTRAL" text color="grey">
+              Neutral
+            </v-btn> -->
+            <v-btn value="NEGATIVE" text color="red">
+              Disagree more
             </v-btn>
           </v-btn-toggle>
-        </v-col> -->
+          <div v-if="choice" class="red--text">Please choose between two options.</div>
+        </v-col>
         <v-col md="12" v-if="!plain">
           <div v-if="plain">If you could intervene in the meeting, what would you like to say to {{currentLine ? currentLine.speaker : ''}}? </div>
           <div v-else>I'd like to stop the meeting by saying that</div>
@@ -41,8 +43,8 @@
             @change="v => possibleComment = v">
           </v-text-field>
         </v-col>
-        <v-col md="12" v-if="!plain">
-          <div v-if="plain">Why do you think this line would negatively affect the psychological safety of the group? </div>
+        <v-col md="12" v-if="plain">
+          <div v-if="plain">Why do you think this line would affect the psychological safety of the group? </div>
           <div v-else>
             <!-- <v-avatar size="1.2em" :color="color"> -->
               {{currentLine ? currentLine.speaker : ''}}'s words harmed the psychological safety of the group because
@@ -55,7 +57,7 @@
             @change="v => reason = v">
           </v-text-field>
         </v-col>
-        <v-col md="12">
+        <v-col md="12" v-if="!plain">
           <div v-if="plain">If you were the moderator of this meeting, what would you advise to {{currentLine ? currentLine.speaker : ''}} to support others in easily speaking up their mind? </div>
           <!-- <div v-if="plain">If you could intervene in the meeting, what would you like to say to {{currentLine ? currentLine.speaker : ''}}? </div> -->
           <div v-else>As a moderator, I'd like to say to {{currentLine ? currentLine.speaker : ''}}</div>
@@ -75,14 +77,15 @@
             @change="v => possibleLine = v">
           </v-text-field>
         </v-col>
+        <v-col v-if="long">
+          <span class="red--text">Please respond to the question with more than 25 characters.</span>
+        </v-col>
       </v-row>
     </v-card-text>
     <v-card-text v-if="err">
       <span class="red--text">An error has occured. Please try submitting again.</span>
     </v-card-text>
-    <v-card-text v-if="long">
-      <span class="red--text">Please respond to the question with more than 25 characters.</span>
-    </v-card-text>
+
     <v-card-actions class="d-flex flex-row-reverse">
       <v-btn
         text
@@ -140,14 +143,20 @@ export default {
       this.$emit('close-moment-box')
       this.err = false
       this.long = false
-
+      this.choice = false
     },
     submitMoment: async function () {
       try {
         this.err = false
         this.long = false
-        if (this.possibleComment.length < 25) {
+        this.choice = false
+        if (this.direction === 'NEUTRAL') {
+          this.choice = true
+        }
+        if (this.reason.length < 25) {
           this.long = true
+        }
+        if (this.choice || this.long) {
           return
         }
         const res = await axios.post(`${process.env.VUE_APP_API_URL}/moments/`,

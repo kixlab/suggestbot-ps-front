@@ -8,9 +8,10 @@
         </v-avatar>
       </v-list-item-avatar>
       <v-list-item-content>
-        <!-- <v-list-item-title>
-          {{moment.direction}} to {{moment.affected_speaker}}
-        </v-list-item-title> -->
+        <v-list-item-title>
+          {{moment.direction}}
+           <!-- to {{moment.affected_speaker}} -->
+        </v-list-item-title>
         <v-list-item-subtitle>
           {{truncatedText}}
         </v-list-item-subtitle>
