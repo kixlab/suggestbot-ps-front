@@ -199,7 +199,8 @@ export default {
       possibleLine: '',
       speakers: ['A', 'B', 'C', 'D'],
       err: false,
-      long: false
+      long: false,
+      choice: false
     }
   },
 }

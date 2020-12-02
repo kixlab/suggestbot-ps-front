@@ -34,6 +34,9 @@ export default {
       msg: ''
     }
   },
+  mounted: function () {
+    this.$store.commit('setDataset', this.$route.params.dataset)
+  },
   methods: {
     onNextClick: async function () {
       this.err = false

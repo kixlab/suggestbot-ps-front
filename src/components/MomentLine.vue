@@ -8,12 +8,12 @@
         </v-avatar>
       </v-list-item-avatar>
       <v-list-item-content>
-        <v-list-item-title>
-          {{moment.direction}}
+        <v-list-item-title class="text-truncate">
+          {{moment.direction}} - "{{moment.line.text}}"
            <!-- to {{moment.affected_speaker}} -->
         </v-list-item-title>
-        <v-list-item-subtitle>
-          {{truncatedText}}
+        <v-list-item-subtitle class="text-truncate">
+          {{moment.reason}}
         </v-list-item-subtitle>
       </v-list-item-content>
       <v-list-item-action>
@@ -43,6 +43,13 @@ export default {
         return this.moment.line.text.slice(0, 27) + '...'
       } else {
         return this.moment.line.text
+      }
+    },
+    truncatedReason: function () {
+      if (this.moment.reason.length >= 30) {
+        return this.moment.reason.slice(0, 27) + '...'
+      } else {
+        return this.moment.reason
       }
     },
     color: function () {

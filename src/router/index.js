@@ -5,7 +5,7 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/start',
+    path: '/start/:dataset',
     name: 'Start',
     component: () => import(/* webpackChunkName: "about" */ '../views/Login.vue')
   },

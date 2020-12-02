@@ -149,9 +149,8 @@ export default {
     window.clearInterval(this.timerHandle)
   },
   mounted: async function () {
-    const dataset = process.env.VUE_APP_DATASET
     const condition = process.env.VUE_APP_COND
-
+    const dataset = this.dataset
     const res = await axios.post(`${process.env.VUE_APP_API_URL}/logs/`, {
       event_name: 'StartTask',
       status: condition,
@@ -176,7 +175,7 @@ export default {
           Authorization: `Token ${this.token}`
         }
       })
-      this.$store.commit('setDataset', dataset)
+      // this.$store.commit('setDataset', dataset)
       // console.log(lines)
       this.lines = lines.data
       this.moments = moments.data
