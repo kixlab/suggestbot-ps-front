@@ -53,7 +53,7 @@ export default {
         this.$store.commit('setToken', result.token)
         this.$store.commit('setUsername', result.username)
 
-        this.$router.push('tutorial')
+        this.$router.push('/tutorial')
       } catch (err) {
         console.log(err.response)
         if (err.response.status === 403) {
