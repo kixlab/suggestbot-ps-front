@@ -4,25 +4,30 @@
       The following statements ask you to reflect on your experience of engaging with this task. For each statement, please use the following scale to indicate what is most true for you.
     </v-col>
     <!-- Rewarding && PU only?-->
-    <v-col md="8" v-for="k in questionKeys" :key="k">
-      {{questions[k]}}
-      <v-radio-group v-model="answers[k]" row>
-        <v-radio v-for="n in 5" :key="k+n" :label="scales[n]" :value="n"></v-radio>
-      </v-radio-group>
-    </v-col>
     <v-col md="8">
-      Please leave any comments on the task.
-      <v-textarea rows="5" v-model="answers.free_response">
-      </v-textarea>
-      <span v-if="isTextBlank" class="red--text">Please leave comments on the task!</span>
+      <v-form ref="form">
+        <v-row align-content="center" justify="center">
+          <v-col md="12" v-for="k in questionKeys" :key="k">
+            {{questions[k]}}
+            <v-radio-group v-model="answers[k]" row :rules="[validate]">
+              <v-radio v-for="n in 5" :key="k+n" :label="scales[n]" :value="n"></v-radio>
+            </v-radio-group>
+          </v-col>
+          <v-col md="12">
+            Please leave any comments on the task.
+            <v-textarea rows="5" v-model="answers.free_response" required :rules="[validateTxt]">
+            </v-textarea>
+            <!-- <span v-if="isTextBlank" class="red--text">Please leave comments on the task!</span> -->
+          </v-col>
+          <v-col md="12" v-if="err" class="red--text">
+            An error has occured. Please make sure you have answered all questions and try again. 
+          </v-col>
+          <v-col md="1" offset-md="11">
+            <v-btn @click="onNextClick">NEXT</v-btn>
+          </v-col>
+        </v-row>
+      </v-form>
     </v-col>
-    <v-col md="8" v-if="err" class="red--text">
-      An error has occured. Please make sure you have answered all questions and try again. 
-    </v-col>
-    <v-col md="1" offset-md="7">
-      <v-btn @click="onNextClick">NEXT</v-btn>
-    </v-col>
-    
     <!-- <v-col md="8">
       <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScB-sgvtZJeMF29SDIAUYk_u1_FwsIHiQypIkSyRWVwTaI4Ng/viewform?embedded=true" width="640" height="378" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
     </v-col>
@@ -62,6 +67,9 @@ export default {
       shuffleArray(arr)
       return arr
     },
+    answersValue: function () {
+      return this.answers.pus1 * this.answers.pus2 * this.answers.pus3 * this.answers.rws1 * this.answers.rws2 * this.answers.rws3 * this.answers.sanity_check
+    },
     ...mapState({
       token: state => state.token
     })
@@ -70,7 +78,9 @@ export default {
     return {
       code: '',
       err: '',
+      isTextBlank: false,
       validate: value => (value > 0 && value <= 5) ? true : 'Please select the value',
+      validateTxt: value => value.length >= 20 ? true : 'Please leave comments on the task!',
       questions: {
         // fas1: 'I lost myself in this experience.',
         // fas2: 'The time I spent on this task just slipped away.',
@@ -117,10 +127,16 @@ export default {
       this.isTextBlank = false
       this.err = false
       try {
+        if (!this.$refs.form.validate()) {
+          return
+        }
         if (this.answers.free_response.length <= 10) {
           this.isTextBlank = true
           return
         }
+        // if (this.answersValue === 0) {
+
+        // }
         const res = await axios.post(`${process.env.VUE_APP_API_URL}/surveys/`, this.answers, {
           headers: {
             Authorization: `Token ${this.token}`
