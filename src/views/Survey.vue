@@ -101,7 +101,7 @@ export default {
         rws3: 0,
         sanity_check: 0,
         free_response: '',
-        status: 'Plain'
+        status: process.env.VUE_APP_COND
       },
       scales: {
         '1': 'Strongly Disagree',

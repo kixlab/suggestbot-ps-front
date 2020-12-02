@@ -111,9 +111,10 @@ export default {
       console.log('aaaa')
     },
     onNextClick: async function () {
+      const condition = process.env.VUE_APP_COND
       const res = await axios.post(`${process.env.VUE_APP_API_URL}/logs/`, {
         event_name: 'EndTask',
-        status: 'Reason-Plain',
+        status: condition,
         payload: JSON.stringify({
           clientTime: new Date(),
           dataset: this.dataset
@@ -148,11 +149,12 @@ export default {
     window.clearInterval(this.timerHandle)
   },
   mounted: async function () {
-    const dataset = 'ES2016a'
+    const dataset = process.env.VUE_APP_DATASET
+    const condition = process.env.VUE_APP_COND
 
     const res = await axios.post(`${process.env.VUE_APP_API_URL}/logs/`, {
       event_name: 'StartTask',
-      status: 'Reason-Plain',
+      status: condition,
       payload: JSON.stringify({
         clientTime: new Date(),
         dataset: dataset
