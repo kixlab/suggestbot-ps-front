@@ -28,12 +28,13 @@
       <moment-box
         :plain="false"
         v-show="isMomentBoxShown"
+        @close-moment-box="closeMomentBox"
         @moment-saved="onMomentSaved"
         :moment="currentMoment"
         :currentLine="selectedLine"
         ></moment-box>
     </v-col>
-    <v-col md="12" class="d-flex flex-row-reverse">
+    <v-col md="12" class="d-flex flex-row-reverse" v-if="(moments.length >= 5)">
       <v-btn color="green" @click="onNextClick">NEXT</v-btn>
     </v-col>
   </v-row>
@@ -61,7 +62,8 @@ export default {
       selectedItem: undefined,
       timerHandle: 0,
       currentTime: 0,
-      startTime: new Date()
+      startTime: new Date(),
+      touchBottom: false
     }
   },
   computed: {
@@ -73,7 +75,8 @@ export default {
       }
     },
     ...mapState({
-      token: state => state.token
+      token: state => state.token,
+      dataset: state => state.dataset
     })
   },
   methods: {
@@ -82,8 +85,34 @@ export default {
       this.isMomentBoxShown = false
       this.currentMoment = 0
       this.selectedItem = undefined
+      this.startTime = new Date()
+      this.timerHandle = window.setInterval(function() {
+        const now = new Date()
+        this.currentTime += (now - this.startTime) / 1000
+        this.startTime = now
+        const container = this.$refs.scrollBox
+        // console.log(container)
+        container.scrollTop = container.scrollHeight
+
+      }.bind(this), 500)
+    },
+    closeMomentBox: function () {
+      this.currentMoment = 0
+      this.isMomentBoxShown = false
+      this.selectedItem = undefined
+      this.startTime = new Date()
+      this.timerHandle = window.setInterval(function() {
+        const now = new Date()
+        this.currentTime += (now - this.startTime) / 1000
+        this.startTime = now
+        const container = this.$refs.scrollBox
+        // console.log(container)
+        container.scrollTop = container.scrollHeight
+
+      }.bind(this), 500)
     },
     openMomentBox: function (starttime, idx) {
+      clearInterval(this.timerHandle)
       if (this.selectedItem === undefined) {
         this.isMomentBoxShown = true
         this.currentMoment = starttime
@@ -97,8 +126,22 @@ export default {
 
       console.log('aaaa')
     },
-    onNextClick: function () {
-      this.$router.push('/survey')
+    onNextClick: async function () {
+      const condition = process.env.VUE_APP_COND
+      const res = await axios.post(`${process.env.VUE_APP_API_URL}/logs/`, {
+        event_name: 'EndTask',
+        status: condition,
+        payload: JSON.stringify({
+          clientTime: new Date(),
+          dataset: this.dataset
+        })
+      }, {
+        headers: {
+          Authorization: `Token ${this.token}`
+        }
+      })
+      console.log(res)
+      this.$router.push('/Survey')
     },
     onRemoveClick: async function (id) {
       const momentIdx = this.moments.findIndex((o) => {
@@ -122,18 +165,33 @@ export default {
     window.clearInterval(this.timerHandle)
   },
   mounted: async function () {
+    const condition = process.env.VUE_APP_COND
+    const dataset = this.dataset
+    const res = await axios.post(`${process.env.VUE_APP_API_URL}/logs/`, {
+      event_name: 'StartTask',
+      status: condition,
+      payload: JSON.stringify({
+        clientTime: new Date(),
+        dataset: dataset
+      })
+    }, {
+      headers: {
+        Authorization: `Token ${this.token}`
+      }
+    })
+    console.log(res)
     try {
       const lines = await axios.get(`${process.env.VUE_APP_API_URL}/lines/get_dataset/`, {
         params: {
-          dataset: 'ES2016a'
+          dataset: dataset
         }
       })
-      const moments = await axios.get(`${process.env.VUE_APP_API_URL}/moments/?dataset_id=ES2016a`, {
+      const moments = await axios.get(`${process.env.VUE_APP_API_URL}/moments/?dataset_id=${dataset}`, {
         headers: {
           Authorization: `Token ${this.token}`
         }
       })
-      this.$store.commit('setDataset', 'ES2016a')
+      // this.$store.commit('setDataset', 'ES2016a')
       // console.log(lines)
       this.lines = lines.data
       this.moments = moments.data
@@ -155,7 +213,7 @@ export default {
 
 <style lang="sass" scoped>
 .scroll-box 
-  height: 80vh
+  height: 70vh
   overflow-y: scroll
 
 </style>
