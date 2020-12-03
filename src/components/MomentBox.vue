@@ -150,7 +150,7 @@ export default {
         this.err = false
         this.long = false
         this.choice = false
-        if (this.direction === 'NEUTRAL') {
+        if ((this.direction !== 'POSITIVE') && (this.direction !== 'NEGATIVE')) {
           this.choice = true
         }
         if (this.reason.length < 25) {
