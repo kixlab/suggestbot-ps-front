@@ -13,7 +13,9 @@
            <!-- to {{moment.affected_speaker}} -->
         </v-list-item-title>
         <v-list-item-subtitle class="text-truncate">
-          {{moment.reason}}
+          <span v-if="reasoning">{{moment.reason}}</span>
+          <span v-else-if="moderating">{{moment.possible_comment}}</span>
+          <span v-else-if="roletaking"> {{moment.possible_line}} </span>
         </v-list-item-subtitle>
       </v-list-item-content>
       <v-list-item-action>
@@ -30,7 +32,8 @@
 export default {
   name: 'MomentLineUnit',
   props: {
-    moment: Object
+    moment: Object,
+    type: String
   },
   methods: {
     onRemoveClick: function () {
@@ -64,7 +67,16 @@ export default {
       } else {
         return 'cyan'
       }
-    }
+    }, 
+    reasoning: function () {
+      return this.type === 'reasoning'
+    },
+    moderating: function () {
+      return this.type === 'moderating'
+    },
+    roletaking: function () {
+      return this.type === 'roletaking'
+    },
   }
 }
 </script>

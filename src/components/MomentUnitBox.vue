@@ -1,5 +1,5 @@
 <template>
-  <v-card class="moment--box" shaped>
+  <v-card class="moment--box">
     <v-card-title style="padding-bottom: 0;">
       <span v-if="plain">Annotations for </span>
       <span v-else>Moderate the meeting for </span>
@@ -34,7 +34,16 @@
           </v-btn-toggle>
           <div v-if="choice" class="red--text">Please choose between two options.</div>
         </v-col>
-        <v-col md="12" v-if="reasoning">
+        <v-col md="12" v-if="!plain">
+          <div v-if="plain">If you could intervene in the meeting, what would you like to say to {{currentLine ? currentLine.speaker : ''}}? </div>
+          <div v-else>I'd like to stop the meeting by saying that</div>
+          <v-text-field
+            dense
+            :value="possibleComment"
+            @change="v => possibleComment = v">
+          </v-text-field>
+        </v-col>
+        <v-col md="12" v-if="plain">
           <div v-if="plain">Why do you think this line would affect the psychological safety of the group? </div>
           <div v-else>
             <!-- <v-avatar size="1.2em" :color="color"> -->
@@ -48,7 +57,7 @@
             @change="v => reason = v">
           </v-text-field>
         </v-col>
-        <v-col md="12" v-if="moderating">
+        <v-col md="12" v-if="!plain">
           <div v-if="plain">If you were the moderator of this meeting, what would you advise to {{currentLine ? currentLine.speaker : ''}} to support others in easily speaking up their mind? </div>
           <!-- <div v-if="plain">If you could intervene in the meeting, what would you like to say to {{currentLine ? currentLine.speaker : ''}}? </div> -->
           <div v-else>As a moderator, I'd like to say to {{currentLine ? currentLine.speaker : ''}}</div>
@@ -58,7 +67,7 @@
             @change="v => possibleComment = v">
           </v-text-field>
         </v-col>
-        <v-col md="12" v-if="roletaking">
+        <v-col md="12" v-if="!plain">
           <div v-if="plain">If you could phrase {{currentLine ? currentLine.speaker : ''}}'s words differently, what would you like to say? </div>
           <div v-else>Next time, {{currentLine ? currentLine.speaker : ''}} might want to say </div>
 
@@ -102,8 +111,7 @@ export default {
   props: {
     moment: Number,
     currentLine: Object,
-    plain: Boolean,
-    type: String
+    plain: Boolean
     // speakers: Array
   },
   computed: {
@@ -119,15 +127,6 @@ export default {
       } else {
         return 'cyan'
       }
-    },
-    reasoning: function () {
-      return this.type === 'reasoning'
-    },
-    moderating: function () {
-      return this.type === 'moderating'
-    },
-    roletaking: function () {
-      return this.type === 'roletaking'
     },
     ...mapState({
       token: state => state.token,
@@ -154,9 +153,7 @@ export default {
         if ((this.direction !== 'POSITIVE') && (this.direction !== 'NEGATIVE')) {
           this.choice = true
         }
-        if ((this.reasoning && (this.reason.length < 25)) 
-          || (this.moderating && (this.possibleComment.length < 25)) 
-          || (this.roletaking && (this.possibleLine.length < 25))) {
+        if (this.reason.length < 25) {
           this.long = true
         }
         if (this.choice || this.long) {

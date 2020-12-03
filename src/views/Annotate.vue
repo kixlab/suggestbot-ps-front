@@ -8,10 +8,12 @@
       <div ref="scrollBox" class="scroll-box">
         <v-list>
           <v-list-item-group v-model="selectedItem">
-            <line-unit v-for="(l, idx) in lines" :key="idx"
-              v-show="l.starttime <= currentTime"
+            <line-unit v-for="(l, idx) in filteredLines" :key="idx"
               :line="l"
               :idx="idx"
+              :selected="idx === selectedItem"
+              @close-moment-box="closeMomentBox"
+              @moment-saved="onMomentSaved"
               @line-click="openMomentBox">
             </line-unit>
           </v-list-item-group>
@@ -25,14 +27,14 @@
         @remove-click="onRemoveClick">
       </moment-list>
 
-      <moment-box
+      <!-- <moment-box
         :plain="false"
         v-show="isMomentBoxShown"
         @close-moment-box="closeMomentBox"
         @moment-saved="onMomentSaved"
         :moment="currentMoment"
         :currentLine="selectedLine"
-        ></moment-box>
+        ></moment-box> -->
     </v-col>
     <v-col md="12" class="d-flex flex-row-reverse" v-if="(moments.length >= 5)">
       <v-btn color="green" @click="onNextClick">NEXT</v-btn>
@@ -42,14 +44,14 @@
 
 <script>
 import { mapState } from 'vuex'
-import MomentBox from '../components/MomentBox.vue'
+// import MomentBox from '../components/MomentBox.vue'
 import LineUnit from '../components/LineUnit.vue'
 import MomentList from '../components/MomentList.vue'
 import axios from 'axios'
 export default {
   name: 'Annotate',
   components: {
-    MomentBox,
+    // MomentBox,
     LineUnit,
     MomentList
   },
@@ -73,6 +75,11 @@ export default {
       } else {
         return undefined
       }
+    },
+    filteredLines: function () {
+      return this.lines.filter(l => {
+        return l.starttime <= this.currentTime
+      })
     },
     ...mapState({
       token: state => state.token,
@@ -116,14 +123,41 @@ export default {
       if (this.selectedItem === undefined) {
         this.isMomentBoxShown = true
         this.currentMoment = starttime
+        console.log(idx, this.filteredLines.length)
+        this.$nextTick(() => {
+          this.$nextTick(() => {
+            if (idx >= (this.filteredLines.length - 3)) {
+              const container = this.$refs.scrollBox
+              // console.log(container)
+              container.scrollTop = container.scrollHeight
+            }
+          })
+        })
       } else if (this.selectedItem !== idx) {
         this.currentMoment = starttime
         this.isMomentBoxShown = true
+        this.$nextTick(() => {
+          if (idx >= (this.filteredLines.length - 3)) {
+            const container = this.$refs.scrollBox
+            // console.log(container)
+            container.scrollTop = container.scrollHeight
+          }
+        })
+        
       } else {
+        this.timerHandle = window.setInterval(function() {
+          const now = new Date()
+          this.currentTime += (now - this.startTime) / 1000
+          this.startTime = now
+          const container = this.$refs.scrollBox
+          // console.log(container)
+          container.scrollTop = container.scrollHeight
+
+          }.bind(this), 500)
         this.isMomentBoxShown = false
         this.currentMoment = 0
       }
-
+      // this.$refs.momentBox.scrollIntoView()
       console.log('aaaa')
     },
     onNextClick: async function () {
