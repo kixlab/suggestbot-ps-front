@@ -72,6 +72,11 @@ export default {
         return undefined
       }
     },
+    filteredLines: function () {
+      return this.lines.filter(l => {
+        return l.starttime <= this.currentTime * 2
+      })
+    },
     ...mapState({
       token: state => state.token
     })

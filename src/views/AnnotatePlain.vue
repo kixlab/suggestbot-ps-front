@@ -9,17 +9,19 @@
       <div ref="scrollBox" @scroll="handleScroll" class="scroll-box">
         <v-list>
           <v-list-item-group v-model="selectedItem">
-            <line-unit v-for="(l, idx) in lines" :key="idx"
+            <line-unit v-for="(l, idx) in filteredLines" :key="idx"
               :line="l"
               :idx="idx"
               @line-click="openMomentBox">
             </line-unit>
           </v-list-item-group>
         </v-list>
+        <v-btn v-if="lines[lines.length - 1].starttime > currentTime" block @click="seeMoreLines">
+          See more
+        </v-btn>
       </div>
     </v-col>
     <v-col md="5">
-
       <moment-list
         :moments="moments"
         @remove-click="onRemoveClick">
@@ -60,9 +62,7 @@ export default {
       isMomentBoxShown: false,
       currentMoment: 0,
       selectedItem: undefined,
-      timerHandle: 0,
-      currentTime: 0,
-      startTime: new Date(),
+      currentTime: 300,
       touchBottom: false
     }
   },
@@ -73,6 +73,11 @@ export default {
       } else {
         return undefined
       }
+    },
+    filteredLines: function () {
+      return this.lines.filter((line) => {
+        return line.starttime <= this.currentTime
+      })
     },
     ...mapState({
       token: state => state.token,
@@ -109,6 +114,9 @@ export default {
       }
 
       console.log('aaaa')
+    },
+    seeMoreLines: function () {
+      this.currentTime += 300
     },
     onNextClick: async function () {
       const condition = process.env.VUE_APP_COND
