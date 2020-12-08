@@ -1,7 +1,7 @@
 <template>
   <v-row align-content="center" justify="center">
     <v-col md="8">
-      The following statements ask you to reflect on your experience of engaging with this task. For each statement, please use the following scale to indicate what is most true for you.
+      The following statements ask you to reflect on your experience of engaging with this task. For each statement, please use the following scale to indicate what is most true for you. Please frankly share your thoughts on the task!
     </v-col>
     <!-- Rewarding && PU only?-->
     <v-col md="8">
