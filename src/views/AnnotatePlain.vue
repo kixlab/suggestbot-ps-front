@@ -16,7 +16,7 @@
             </line-unit>
           </v-list-item-group>
         </v-list>
-        <v-btn v-if="lines[lines.length - 1].starttime > currentTime" block @click="seeMoreLines">
+        <v-btn v-if="lines[lines.length - 1].starttime > currentTime" block @click="seeMoreLines" class="primary">
           See more
         </v-btn>
       </div>

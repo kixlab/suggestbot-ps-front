@@ -12,7 +12,7 @@
 
         <p>
           <img class="screenshots" src="../assets/Screenshot1-1.gif">
-          The picture above shows the task interface. On the left side of the interface, you'll see the actual line-by-line transcript of the meeting. 
+          The picture above shows the task interface. On the left side of the interface, you'll see the actual line-by-line transcript of the meeting. The script may contain a single word when the audio of the participants were mixed.
           On the right side, you can see the list of annotations you've made. 
 
           For each line in the meeting transcript, the colored circle denotes who was the speaker, and the text shows the actual words from each participant.
@@ -26,14 +26,19 @@
           Then, please write why you thought so on the psychological safety of the group, and click "SUBMIT" button.
           <!-- what you would tell the speaker to improve the psychological safety of the group as a moderator, and click "SUBMIT" button.  -->
           If you made a mistake on selecting the line, you can click the red "DISCARD" button to cancel.  
-        </p>
 
-        <p>
-          <img class="screenshots" src="../assets/Screenshot3-1.gif">       
           After you click the "Submit" button, you can see the list of annotations you added. 
         </p>
         <p>
-          If you read the whole script and added more than <span class="font-weight-bold">**five**</span> annotations, you can see a green "NEXT" button at the bottom of the page. Click it to continue.
+          <img class="screenshots" src="../assets/Screenshot4.gif">       
+          The script is divided into several segments. Each segment presents transcript from a five-minute slice of the meeting. When you reached the end of the segment you can click "SEE MORE" button to proceed to the next segment. 
+        </p>
+        <p>
+          It is not mandatory to read the whole transcript. However, to qualify the task, you need to make <span class="font-weight-bold"> at least **five** annotations</span>. You can freely proceed to the next segment to make annotations. 
+        </p>
+        <p>
+          <img class="screenshots" src="../assets/Screenshot3-1.gif">       
+          If you added more than five annotations and finished reading the current segment, you can see a green "NEXT" button at the bottom of the page. If you left enough annotations as many as you want, click it to continue. 
         </p>
 
       </v-col>
