@@ -115,8 +115,23 @@ export default {
 
       console.log('aaaa')
     },
-    seeMoreLines: function () {
+    seeMoreLines: async function () {
       this.currentTime += 300
+      const condition = process.env.VUE_APP_COND
+      const dataset = this.dataset
+      axios.post(`${process.env.VUE_APP_API_URL}/logs/`, {
+        event_name: 'SeeMore',
+        status: condition,
+        payload: JSON.stringify({
+          clientTime: new Date(),
+          dataset: dataset,
+          currentTime: this.currentTime
+        })
+      }, {
+        headers: {
+          Authorization: `Token ${this.token}`
+        }
+      })
     },
     onNextClick: async function () {
       const condition = process.env.VUE_APP_COND
