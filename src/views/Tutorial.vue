@@ -26,7 +26,7 @@
                 </ul>
               </v-col>
               <v-col md="6">
-                Bbehaviors with negative effect
+                Behaviors with negative effect
                 <ul>
                   <li>Causing annoyance</li>
                   <li>Causing frusturation</li>
