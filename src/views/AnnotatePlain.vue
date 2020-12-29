@@ -2,8 +2,8 @@
   <v-row>
     <v-col md="12">
       <!-- <h3> Now, you'll see a replay of a chat stream of a collaboration meeting. Please label the line that harms psychological safety of the group and let us know how you'd intervene in such situations.</h3> -->
-      <h3>Please carefully read this meeting transcript and annotate <span class="red--text">at least five lines</span> that would make the meeting participants agree or disagree with the statement </h3>
-      <h3 class="text-center red--text">"In this group, it is easy to speak up about what is on my mind." </h3>
+      <h3>Please carefully read this meeting transcript and annotate <span class="red--text">at least five lines</span> that would affect the psychological safety of the group. </h3>
+      <!-- <h3 class="text-center red--text">"In this group, it is easy to speak up about what is on my mind." </h3> -->
     </v-col>
     <v-col md="7">
       <div ref="scrollBox" @scroll="handleScroll" class="scroll-box">
@@ -29,11 +29,12 @@
 
       <moment-box
         :plain="true"
-        v-show="isMomentBoxShown"
+        v-if="isMomentBoxShown"
         @close-moment-box="closeMomentBox"
         @moment-saved="onMomentSaved"
         :moment="currentMoment"
         :currentLine="selectedLine"
+        type="reasoning"
         ></moment-box>
     </v-col>
     <v-col md="12" class="d-flex flex-row-reverse" v-if="touchBottom && (moments.length >= 5)">
