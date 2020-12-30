@@ -2,24 +2,26 @@
   <v-row>
     <v-col md="12">
       <!-- <h3> Now, you'll see a replay of a chat stream of a collaboration meeting. Please label the line that harms psychological safety of the group and let us know how you'd intervene in such situations.</h3> -->
-      <h3>Please carefully read this meeting transcript and annotate <span class="red--text">at least five lines</span> that would make the meeting participants agree or disagree with the statement </h3>
-      <h3 class="text-center red--text">"In this group, it is easy to speak up about what is on my mind." </h3>
+      <h3>Please carefully read this meeting transcript and annotate <span class="red--text">at least five lines</span> that would affect the psychological safety of the group. </h3>
+      <!-- <h3 class="text-center red--text">"In this group, it is easy to speak up about what is on my mind." </h3> -->
     </v-col>
     <v-col md="7">
       <div ref="scrollBox" @scroll="handleScroll" class="scroll-box">
         <v-list>
           <v-list-item-group v-model="selectedItem">
-            <line-unit v-for="(l, idx) in lines" :key="idx"
+            <line-unit v-for="(l, idx) in filteredLines" :key="idx"
               :line="l"
               :idx="idx"
               @line-click="openMomentBox">
             </line-unit>
           </v-list-item-group>
         </v-list>
+        <v-btn v-if="lines.length && lines[lines.length - 1].starttime > currentTime" block @click="seeMoreLines" class="primary">
+          See more
+        </v-btn>
       </div>
     </v-col>
     <v-col md="5">
-
       <moment-list
         :moments="moments"
         @remove-click="onRemoveClick">
@@ -27,11 +29,12 @@
 
       <moment-box
         :plain="true"
-        v-show="isMomentBoxShown"
+        v-if="isMomentBoxShown"
         @close-moment-box="closeMomentBox"
         @moment-saved="onMomentSaved"
         :moment="currentMoment"
         :currentLine="selectedLine"
+        type="reasoning"
         ></moment-box>
     </v-col>
     <v-col md="12" class="d-flex flex-row-reverse" v-if="touchBottom && (moments.length >= 5)">
@@ -60,9 +63,7 @@ export default {
       isMomentBoxShown: false,
       currentMoment: 0,
       selectedItem: undefined,
-      timerHandle: 0,
-      currentTime: 0,
-      startTime: new Date(),
+      currentTime: 300,
       touchBottom: false
     }
   },
@@ -73,6 +74,11 @@ export default {
       } else {
         return undefined
       }
+    },
+    filteredLines: function () {
+      return this.lines.filter((line) => {
+        return line.starttime <= this.currentTime
+      })
     },
     ...mapState({
       token: state => state.token,
@@ -109,6 +115,24 @@ export default {
       }
 
       console.log('aaaa')
+    },
+    seeMoreLines: async function () {
+      this.currentTime += 300
+      const condition = process.env.VUE_APP_COND
+      const dataset = this.dataset
+      axios.post(`${process.env.VUE_APP_API_URL}/logs/`, {
+        event_name: 'SeeMore',
+        status: condition,
+        payload: JSON.stringify({
+          clientTime: new Date(),
+          dataset: dataset,
+          currentTime: this.currentTime
+        })
+      }, {
+        headers: {
+          Authorization: `Token ${this.token}`
+        }
+      })
     },
     onNextClick: async function () {
       const condition = process.env.VUE_APP_COND

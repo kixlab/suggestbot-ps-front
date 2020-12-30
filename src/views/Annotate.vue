@@ -18,6 +18,9 @@
             </line-unit>
           </v-list-item-group>
         </v-list>
+        <v-btn v-if="seeMore && lines[lines.length - 1].starttime > currentTime" block @click="seeMoreLines" class="primary">
+          See more
+        </v-btn>
       </div>
     </v-col>
     <v-col md="5">
@@ -65,7 +68,17 @@ export default {
       timerHandle: 0,
       currentTime: 0,
       startTime: new Date(),
-      touchBottom: false
+      touchBottom: false,
+      seeMore: false
+    }
+  },
+  watch: {
+    currentTime: function (newTime) {
+      if (Math.floor(newTime) % 600 === 0) {
+        this.pauseTimer()
+        this.seeMore = true
+
+      }
     }
   },
   computed: {
@@ -78,7 +91,7 @@ export default {
     },
     filteredLines: function () {
       return this.lines.filter(l => {
-        return l.starttime <= this.currentTime
+        return l.starttime <= this.currentTime * 2
       })
     },
     ...mapState({
@@ -87,39 +100,55 @@ export default {
     })
   },
   methods: {
+    startTimer: function() {
+      this.startTime = new Date()
+      this.timerHandle = window.setInterval(function() {
+        const now = new Date()
+        this.currentTime += (now - this.startTime) / 1000
+        this.startTime = now
+        const container = this.$refs.scrollBox
+        // console.log(container)
+        container.scrollTop = container.scrollHeight
+
+      }.bind(this), 500)
+    },
+    pauseTimer: function () {
+      clearInterval(this.timerHandle)
+    },
+    seeMoreLines: async function () {
+      this.startTimer()
+      this.seeMore = false
+      const condition = process.env.VUE_APP_COND
+      const dataset = this.dataset
+      axios.post(`${process.env.VUE_APP_API_URL}/logs/`, {
+        event_name: 'SeeMore',
+        status: condition,
+        payload: JSON.stringify({
+          clientTime: new Date(),
+          dataset: dataset,
+          currentTime: this.currentTime
+        })
+      }, {
+        headers: {
+          Authorization: `Token ${this.token}`
+        }
+      })
+    },
     onMomentSaved: function (moment) {
       this.moments.push(moment)
       this.isMomentBoxShown = false
       this.currentMoment = 0
       this.selectedItem = undefined
-      this.startTime = new Date()
-      this.timerHandle = window.setInterval(function() {
-        const now = new Date()
-        this.currentTime += (now - this.startTime) / 1000
-        this.startTime = now
-        const container = this.$refs.scrollBox
-        // console.log(container)
-        container.scrollTop = container.scrollHeight
-
-      }.bind(this), 500)
+      this.startTimer()
     },
     closeMomentBox: function () {
       this.currentMoment = 0
       this.isMomentBoxShown = false
       this.selectedItem = undefined
-      this.startTime = new Date()
-      this.timerHandle = window.setInterval(function() {
-        const now = new Date()
-        this.currentTime += (now - this.startTime) / 1000
-        this.startTime = now
-        const container = this.$refs.scrollBox
-        // console.log(container)
-        container.scrollTop = container.scrollHeight
-
-      }.bind(this), 500)
+      this.startTimer()
     },
     openMomentBox: function (starttime, idx) {
-      clearInterval(this.timerHandle)
+      this.pauseTimer()
       if (this.selectedItem === undefined) {
         this.isMomentBoxShown = true
         this.currentMoment = starttime
@@ -145,15 +174,7 @@ export default {
         })
         
       } else {
-        this.timerHandle = window.setInterval(function() {
-          const now = new Date()
-          this.currentTime += (now - this.startTime) / 1000
-          this.startTime = now
-          const container = this.$refs.scrollBox
-          // console.log(container)
-          container.scrollTop = container.scrollHeight
-
-          }.bind(this), 500)
+        this.startTimer()
         this.isMomentBoxShown = false
         this.currentMoment = 0
       }
@@ -229,15 +250,7 @@ export default {
       // console.log(lines)
       this.lines = lines.data
       this.moments = moments.data
-      this.timerHandle = window.setInterval(function() {
-        const now = new Date()
-        this.currentTime += (now - this.startTime) / 1000
-        this.startTime = now
-        const container = this.$refs.scrollBox
-        // console.log(container)
-        container.scrollTop = container.scrollHeight
-
-      }.bind(this), 500)
+      this.startTimer()
     } catch (err) {
       console.log(err)
     }
