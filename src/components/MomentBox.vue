@@ -63,7 +63,7 @@
         <v-slide-y-transition>
           <v-col md="12" v-if="page >= 2" key="page2">
             <span v-if="direction && direction !== ''">Why do you think so? </span>
-            <v-radio-group v-model="reason" v-if="direction === 'POSITIVE'" @change="page = reason === '' ? 2 : 3">
+            <v-radio-group v-model="reason" v-if="direction === 'POSITIVE'" @change="page = reason === '' ? 2 : 3; possibleComment = ''">
               <v-row no-gutters>
                 <v-col md="6">
                   <v-radio label="Being positive" value="Being positive">
@@ -86,7 +86,7 @@
                 </v-col>
               </v-row>
             </v-radio-group>
-            <v-radio-group v-model="reason" v-if="direction === 'NEGATIVE'" @change="page = reason === '' ? 2 : 3">
+            <v-radio-group v-model="reason" v-if="direction === 'NEGATIVE'" @change="page = reason === '' ? 2 : 3; possibleComment = ''">
               <v-row no-gutters>
                 <v-col md="6">
                   <v-radio label="Causing annoyance" value="Causing annoyance">
@@ -142,7 +142,7 @@
               </v-text-field>
             </template>
             <template v-if="long">
-              <span class="red--text">Please respond to the question with more than 25 characters.</span>
+              <span class="red--text">Please respond to the question with more than 15 characters.</span>
             </template>
           </v-col>
         </v-slide-y-transition>
@@ -235,8 +235,8 @@ export default {
           this.reason = this.reasonOther
         } 
         if ((this.reasoning && (this.reason.length < 10)) 
-          || (this.moderating && (this.possibleComment.length < 10)) 
-          || (this.roletaking && (this.possibleLine.length < 10))) {
+          || (this.moderating && (this.possibleComment.length < 15)) 
+          || (this.roletaking && (this.possibleLine.length < 15))) {
           this.long = true
         }
         if (this.choice || this.long) {

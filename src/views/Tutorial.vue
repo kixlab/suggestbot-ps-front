@@ -105,14 +105,14 @@
             segment you can click "SEE MORE" button to proceed to the next
             slice.
           </p>
-        </v-col>
-        <v-col md="8" v-else-if="page === 5" key="page5">
           <p>
             It is not mandatory to read the whole transcript. However, to
             qualify the task, you need to make
             <span class="font-weight-bold"> at least **five** annotations</span
             >. You can freely proceed to the next segment to make annotations.
           </p>
+        </v-col>
+        <v-col md="8" v-else-if="page === 5" key="page5">
           <p>
             <img class="screenshots" src="../assets/Screenshot3-1.gif" />
             If you added more than five annotations and finished reading the
