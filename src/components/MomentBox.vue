@@ -40,7 +40,7 @@
           <v-col md="12" v-if="page === 2" key="page2">
             <template md="12" v-if="reasoning">
               <div v-if="plain">
-                <!-- Why do you think so?  -->
+                Why do you think so? 
                 <v-radio-group v-model="reason" v-if="direction === 'POSITIVE'">
                   <v-row no-gutters>
                     <v-col md="6">
