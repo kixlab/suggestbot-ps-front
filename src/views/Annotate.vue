@@ -1,7 +1,7 @@
 <template>
   <v-row>
     <v-col md="12">
-      <h3> Now, you'll see a replay of a chat stream of a collaboration meeting. Please label the line that harms psychological safety of the group and let us know how you'd intervene in such situations.</h3>
+      <h3> Now, you'll see a replay of a chat stream of a collaboration meeting. Please annotate the lines that would affect the psychological safety of the group and tell us how you'd intervene in such situations.</h3>
       <!-- <h3>Please carefully read this meeting transcript and annotate the lines that negatively affected the psychological safety of the group. </h3> -->
     </v-col>
     <v-col md="7">
@@ -74,10 +74,14 @@ export default {
   },
   watch: {
     currentTime: function (newTime) {
-      if (Math.floor(newTime) % 600 === 0) {
+      if (newTime > 1 && (Math.floor(newTime) % 150 === 0)) {
         this.pauseTimer()
         this.seeMore = true
-
+        this.$nextTick(() => {
+          const container = this.$refs.scrollBox
+          // console.log(container)
+          container.scrollTop = container.scrollHeight
+        })
       }
     }
   },
@@ -101,6 +105,9 @@ export default {
   },
   methods: {
     startTimer: function() {
+      if (this.seeMore) {
+        return
+      }
       this.startTime = new Date()
       this.timerHandle = window.setInterval(function() {
         const now = new Date()
@@ -116,8 +123,8 @@ export default {
       clearInterval(this.timerHandle)
     },
     seeMoreLines: async function () {
-      this.startTimer()
       this.seeMore = false
+      this.startTimer()
       const condition = process.env.VUE_APP_COND
       const dataset = this.dataset
       axios.post(`${process.env.VUE_APP_API_URL}/logs/`, {
