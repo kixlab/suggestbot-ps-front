@@ -80,14 +80,15 @@
 
         <v-col md="8" v-else-if="page === 3" key="page3">
           <p>
-            <img class="screenshots" src="../assets/Screenshot2-3.gif" />
+            <img class="screenshots" src="../assets/Moderating2.gif" />
             Upon clicking a line, the system will show a box to ask how you
             would moderate the current situation. First, please annotate whether
             the selected line would reinforce or harm the psychological safety
             of the meeting.
             <!-- meeting participants would feel easier or harder to speak up about their minds. -->
-            Then, please choose or write how you would give feedback to the
-            speaker, and click "SUBMIT" button.
+            Then, please answer why you thought the line would affect the psychological safety.
+            Fianlly, please write how you would give feedback to the
+            speaker as an AI moderator, and click "SUBMIT" button.
 
             <!-- what you would tell the speaker to improve the psychological safety of the group as a moderator, and click "SUBMIT" button.  -->
             If you made a mistake on selecting the line, you can click the red
@@ -144,7 +145,7 @@ export default {
   name: "tutorial",
   methods: {
     onNextClick: function () {
-      this.$router.push("Annotate");
+      this.$router.push("AnnotatePlain");
     },
   },
   data: function () {

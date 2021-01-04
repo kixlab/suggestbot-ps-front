@@ -24,13 +24,13 @@
           </div>
             <!-- how would the meeting participants think about the statement <span class="red--text">"In this group, it is easy to speak up about what is on my mind."</span>?  </div> -->
           <v-btn-toggle block v-model="direction">
-            <v-btn value="POSITIVE" text color="green" @click="page = 2">
+            <v-btn value="POSITIVE" text color="green" @click="page = 2; reason = ''">
               Reinforce
             </v-btn>
             <!-- <v-btn value="NEUTRAL" text color="grey">
               Neutral
             </v-btn> -->
-            <v-btn value="NEGATIVE" text color="red"  @click="page = 2">
+            <v-btn value="NEGATIVE" text color="red"  @click="page = 2; reason = ''">
               Harm
             </v-btn>
           </v-btn-toggle>
@@ -61,86 +61,70 @@
           <div v-if="plain">If you could phrase {{currentLine ? currentLine.speaker : ''}}'s words differently, what would you like to say? </div>
           <div v-else>Next time, {{currentLine ? currentLine.speaker : ''}} might want to say </div> -->
         <v-slide-y-transition>
-          <v-col md="12" v-if="page === 2" key="page2">
-            <template md="12" v-if="reasoning">
-              <div v-if="plain">
-                <!-- Why do you think so?  -->
-                <v-radio-group v-model="reason" v-if="direction === 'POSITIVE'">
-                  <v-row no-gutters>
-                    <v-col md="6">
-                      <v-radio label="Being positive" value="Being positive">
-                      </v-radio>
-                      <v-radio label="Being respectful" value="Being respectful">
-                      </v-radio>
-                    </v-col>
-                    <v-col md="6">
-                      <v-radio label="Being agreeable" value="Being agreeable">
-                      </v-radio>
-                    </v-col>
-                    <v-col md="12">
-                      <v-radio value="Other">
-                        <template v-slot:label>
-                          <span style="padding-right: 1em;">Other</span>
-                          <v-text-field v-model="reasonOther" :disabled="reason !== 'Other'"  placeholder="Please describe the reason">
-                          </v-text-field>
-                        </template>
-                      </v-radio>
-                    </v-col>
-                  </v-row>
-
-
-                </v-radio-group>
-                <v-radio-group v-model="reason" v-if="direction === 'NEGATIVE'">
-                  <v-row no-gutters>
-                    <v-col md="6">
-                      <v-radio label="Causing annoyance" value="Causing annoyance">
-                      </v-radio>
-                      <v-radio label="Causing frusturation" value="Causing frusturation">
-                      </v-radio>
-                      <v-radio label="Being sarcastic" value="Being sarcastic">
-                      </v-radio>
-                      <v-radio label="Causing embarrassment" value="Causing embarrassment">
-                      </v-radio>
-                    </v-col>
-                    <v-col md="6">
-                      <v-radio label="Being passive-aggressive" value="Being passive-aggressive">
-                      </v-radio>
-                      <v-radio label="Dismissing others" value="Dismissing others">
-                      </v-radio>
-                      <v-radio label="Punishing others" value="Punishing others">
-                      </v-radio>
-                    </v-col>
-                    <v-col md="12">
-                      <v-radio value="Other">
-                        <template v-slot:label>
-                          <span style="padding-right: 1em;">Other</span>
-                          <v-text-field v-model="reasonOther" :disabled="reason !== 'Other'"  placeholder="Please describe the reason">
-                          </v-text-field>
-                        </template>
-                      </v-radio>
-                    </v-col>
-                  </v-row>
-                  
-  
-    
-                </v-radio-group>
-              </div>
-              <div v-else>
-                <!-- <v-avatar size="1.2em" :color="color">
-                  {{currentLine ? currentLine.speaker : ''}}'s words harmed the psychological safety of the group because
-
-                </v-avatar> -->
-              </div>
-              <!-- <v-text-field
-                dense
-                :value="reason"
-                @change="v => reason = v">
-              </v-text-field> -->
-            </template>
-            <template md="12" v-else-if="moderating">
+          <v-col md="12" v-if="page >= 2" key="page2">
+            <span v-if="direction && direction !== ''">Why do you think so? </span>
+            <v-radio-group v-model="reason" v-if="direction === 'POSITIVE'" @change="page = reason === '' ? 2 : 3">
+              <v-row no-gutters>
+                <v-col md="6">
+                  <v-radio label="Being positive" value="Being positive">
+                  </v-radio>
+                  <v-radio label="Being respectful" value="Being respectful">
+                  </v-radio>
+                </v-col>
+                <v-col md="6">
+                  <v-radio label="Being agreeable" value="Being agreeable">
+                  </v-radio>
+                </v-col>
+                <v-col md="12">
+                  <v-radio value="Other">
+                    <template v-slot:label>
+                      <span style="padding-right: 1em;">Other</span>
+                      <v-text-field v-model="reasonOther" :disabled="reason !== 'Other'"  placeholder="Please describe the reason">
+                      </v-text-field>
+                    </template>
+                  </v-radio>
+                </v-col>
+              </v-row>
+            </v-radio-group>
+            <v-radio-group v-model="reason" v-if="direction === 'NEGATIVE'" @change="page = reason === '' ? 2 : 3">
+              <v-row no-gutters>
+                <v-col md="6">
+                  <v-radio label="Causing annoyance" value="Causing annoyance">
+                  </v-radio>
+                  <v-radio label="Causing frusturation" value="Causing frusturation">
+                  </v-radio>
+                  <v-radio label="Being sarcastic" value="Being sarcastic">
+                  </v-radio>
+                  <v-radio label="Causing embarrassment" value="Causing embarrassment">
+                  </v-radio>
+                </v-col>
+                <v-col md="6">
+                  <v-radio label="Being passive-aggressive" value="Being passive-aggressive">
+                  </v-radio>
+                  <v-radio label="Dismissing others" value="Dismissing others">
+                  </v-radio>
+                  <v-radio label="Punishing others" value="Punishing others">
+                  </v-radio>
+                </v-col>
+                <v-col md="12">
+                  <v-radio value="Other">
+                    <template v-slot:label>
+                      <span style="padding-right: 1em;">Other</span>
+                      <v-text-field v-model="reasonOther" :disabled="reason !== 'Other'"  placeholder="Please describe the reason">
+                      </v-text-field>
+                    </template>
+                  </v-radio>
+                </v-col>
+              </v-row>
+            </v-radio-group>
+          </v-col>
+        </v-slide-y-transition>
+        <v-slide-y-transition>
+          <v-col md="12" v-if="page === 3" key="page3">
+            <template v-if="moderating">
               <div v-if="plain">If you were the moderator of this meeting, what would you advise to {{currentLine ? currentLine.speaker : ''}} to support others in easily speaking up their mind? </div>
               <!-- <div v-if="plain">If you could intervene in the meeting, what would you like to say to {{currentLine ? currentLine.speaker : ''}}? </div> -->
-              <div v-else>As a moderator, I'd like to say to {{currentLine ? currentLine.speaker : ''}}</div>
+              <div v-else>As a moderator, I'd like to give feedback to {{currentLine ? currentLine.speaker : ''}} as:</div>
               <v-text-field
                 dense
                 :value="possibleComment"
@@ -169,7 +153,7 @@
     </v-card-text>
 
     <v-card-actions class="d-flex flex-row-reverse" >
-      <v-btn v-if="page === 2"
+      <v-btn v-if="page === 3"
         text
         color="success"
         @click="submitMoment">
