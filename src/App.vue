@@ -5,7 +5,7 @@
       color="primary"
       dark
     >
-    ID: {{username}}
+    ID: {{turkerId}}
     </v-app-bar>
 
     <v-main>
@@ -22,7 +22,8 @@ import { mapState } from 'vuex'
 export default {
   name: 'App',
   computed: mapState({
-    username: state => state.username
+    username: state => state.username,
+    turkerId: state => state.turkerId
   }),
 
   data: () => ({

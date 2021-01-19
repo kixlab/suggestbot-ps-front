@@ -8,7 +8,8 @@ export default new Vuex.Store({
   state: {
     token: '',
     username: '',
-    dataset: ''
+    dataset: '',
+    turkerId: ''
   },
   mutations: {
     setToken(state, token) {
@@ -19,6 +20,9 @@ export default new Vuex.Store({
     },
     setDataset(state, dataset) {
       state.dataset = dataset
+    },
+    setTurkerId(state, turkerId) {
+      state.turkerId = turkerId
     }
   },
   actions: {
