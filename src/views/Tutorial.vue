@@ -82,14 +82,20 @@
           <p>
             <img class="screenshots" src="../assets/Moderating2.gif" />
             Upon clicking a line, the system will show a box to ask how you
-            would moderate the current situation. First, please annotate whether
+            would moderate the current situation.
+          </p>
+          <p>
+            First, please annotate whether
             the selected line would reinforce or harm the psychological safety
             of the meeting.
+          </p>
+          <p>
             <!-- meeting participants would feel easier or harder to speak up about their minds. -->
             Then, please answer why you thought the line would affect the psychological safety.
             Fianlly, please write how you would give feedback to the
             speaker as an AI moderator, and click "SUBMIT" button.
-
+          </p>
+          <p>
             <!-- what you would tell the speaker to improve the psychological safety of the group as a moderator, and click "SUBMIT" button.  -->
             If you made a mistake on selecting the line, you can click the red
             "DISCARD" button to cancel. After you click the "Submit" button, you
@@ -104,18 +110,22 @@
             five-minute slice of the meeting. When you reached the end of the
             segment you can click "SEE MORE" button to proceed to the next
             slice.
+            You can freely proceed to the next segment to make more annotations.
           </p>
           <p>
             It is not mandatory to read the whole transcript. However, to
             qualify the task, you need to make
             <span class="font-weight-bold"> at least **five** annotations</span
-            >. You can freely proceed to the next segment to make annotations.
+            >. 
+            We'll pay you $0.60 per each extra annotation after we validated the results. 
+          </p>
+          <p>
           </p>
         </v-col>
         <v-col md="8" v-else-if="page === 5" key="page5">
           <p>
             <img class="screenshots" src="../assets/Screenshot3-1.gif" />
-            If you added more than five annotations and finished reading the
+            If you added at least five annotations and finished reading the
             current segment, you can see a green "NEXT" button at the bottom of
             the page. If you left enough annotations as many as you want, click
             it to continue.
