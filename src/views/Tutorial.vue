@@ -40,7 +40,7 @@
             </v-row>
           </p>
           <p>
-            In specific, you will find the lines that would make the meeting
+            In other words, you will find the lines that would make the meeting
             participants agree or disagree with the statement
             <span class="red--text"
               >"In this group, it is easy to speak up about what is on my
@@ -51,30 +51,41 @@
 
         <v-col md="8" v-else-if="page === 2" key="page2">
           <p>
-            <img class="screenshots" src="../assets/Screenshot1-2.gif" />
+            <img class="screenshots" src="../assets/Screenshot1-3.gif" />
             The picture above shows the task interface. On the left side of
             the interface, you'll see the actual line-by-line transcript of
-            the meeting. The script may contain a single word when the audio
-            of the participants were mixed. 
-            
+            the meeting.
+            You can line has the timestamp at the top
+            <!-- The script may contain a single word when the audio
+            of the participants were mixed.  -->
+          </p>
+          <p>
             On the right side, you can see the list of annotations you've made. For each line in the meeting
             transcript, the colored circle denotes who was the speaker, and
-            the text shows the actual words from each participant. When you
-            find a line that would make the participants either feel easier or
-            harder to speak up about their own minds, click on it to start
+            the text shows the actual words from each participant. 
+          </p>
+          <p>
+            If you find a line that would make the participants either feel easier or
+            harder to speak up about their own minds from the transcript, click on it to start
             annotating.
           </p>
         </v-col>
 
         <v-col md="8" v-else-if="page === 3" key="page3">
           <p>
-            <img class="screenshots" src="../assets/Screenshot2-3.gif" />
+            <img class="screenshots" src="../assets/Screenshot2-4.gif" />
             Upon clicking a line, the system will show a box to describe your
-            annotation in detail. First, please annotate whether the selected line would reinforce or harm the psychological safety of the meeting.
+            annotation in detail. 
+          </p>
+          <p>
+            First, please annotate whether the selected line would reinforce or harm the psychological safety of the meeting.
+          </p>
+          <p>
             <!-- meeting participants would feel easier or harder to speak up about their minds. -->
             Then, please choose or write why you thought so on the psychological
             safety of the group, and click "SUBMIT" button.
-            
+          </p>
+          <p>
             <!-- what you would tell the speaker to improve the psychological safety of the group as a moderator, and click "SUBMIT" button.  -->
             If you made a mistake on selecting the line, you can click the red
             "DISCARD" button to cancel. After you click the "Submit" button,
@@ -89,19 +100,21 @@
             transcript from a five-minute slice of the meeting. When you
             reached the end of the segment you can click "SEE MORE" button to
             proceed to the next segment.
+            You can freely proceed to the next segment to make more annotations.
           </p>
-        </v-col>
-        <v-col md="8" v-else-if="page === 5" key="page5">
           <p>
             It is not mandatory to read the whole transcript. However, to
             qualify the task, you need to make
             <span class="font-weight-bold">
               at least **five** annotations</span
-            >. You can freely proceed to the next segment to make annotations.
+            >.
+            We'll pay you $0.60 for each extra, valid annotation. 
           </p>
+        </v-col>
+        <v-col md="8" v-else-if="page === 5" key="page5">
           <p>
             <img class="screenshots" src="../assets/Screenshot3-1.gif" />
-            If you added more than five annotations and finished reading the
+            If you added at least five annotations and finished reading the
             current segment, you can see a green "NEXT" button at the bottom
             of the page. If you left enough annotations as many as you want,
             click it to continue.
