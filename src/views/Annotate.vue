@@ -186,7 +186,6 @@ export default {
         this.currentMoment = 0
       }
       // this.$refs.momentBox.scrollIntoView()
-      console.log('aaaa')
     },
     onNextClick: async function () {
       const condition = process.env.VUE_APP_COND

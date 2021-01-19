@@ -235,9 +235,10 @@ export default {
           this.reason = this.reasonOther
         } 
         if ((this.reasoning && (this.reason.length < 10)) 
-          || (this.moderating && (this.possibleComment.length < 15)) 
+          || (this.moderating && ((this.reason.length < 10) || (this.possibleComment.length < 15))) 
           || (this.roletaking && (this.possibleLine.length < 15))) {
-          this.long = true
+            console.log('aaaa')
+            this.long = true
         }
         if (this.choice || this.long) {
           return

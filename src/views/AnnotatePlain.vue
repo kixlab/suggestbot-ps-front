@@ -114,8 +114,6 @@ export default {
         this.isMomentBoxShown = false
         this.currentMoment = 0
       }
-
-      console.log('aaaa')
     },
     seeMoreLines: async function () {
       if (this.lines[this.lines.length - 1].endtime < (this.currentTime + 450)) {
