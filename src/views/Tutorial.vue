@@ -64,8 +64,8 @@
             <img class="screenshots" src="../assets/Moderating1.gif" />
             The picture above shows the task interface. On the left side of the
             interface, you'll see the actual line-by-line transcript of the
-            meeting. The script may contain a single word when the audio of the
-            participants were mixed.
+            meeting. At the top of each label, you can see the timestamp to see 
+            whether the lines were overlapped. 
           </p>
           <p>
             On the right side, you can see the list of annotations you've made. For each line in the
