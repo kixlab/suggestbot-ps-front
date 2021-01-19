@@ -9,6 +9,7 @@
           </v-avatar>
         </v-list-item-avatar>
         <v-list-item-content>
+          <v-list-item-subtitle>{{formattedStartTime}} - {{formattedEndTime}}</v-list-item-subtitle>
           {{line.text}}
           <!-- <div v-if="slotProps.active">
             <v-divider></v-divider>
@@ -75,6 +76,18 @@ export default {
       } else {
         return 'cyan'
       }
+    },
+    formattedStartTime: function () {
+      const minutes = Math.floor(this.line.starttime / 60)
+      const seconds = Math.round((this.line.endtime % 60) * 100 ) / 100
+
+      return `${minutes}:${seconds}`
+    },
+    formattedEndTime: function () {
+      const minutes = Math.floor(this.line.endtime / 60)
+      const seconds = Math.round((this.line.endtime % 60) * 100 ) / 100
+
+      return `${minutes}:${seconds}`
     }
   }
 }
