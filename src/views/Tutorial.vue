@@ -61,7 +61,7 @@
 
         <v-col md="8" v-else-if="page === 2" key="page2">
           <p>
-            <img class="screenshots" src="../assets/Screenshot1-2.gif" />
+            <img class="screenshots" src="../assets/Moderating1.gif" />
             The picture above shows the task interface. On the left side of the
             interface, you'll see the actual line-by-line transcript of the
             meeting. The script may contain a single word when the audio of the
@@ -80,7 +80,7 @@
 
         <v-col md="8" v-else-if="page === 3" key="page3">
           <p>
-            <img class="screenshots" src="../assets/Moderating2.gif" />
+            <img class="screenshots" src="../assets/Moderating2-1.gif" />
             Upon clicking a line, the system will show a box to ask how you
             would moderate the current situation.
           </p>
@@ -92,7 +92,7 @@
           <p>
             <!-- meeting participants would feel easier or harder to speak up about their minds. -->
             Then, please answer why you thought the line would affect the psychological safety.
-            Fianlly, please write how you would give feedback to the
+            Finally, please write how you would give feedback to the
             speaker as an AI moderator, and click "SUBMIT" button.
           </p>
           <p>
@@ -117,7 +117,7 @@
             qualify the task, you need to make
             <span class="font-weight-bold"> at least **five** annotations</span
             >. 
-            We'll pay you $0.60 per each extra annotation after we validated the results. 
+            We'll pay you $0.60 for each extra, valid annotation. 
           </p>
           <p>
           </p>
