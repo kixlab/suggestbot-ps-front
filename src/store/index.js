@@ -9,7 +9,8 @@ export default new Vuex.Store({
     token: '',
     username: '',
     dataset: '',
-    turkerId: ''
+    turkerId: '',
+    taskType: ''
   },
   mutations: {
     setToken(state, token) {
@@ -23,6 +24,9 @@ export default new Vuex.Store({
     },
     setTurkerId(state, turkerId) {
       state.turkerId = turkerId
+    },
+    setTaskType(state, taskType) {
+      state.taskType = taskType
     }
   },
   actions: {

@@ -82,7 +82,8 @@ export default {
     },
     ...mapState({
       token: state => state.token,
-      dataset: state => state.dataset
+      dataset: state => state.dataset,
+      taskType: state => state.taskType
     })
   },
   methods: {
@@ -117,12 +118,16 @@ export default {
       console.log('aaaa')
     },
     seeMoreLines: async function () {
-      this.currentTime += 300
-      const condition = process.env.VUE_APP_COND
+      if (this.lines[this.lines.length - 1].endtime < (this.currentTime + 450)) {
+        this.currentTime  = this.lines[this.lines.length - 1].endtime + 100
+      } else {
+        this.currentTime += 300
+      }
+      // const condition = process.env.VUE_APP_COND
       const dataset = this.dataset
       axios.post(`${process.env.VUE_APP_API_URL}/logs/`, {
         event_name: 'SeeMore',
-        status: condition,
+        status: this.taskType,
         payload: JSON.stringify({
           clientTime: new Date(),
           dataset: dataset,
@@ -135,10 +140,9 @@ export default {
       })
     },
     onNextClick: async function () {
-      const condition = process.env.VUE_APP_COND
       const res = await axios.post(`${process.env.VUE_APP_API_URL}/logs/`, {
         event_name: 'EndTask',
-        status: condition,
+        status: this.taskType,
         payload: JSON.stringify({
           clientTime: new Date(),
           dataset: this.dataset
@@ -173,11 +177,10 @@ export default {
     window.clearInterval(this.timerHandle)
   },
   mounted: async function () {
-    const condition = process.env.VUE_APP_COND
     const dataset = this.dataset
     const res = await axios.post(`${process.env.VUE_APP_API_URL}/logs/`, {
       event_name: 'StartTask',
-      status: condition,
+      status: this.taskType,
       payload: JSON.stringify({
         clientTime: new Date(),
         dataset: dataset
