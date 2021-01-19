@@ -43,12 +43,13 @@ export default {
       this.msg = ''
       const taskType = 'Reason-Plain'
       const id = `${this.id}-${this.$route.params.dataset}-${taskType}`
+      console.log(id)
       console.log(process.env.VUE_APP_API_URL)
       try {
         const response = await axios.post(`${process.env.VUE_APP_API_URL}/register/`, {
           username: this.id,
           password: this.id,
-          first_name: `Reason-Plain`,
+          first_name: taskType,
           last_name: this.id
         })
         const result = response.data
@@ -56,7 +57,7 @@ export default {
         this.$store.commit('setToken', result.token)
         this.$store.commit('setUsername', result.username)
         this.$store.commit('setTurkerId', result.turker_id)
-
+        this.$store.commit('setTaskType', taskType)
         this.$router.push('/tutorial')
       } catch (err) {
         console.log(err.response)
