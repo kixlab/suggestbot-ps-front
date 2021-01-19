@@ -46,7 +46,7 @@ export default {
       console.log(process.env.VUE_APP_API_URL)
       try {
         const response = await axios.post(`${process.env.VUE_APP_API_URL}/register/`, {
-          username: id,
+          username: this.id,
           password: this.id,
           first_name: `Reason-Plain`,
           last_name: this.id
