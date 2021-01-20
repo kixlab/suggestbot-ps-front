@@ -55,8 +55,8 @@
             The picture above shows the task interface. On the left side of
             the interface, you'll see the actual line-by-line transcript of
             the meeting.
-            You can line has the timestamp at the top
-            <!-- The script may contain a single word when the audio
+            At the top of each line, you can see the timestamp to see 
+            whether the lines were overlapped.             <!-- The script may contain a single word when the audio
             of the participants were mixed.  -->
           </p>
           <p>
