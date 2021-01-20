@@ -64,7 +64,7 @@
             <img class="screenshots" src="../assets/Moderating1.gif" />
             The picture above shows the task interface. On the left side of the
             interface, you'll see the actual line-by-line transcript of the
-            meeting. At the top of each label, you can see the timestamp to see 
+            meeting. At the top of each line, you can see the timestamp to see 
             whether the lines were overlapped. 
           </p>
           <p>
