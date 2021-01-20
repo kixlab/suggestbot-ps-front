@@ -124,7 +124,7 @@
             <template v-if="moderating">
               <div v-if="plain">If you were the moderator of this meeting, what would you advise to {{currentLine ? currentLine.speaker : ''}} to support others in easily speaking up their mind? </div>
               <!-- <div v-if="plain">If you could intervene in the meeting, what would you like to say to {{currentLine ? currentLine.speaker : ''}}? </div> -->
-              <div v-else>As a moderator, I'd like to give feedback to {{currentLine ? currentLine.speaker : ''}} as:</div>
+              <div v-else>As a moderator, I'd like to say to {{currentLine ? currentLine.speaker : ''}}:</div>
               <v-text-field
                 dense
                 :value="possibleComment"

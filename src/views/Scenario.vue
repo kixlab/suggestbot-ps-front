@@ -8,17 +8,25 @@
           </div>
           <p>
             We are conducting a design research for building an AI agent for
-            moderating a design meeting. The agent will detect the lines that
-            would affect the psychological safety of the group and give
-            appropriate feedback to the speaker. We are asking your help to
-            collect data for it.
+            moderating a design meeting. 
+            The agent will detect when participants talk in a way that significantly
+            improves or harms the atmosphere for discussion.
+            Then, the agent will privately notice the speaker and give 
+            appropriate feedback to the them. 
           </p>
           <p>
-            In this task, you will see a chat log of a meeting for designing a
-            new remote control and act as an AI moderator. As a moderator, your
-            goal is to find moments that would reinforce or harm the
+            We are asking your help to collect <span class="font-weight-bold">examples of the utterances</span> that
+            improves or harms the discussion and appropriate <span class="font-weight-bold">private feedback messages</span>
+            in such cases.
+          </p>
+          <p>
+            In detail, you will act as an AI agent while reading a transcript of a meeting 
+            for designing a new remote control.
+          </p>
+          <p>
+            As an agent, your goal is to find moments that would significantly reinforce or harm the
             <span class="font-weight-bold">**psychological safety**</span> of
-            the group and give private feedback. In psychologcially safe
+            the group and give private feedback to the speaker. In psychologcially safe
             environments, meeting participants feel easy to speak up about
             what is on their minds, without fear of negative consequences of
             self-image, status or career.
@@ -61,32 +69,46 @@
 
         <v-col md="8" v-else-if="page === 2" key="page2">
           <p>
-            <img class="screenshots" src="../assets/Screenshot1-2.gif" />
+            <img class="screenshots" src="../assets/Moderating1.gif" />
             The picture above shows the task interface. On the left side of the
             interface, you'll see the actual line-by-line transcript of the
-            meeting. The script may contain a single word when the audio of the
-            participants were mixed. The script will automatically progress
-            following the acutal timeline of the meeting. On the right side, you
-            can see the list of annotations you've made. For each line in the
+            meeting. 
+          </p>
+          <p>
+            The transcript will be automatically shown as in the actual meeting.
+            At the top of each label, you can see the timestamp to check 
+            whether the lines were overlapped. 
+          </p>
+          <p>
+            On the right side, you can see the list of annotations you've made. For each line in the
             meeting transcript, the colored circle denotes who was the speaker,
-            and the text shows the actual words from each participant. When you
-            find a line that would make the participants either feel easier or
-            harder to speak up about their own minds, click on it to start
-            moderating.
+            and the text shows the actual words from each participant. 
+          </p>
+          <p> 
+            If you find a line that would make the participants feel significantly easier or
+            harder to speak up about their own minds, click on it to start moderating.
           </p>
         </v-col>
 
         <v-col md="8" v-else-if="page === 3" key="page3">
           <p>
-            <img class="screenshots" src="../assets/Screenshot2-3.gif" />
-            Upon clicking a line, the system will show a box to ask how you
-            would moderate the current situation. First, please annotate whether
-            the selected line would reinforce or harm the psychological safety
-            of the meeting.
+            <img class="screenshots" src="../assets/Moderating2-1.gif" />
+            Upon clicking a line, the system will stop the transcript and ask how you
+            would moderate the current situation. 
+          </p>
+          <p>
+            First, please choose whether the selected line would reinforce or 
+            harm the psychological safety of the group.
+          </p>
+          <p>
             <!-- meeting participants would feel easier or harder to speak up about their minds. -->
-            Then, please choose or write how you would give feedback to the
-            speaker, and click "SUBMIT" button.
-
+            Then, please answer why you thought the line would affect the psychological safety of the group.
+          </p>
+          <p>
+            Finally, please write how you would give feedback to the
+            participant as an AI moderator, and click "SUBMIT" button.
+          </p>
+          <p>
             <!-- what you would tell the speaker to improve the psychological safety of the group as a moderator, and click "SUBMIT" button.  -->
             If you made a mistake on selecting the line, you can click the red
             "DISCARD" button to cancel. After you click the "Submit" button, you
@@ -97,22 +119,25 @@
         <v-col md="8" v-else-if="page === 4" key="page4">
           <p>
             <img class="screenshots" src="../assets/Screenshot4.gif" />
-            The script will automatically stop after it presented lines from a
+            The script is divided into multiple segments. Each segment contains transcript from a
             five-minute slice of the meeting. When you reached the end of the
             segment you can click "SEE MORE" button to proceed to the next
-            slice.
+            segment.
+            You can freely proceed to the next segment to make more annotations.
+          </p>
+          <p>
+            To qualify for the task, you need to make
+            <span class="font-weight-bold"> at least **five** annotations</span
+            >. 
+            We'll pay you $0.60 for each extra, valid annotation. 
+          </p>
+          <p>
           </p>
         </v-col>
         <v-col md="8" v-else-if="page === 5" key="page5">
           <p>
-            It is not mandatory to read the whole transcript. However, to
-            qualify the task, you need to make
-            <span class="font-weight-bold"> at least **five** annotations</span
-            >. You can freely proceed to the next segment to make annotations.
-          </p>
-          <p>
             <img class="screenshots" src="../assets/Screenshot3-1.gif" />
-            If you added more than five annotations and finished reading the
+            If you added at least five annotations and finished moderating the
             current segment, you can see a green "NEXT" button at the bottom of
             the page. If you left enough annotations as many as you want, click
             it to continue.
