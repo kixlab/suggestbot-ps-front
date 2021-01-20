@@ -74,7 +74,7 @@ export default {
   },
   watch: {
     currentTime: function (newTime) {
-      if (newTime > 1 && (Math.floor(newTime) % 150 === 0)) {
+      if (newTime > 1 && (newTime - Math.floor(newTime) > 0.5) && (Math.floor(newTime) % 150 === 0)) {
         this.pauseTimer()
         this.seeMore = true
         this.$nextTick(() => {
