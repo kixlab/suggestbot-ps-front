@@ -1,7 +1,7 @@
 <template>
   <v-row>
     <v-col md="12">
-      <h3> Now, you'll see a replay of a chat stream of a collaboration meeting. Please annotate the lines that would affect the psychological safety of the group and tell us how you'd intervene in such situations.</h3>
+      <h3> Now, you'll see a replay of a chat stream of a collaboration meeting. Please choose <span class="red--text">at least five lines</span> that would significantly boost or harm the psychological safety and tell us how you'd intervene in such situations.</h3>
       <!-- <h3>Please carefully read this meeting transcript and annotate the lines that negatively affected the psychological safety of the group. </h3> -->
     </v-col>
     <v-col md="7">
