@@ -119,8 +119,6 @@
             >. 
             We'll pay you $0.60 for each extra, valid annotation. 
           </p>
-          <p>
-          </p>
         </v-col>
         <v-col md="8" v-else-if="page === 5" key="page5">
           <p>
