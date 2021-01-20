@@ -2,7 +2,7 @@
   <v-row>
     <v-col md="12">
       <!-- <h3> Now, you'll see a replay of a chat stream of a collaboration meeting. Please label the line that harms psychological safety of the group and let us know how you'd intervene in such situations.</h3> -->
-      <h3>Please carefully read this meeting transcript and annotate <span class="red--text">at least five lines</span> that would affect the psychological safety of the group. </h3>
+      <h3>Please carefully read this meeting transcript and annotate <span class="red--text">at least five lines</span> that would significantly boost or harm the psychological safety of the group. </h3>
       <!-- <h3 class="text-center red--text">"In this group, it is easy to speak up about what is on my mind." </h3> -->
     </v-col>
     <v-col md="7">
