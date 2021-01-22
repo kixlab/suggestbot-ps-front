@@ -20,8 +20,7 @@
     <v-col md="5">
 
       <moment-list
-        :moments="moments"
-        @remove-click="onRemoveClick">
+        :moments="moments">
       </moment-list>
       <debrief-box>
       </debrief-box>
@@ -73,7 +72,9 @@ export default {
       }
     },
     ...mapState({
-      token: state => state.token
+      token: state => state.token,
+      dataset: state => state.dataset,
+      taskType: state => state.taskType
     })
   },
   methods: {
