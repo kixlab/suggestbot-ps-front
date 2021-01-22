@@ -10,7 +10,7 @@
             <line-unit v-for="(l, idx) in lines" :key="idx"
               :line="l"
               :idx="idx"
-              :class="`${lime.includes(idx) && 'lime lighten-4'} ${pink.includes(idx) && 'pink lighten-4'} ${blue.includes(idx) && 'blue lighten-4'}`"
+              :class="getClass(line)"
               @line-click="openMomentBox">
             </line-unit>
           </v-list-item-group>
@@ -62,14 +62,6 @@ export default {
       isMomentBoxShown: false,
       currentMoment: 0,
       selectedItem: undefined,
-      timerHandle: 0,
-      currentTime: 0,
-      startTime: new Date(),
-      blue: [1, 4, 9, 13, 17, 25],
-      lime: [3, 8, 16],
-      pink: [2, 34, 54]
-
-
     }
   },
   computed: {
@@ -85,61 +77,46 @@ export default {
     })
   },
   methods: {
-    onMomentSaved: function (moment) {
-      this.moments.push(moment)
-      this.isMomentBoxShown = false
-      this.currentMoment = 0
-      this.selectedItem = undefined
-    },
-    openMomentBox: function (starttime, idx) {
-      if (this.selectedItem === undefined) {
-        this.isMomentBoxShown = true
-        this.currentMoment = starttime
-      } else if (this.selectedItem !== idx) {
-        this.currentMoment = starttime
-        this.isMomentBoxShown = true
-      } else {
-        this.isMomentBoxShown = false
-        this.currentMoment = 0
-      }
-
-      console.log('aaaa')
-    },
     onNextClick: function () {
-      this.$router.push('/survey')
+      this.$router.push('/Survey')
     },
-    onRemoveClick: async function (id) {
-      const momentIdx = this.moments.findIndex((o) => {
-        return id === o.id
-      })
-      try {
-        const res = await axios.delete(`${process.env.VUE_APP_API_URL}/moments/${id}/`, {
-          headers: {
-            Authorization: `Token ${this.token}`
-          }
-        })
-        console.log(res)
-        this.moments.splice(momentIdx, 1)
-
-      } catch (err) {
-        console.log(err)
+    getClass: function (line) {
+      // if (moments)
+      if (line.moments > 5) {
+        return 'lime lighten-4'
+      } else if (line.moments > 1) {
+        return 'pink lighten-4'
+      } else {
+        return ''
       }
     }
   },
   mounted: async function () {
+    const dataset = this.dataset
+    const res = await axios.post(`${process.env.VUE_APP_API_URL}/logs/`, {
+      event_name: 'StartDebriefing',
+      status: this.taskType,
+      payload: JSON.stringify({
+        clientTime: new Date(),
+        dataset: dataset
+      })
+    }, {
+      headers: {
+        Authorization: `Token ${this.token}`
+      }
+    })
+    console.log(res)
     try {
       const lines = await axios.get(`${process.env.VUE_APP_API_URL}/lines/get_dataset/`, {
         params: {
-          dataset: 'ES2016a'
+          dataset: dataset
         }
       })
-      const moments = await axios.get(`${process.env.VUE_APP_API_URL}/moments/?dataset_id=ES2016a`, {
+      const moments = await axios.get(`${process.env.VUE_APP_API_URL}/moments/?dataset_id=${dataset}`, {
         headers: {
           Authorization: `Token ${this.token}`
         }
       })
-      this.$store.commit('setDataset', 'ES2016a')
-      // console.log(lines)
       this.lines = lines.data
       this.moments = moments.data
 
