@@ -10,7 +10,7 @@
             <line-unit v-for="(l, idx) in lines" :key="idx"
               :line="l"
               :idx="idx"
-              :class="getClass(line)"
+              :class="getClass(l)"
               @line-click="openMomentBox">
             </line-unit>
           </v-list-item-group>
