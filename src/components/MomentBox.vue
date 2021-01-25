@@ -122,7 +122,13 @@
         <v-slide-y-transition>
           <v-col md="12" v-if="page === 3" key="page3">
             <template v-if="moderating">
-              <div v-if="plain">If you were the moderator of this meeting, what would you advise to {{currentLine ? currentLine.speaker : ''}} to support others in easily speaking up their mind? </div>
+              <div v-if="plain">
+                If you were the AI moderator, what would you advise to 
+                <v-avatar size="1.2em" :color="color" style="margin-left: 0.2em;">
+                  {{currentLine ? currentLine.speaker : ''}}
+                </v-avatar>
+                to support others in easily speaking up their mind?
+             </div>
               <!-- <div v-if="plain">If you could intervene in the meeting, what would you like to say to {{currentLine ? currentLine.speaker : ''}}? </div> -->
               <div v-else>As a moderator, I'd like to give feedback to {{currentLine ? currentLine.speaker : ''}} as:</div>
               <v-text-field
