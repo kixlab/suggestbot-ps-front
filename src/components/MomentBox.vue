@@ -130,7 +130,11 @@
                 to support others in easily speaking up their mind?
              </div>
               <!-- <div v-if="plain">If you could intervene in the meeting, what would you like to say to {{currentLine ? currentLine.speaker : ''}}? </div> -->
-              <div v-else>As a moderator, I'd like to say to {{currentLine ? currentLine.speaker : ''}}:</div>
+              <div v-else>As a moderator, what would you advise to 
+                <v-avatar size="1.2em" :color="color" style="margin-left: 0.2em;">
+                  {{currentLine ? currentLine.speaker : ''}}
+                </v-avatar>
+                to support others in easily speaking up their mind?</div>
               <v-text-field
                 dense
                 :value="possibleComment"
