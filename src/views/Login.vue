@@ -36,6 +36,7 @@ export default {
   },
   mounted: function () {
     this.$store.commit('setDataset', this.$route.params.dataset)
+    this.$store.commit('setInitialTime', (Number(this.$route.params.initialTime) || 0))
   },
   methods: {
     onNextClick: async function () {

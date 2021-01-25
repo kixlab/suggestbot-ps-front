@@ -80,12 +80,12 @@
             whether the lines were overlapped. 
           </p>
           <p>
-            On the right side, you can see the list of annotations you've made. For each line in the
+            On the right side, you can see the list of feedback you gave. For each line in the
             meeting transcript, the colored circle denotes who was the speaker,
             and the text shows the actual words from each participant. 
           </p>
           <p> 
-            If you find a line that would make the participants feel significantly easier or
+            If you find a line that would make the participants either feel easier or
             harder to speak up about their own minds, click on it to start giving feedback.
           </p>
         </v-col>
@@ -106,7 +106,7 @@
           </p>
           <p>
             Finally, please write how you would give private feedback to the
-            participant as an AI moderator, and click "SUBMIT" button.
+            speaker as an AI moderator, and click "SUBMIT" button.
           </p>
           <p>
             <!-- what you would tell the speaker to improve the psychological safety of the group as a moderator, and click "SUBMIT" button.  -->
@@ -119,17 +119,18 @@
         <v-col md="8" v-else-if="page === 4" key="page4">
           <p>
             <img class="screenshots" src="../assets/Screenshot4.gif" />
-            The script is divided into multiple segments. Each segment contains transcript from a
-            five-minute slice of the meeting. When you reached the end of the
-            segment you can click "SEE MORE" button to proceed to the next
-            segment.
+            The script is divided into several segments. Each segment presents
+            transcript from a five-minute slice of the meeting. 
+            When you reached the end of the segment you can click "SEE MORE" button to
+            proceed to the next segment.
             You can freely proceed to the next segment to give more feedback.
           </p>
           <p>
-            To qualify for the task, you need to give
+            You need to give feedback to all lines that would significantly reinforce or harm the psychological safety of the group.
+            You also need to give
             <span class="font-weight-bold"> at least **five** pieces of feedback</span
-            >. 
-            We'll pay you $0.10 for each extra piece of feedback if more than two workers agreed on how the line affect the psychological safety of the group. 
+            > to get the task accepted. 
+            We'll pay you $0.10 for each extra piece of feedback if more than two workers (excluding yourself) agreed on whether the line would reinforce or harm the psychological safety of the group. 
           </p>
           <p>
           </p>
