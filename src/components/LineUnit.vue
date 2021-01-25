@@ -81,13 +81,13 @@ export default {
       const minutes = Math.floor(this.line.starttime / 60)
       const seconds = Math.round((this.line.starttime % 60) * 100 ) / 100
 
-      return `${minutes}:${seconds > 9 ? seconds : '0' + seconds}`
+      return `${minutes}:${seconds >= 10 ? seconds : '0' + seconds}`
     },
     formattedEndTime: function () {
       const minutes = Math.floor(this.line.endtime / 60)
       const seconds = Math.round((this.line.endtime % 60) * 100 ) / 100
 
-      return `${minutes}:${seconds > 9 ? seconds : '0' + seconds}`
+      return `${minutes}:${seconds >= 10 ? seconds : '0' + seconds}`
     }
   }
 }

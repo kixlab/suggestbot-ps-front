@@ -36,6 +36,7 @@ export default {
   },
   mounted: function () {
     this.$store.commit('setDataset', this.$route.params.dataset)
+    this.$store.commit('setInitialTime', (Number(this.$route.params.initialTime) || 0))
   },
   methods: {
     onNextClick: async function () {
@@ -58,7 +59,7 @@ export default {
         this.$store.commit('setUsername', result.username)
         this.$store.commit('setTurkerId', result.turker_id)
         this.$store.commit('setTaskType', taskType)
-        this.$router.push('/tutorial')
+        this.$router.push('/Tutorial')
       } catch (err) {
         console.log(err.response)
         if (err.response.status === 403) {

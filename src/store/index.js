@@ -10,7 +10,8 @@ export default new Vuex.Store({
     username: '',
     dataset: '',
     turkerId: '',
-    taskType: ''
+    taskType: '',
+    initialTime: 0
   },
   mutations: {
     setToken(state, token) {
@@ -27,6 +28,9 @@ export default new Vuex.Store({
     },
     setTaskType(state, taskType) {
       state.taskType = taskType
+    },
+    setInitialTime(state, initialTime) {
+      state.initialTime = initialTime
     }
   },
   actions: {
