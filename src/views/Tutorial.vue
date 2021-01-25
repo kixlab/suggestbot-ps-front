@@ -5,7 +5,7 @@
         <v-col md="8" v-if="page === 1" key="page1">
           <p>
             In this task, you will read a transcript from a meeting and
-            annotate lines that would reinforce or harm the
+            annotate lines that would significantly reinforce or harm the
             <span class="font-weight-bold">**psychological safety**</span> of
             the meeting. 
             
@@ -56,8 +56,7 @@
             the interface, you'll see the actual line-by-line transcript of
             the meeting.
             At the top of each line, you can see the timestamp to see 
-            whether the lines were overlapped.             <!-- The script may contain a single word when the audio
-            of the participants were mixed.  -->
+            whether the lines were overlapped.             
           </p>
           <p>
             On the right side, you can see the list of annotations you've made. For each line in the meeting
@@ -81,12 +80,10 @@
             First, please annotate whether the selected line would reinforce or harm the psychological safety of the meeting.
           </p>
           <p>
-            <!-- meeting participants would feel easier or harder to speak up about their minds. -->
             Then, please choose or write why you thought so on the psychological
             safety of the group, and click "SUBMIT" button.
           </p>
           <p>
-            <!-- what you would tell the speaker to improve the psychological safety of the group as a moderator, and click "SUBMIT" button.  -->
             If you made a mistake on selecting the line, you can click the red
             "DISCARD" button to cancel. After you click the "Submit" button,
             you can see the list of annotations you added.
@@ -103,12 +100,11 @@
             You can freely proceed to the next segment to make more annotations.
           </p>
           <p>
-            It is not mandatory to read the whole transcript. However, to
-            qualify the task, you need to make
+            You need to make
             <span class="font-weight-bold">
               at least **five** annotations</span
-            >.
-            We'll pay you $0.60 for each extra, valid annotation. 
+            > for each segment to get the task accepted.
+            <!-- We'll pay you $0.60 for each segment annotated.  -->
           </p>
         </v-col>
         <v-col md="8" v-else-if="page === 5" key="page5">
