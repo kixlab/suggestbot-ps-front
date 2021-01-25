@@ -7,6 +7,9 @@
     </v-col>
     <v-col md="7">
       <div ref="scrollBox" @scroll="handleScroll" class="scroll-box">
+        <v-btn v-if="initialTime > 0" block @click="seePriorLines" class="primary">
+          See previous lines
+        </v-btn>
         <v-list>
           <v-list-item-group v-model="selectedItem">
             <line-unit v-for="(l, idx) in filteredLines" :key="idx"
@@ -61,9 +64,10 @@ export default {
       lines: [],
       moments: [],
       isMomentBoxShown: false,
+      initialTime: this.$store.state.initialTime || 0,
       currentMoment: 0,
       selectedItem: undefined,
-      currentTime: 300,
+      currentTime: this.$store.state.initialTime + 300,
       touchBottom: false
     }
   },
@@ -77,7 +81,7 @@ export default {
     },
     filteredLines: function () {
       return this.lines.filter((line) => {
-        return line.starttime <= this.currentTime
+        return (line.starttime <= this.currentTime) && (line.starttime > this.initialTime)
       })
     },
     ...mapState({
@@ -127,6 +131,23 @@ export default {
       const dataset = this.dataset
       axios.post(`${process.env.VUE_APP_API_URL}/logs/`, {
         event_name: 'SeeMore',
+        status: this.taskType,
+        payload: JSON.stringify({
+          clientTime: new Date(),
+          dataset: dataset,
+          currentTime: this.currentTime
+        })
+      }, {
+        headers: {
+          Authorization: `Token ${this.token}`
+        }
+      })
+    },
+    seePriorLines: async function () {
+      this.initialTime -= 300 
+      const dataset = this.dataset
+      axios.post(`${process.env.VUE_APP_API_URL}/logs/`, {
+        event_name: 'SeePriorLines',
         status: this.taskType,
         payload: JSON.stringify({
           clientTime: new Date(),
@@ -206,6 +227,13 @@ export default {
       // console.log(lines)
       this.lines = lines.data
       this.moments = moments.data
+
+      if (this.lines[this.lines.length - 1].endtime < (this.initialTime + 450)) {
+        this.currentTime  = this.lines[this.lines.length - 1].endtime + 100
+      } else {
+        this.currentTime = this.initialTime + 300
+      }
+
       // this.timerHandle = window.setInterval(function() {
       //   const now = new Date()
       //   this.currentTime += (now - this.startTime) / 1000
