@@ -69,7 +69,7 @@
 
         <v-col md="8" v-else-if="page === 2" key="page2">
           <p>
-            <img class="screenshots" src="../assets/Moderating1.gif" />
+            <img class="screenshots" src="../assets/Interactive-1.gif" />
             The picture above shows the task interface. On the left side of the
             interface, you'll see the actual line-by-line transcript of the
             meeting. 
@@ -92,7 +92,7 @@
 
         <v-col md="8" v-else-if="page === 3" key="page3">
           <p>
-            <img class="screenshots" src="../assets/Moderating2-1.gif" />
+            <img class="screenshots" src="../assets/Interactive-2.gif" />
             Upon clicking a line, the system will stop the transcript and ask how you
             would give feedback to the speaker on the current situation. 
           </p>
@@ -118,7 +118,7 @@
 
         <v-col md="8" v-else-if="page === 4" key="page4">
           <p>
-            <img class="screenshots" src="../assets/Screenshot4.gif" />
+            <img class="screenshots" src="../assets/Interactive-3.gif" />
             The script is divided into several segments. Each segment presents
             transcript from a five-minute slice of the meeting. 
             When you reached the end of the segment you can click "SEE MORE" button to
@@ -137,7 +137,7 @@
         </v-col>
         <v-col md="8" v-else-if="page === 5" key="page5">
           <p>
-            <img class="screenshots" src="../assets/Screenshot3-1.gif" />
+            <img class="screenshots" src="../assets/Interactive-4.gif" />
             If you gave feedback to at least five lines and finished the
             current segment, you can see a green "NEXT" button at the bottom of
             the page. If you left feedback as much as you want, click

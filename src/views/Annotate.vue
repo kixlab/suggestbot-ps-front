@@ -24,7 +24,7 @@
             </line-unit>
           </v-list-item-group>
         </v-list>
-        <v-btn v-if="seeMore && lines[lines.length - 1].starttime > currentTime" block @click="seeMoreLines" class="primary">
+        <v-btn v-if="seeMore && lines[lines.length - 1].starttime > currentTime * 2" block @click="seeMoreLines" class="primary">
           See more
         </v-btn>
       </div>
@@ -45,7 +45,7 @@
         :currentLine="selectedLine"
         ></moment-box> -->
     </v-col>
-    <v-col md="12" class="d-flex flex-row-reverse" v-if="seeMore && (moments.length >= 5)">
+    <v-col md="12" class="d-flex flex-row-reverse" v-if="(seeMore || filteredLines.length === lines.length) && (moments.length >= 5)">
       <v-btn color="green" @click="onNextClick">NEXT</v-btn>
     </v-col>
   </v-row>
