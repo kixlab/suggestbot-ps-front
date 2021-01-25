@@ -94,16 +94,18 @@
           <p>
             <img class="screenshots" src="../assets/Screenshot4.gif" />
             The script is divided into several segments. Each segment presents
-            transcript from a five-minute slice of the meeting. When you
-            reached the end of the segment you can click "SEE MORE" button to
+            transcript from a five-minute slice of the meeting. 
+            When you reached the end of the segment you can click "SEE MORE" button to
             proceed to the next segment.
             You can freely proceed to the next segment to make more annotations.
           </p>
           <p>
-            You need to make
+            You need to annotate all lines that would significantly reinforce or harm the psychological safety of the group.
+            You also need to make 
             <span class="font-weight-bold">
               at least **five** annotations</span
             > for each segment to get the task accepted.
+            We'll pay you $0.10 for each extra annotation if more than two workers (excluding yourself) agreed on whether the line would reinforce or harm the psychological safety of the group.
             <!-- We'll pay you $0.60 for each segment annotated.  -->
           </p>
         </v-col>
