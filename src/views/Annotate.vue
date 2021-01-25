@@ -102,7 +102,7 @@ export default {
     },
     filteredLines: function () {
       return this.lines.filter(l => {
-        return (l.starttime <= this.currentTime * 2) && (this.initialTime < l.starttime)
+        return (l.starttime <= this.currentTime * 2) && (this.initialTime <= l.starttime)
       })
     },
     ...mapState({
