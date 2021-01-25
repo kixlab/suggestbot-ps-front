@@ -1,11 +1,17 @@
 <template>
   <v-row>
     <v-col md="12">
-      <h3> Now, you'll see a replay of a chat stream of a collaboration meeting. Please choose <span class="red--text">at least five lines</span> that would significantly boost or harm the psychological safety and tell us how you'd intervene in such situations.</h3>
+      <h3> 
+        Please choose <span class="red--text"> all lines (at least five)</span> 
+        that would significantly boost or harm the psychological safety 
+        and tell us how you'd give feedback to the speaker.</h3>
       <!-- <h3>Please carefully read this meeting transcript and annotate the lines that negatively affected the psychological safety of the group. </h3> -->
     </v-col>
     <v-col md="7">
       <div ref="scrollBox" class="scroll-box">
+        <v-btn v-if="initialTime > 0" block @click="seePriorLines" class="primary">
+          See previous lines
+        </v-btn>
         <v-list>
           <v-list-item-group v-model="selectedItem">
             <line-unit v-for="(l, idx) in filteredLines" :key="idx"
@@ -39,7 +45,7 @@
         :currentLine="selectedLine"
         ></moment-box> -->
     </v-col>
-    <v-col md="12" class="d-flex flex-row-reverse" v-if="(moments.length >= 5)">
+    <v-col md="12" class="d-flex flex-row-reverse" v-if="seeMore && (moments.length >= 5)">
       <v-btn color="green" @click="onNextClick">NEXT</v-btn>
     </v-col>
   </v-row>
@@ -63,6 +69,7 @@ export default {
       lines: [],
       moments: [],
       isMomentBoxShown: false,
+      initialTime: 0,
       currentMoment: 0,
       selectedItem: undefined,
       timerHandle: 0,
@@ -95,12 +102,13 @@ export default {
     },
     filteredLines: function () {
       return this.lines.filter(l => {
-        return l.starttime <= this.currentTime * 2
+        return (l.starttime <= this.currentTime * 2) && (this.initialTime < l.starttime)
       })
     },
     ...mapState({
       token: state => state.token,
-      dataset: state => state.dataset
+      dataset: state => state.dataset,
+      taskType: state => state.taskType
     })
   },
   methods: {
@@ -125,11 +133,27 @@ export default {
     seeMoreLines: async function () {
       this.seeMore = false
       this.startTimer()
-      const condition = process.env.VUE_APP_COND
       const dataset = this.dataset
       axios.post(`${process.env.VUE_APP_API_URL}/logs/`, {
         event_name: 'SeeMore',
-        status: condition,
+        status: this.taskType,
+        payload: JSON.stringify({
+          clientTime: new Date(),
+          dataset: dataset,
+          currentTime: this.currentTime
+        })
+      }, {
+        headers: {
+          Authorization: `Token ${this.token}`
+        }
+      })
+    },
+    seePriorLines: async function () {
+      this.initialTime -= 300 
+      const dataset = this.dataset
+      axios.post(`${process.env.VUE_APP_API_URL}/logs/`, {
+        event_name: 'SeePriorLines',
+        status: this.taskType,
         payload: JSON.stringify({
           clientTime: new Date(),
           dataset: dataset,
@@ -188,10 +212,9 @@ export default {
       // this.$refs.momentBox.scrollIntoView()
     },
     onNextClick: async function () {
-      const condition = process.env.VUE_APP_COND
       const res = await axios.post(`${process.env.VUE_APP_API_URL}/logs/`, {
         event_name: 'EndTask',
-        status: condition,
+        status: this.taskType,
         payload: JSON.stringify({
           clientTime: new Date(),
           dataset: this.dataset
@@ -226,11 +249,10 @@ export default {
     window.clearInterval(this.timerHandle)
   },
   mounted: async function () {
-    const condition = process.env.VUE_APP_COND
     const dataset = this.dataset
     const res = await axios.post(`${process.env.VUE_APP_API_URL}/logs/`, {
       event_name: 'StartTask',
-      status: condition,
+      status: this.taskType,
       payload: JSON.stringify({
         clientTime: new Date(),
         dataset: dataset

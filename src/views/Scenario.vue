@@ -75,8 +75,8 @@
             meeting. 
           </p>
           <p>
-            The transcript will be automatically shown as in the actual meeting.
-            At the top of each label, you can see the timestamp to check 
+            The lines will be automatically presented as in the actual meeting.
+            At the top of each line, you can see the timestamp to check 
             whether the lines were overlapped. 
           </p>
           <p>
@@ -86,7 +86,7 @@
           </p>
           <p> 
             If you find a line that would make the participants feel significantly easier or
-            harder to speak up about their own minds, click on it to start moderating.
+            harder to speak up about their own minds, click on it to start giving feedback.
           </p>
         </v-col>
 
@@ -94,7 +94,7 @@
           <p>
             <img class="screenshots" src="../assets/Moderating2-1.gif" />
             Upon clicking a line, the system will stop the transcript and ask how you
-            would moderate the current situation. 
+            would give feedback to the speaker on the current situation. 
           </p>
           <p>
             First, please choose whether the selected line would reinforce or 
@@ -105,14 +105,14 @@
             Then, please answer why you thought the line would affect the psychological safety of the group.
           </p>
           <p>
-            Finally, please write how you would give feedback to the
+            Finally, please write how you would give private feedback to the
             participant as an AI moderator, and click "SUBMIT" button.
           </p>
           <p>
             <!-- what you would tell the speaker to improve the psychological safety of the group as a moderator, and click "SUBMIT" button.  -->
             If you made a mistake on selecting the line, you can click the red
-            "DISCARD" button to cancel. After you click the "Submit" button, you
-            can see the list of annotations you added.
+            "DISCARD" button to cancel. After you click the "SUBMIT" button, you
+            can see the list of feedback you gave.
           </p>
         </v-col>
 
@@ -123,13 +123,13 @@
             five-minute slice of the meeting. When you reached the end of the
             segment you can click "SEE MORE" button to proceed to the next
             segment.
-            You can freely proceed to the next segment to make more annotations.
+            You can freely proceed to the next segment to give more feedback.
           </p>
           <p>
-            To qualify for the task, you need to make
-            <span class="font-weight-bold"> at least **five** annotations</span
+            To qualify for the task, you need to give
+            <span class="font-weight-bold"> at least **five** pieces of feedback</span
             >. 
-            We'll pay you $0.60 for each extra, valid annotation. 
+            We'll pay you $0.10 for each extra piece of feedback if more than two workers agreed on how the line affect the psychological safety of the group. 
           </p>
           <p>
           </p>
@@ -137,9 +137,9 @@
         <v-col md="8" v-else-if="page === 5" key="page5">
           <p>
             <img class="screenshots" src="../assets/Screenshot3-1.gif" />
-            If you added at least five annotations and finished moderating the
+            If you gave feedback to at least five lines and finished the
             current segment, you can see a green "NEXT" button at the bottom of
-            the page. If you left enough annotations as many as you want, click
+            the page. If you left feedback as much as you want, click
             it to continue.
           </p>
         </v-col>
