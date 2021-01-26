@@ -81,7 +81,7 @@ export default {
     },
     filteredLines: function () {
       return this.lines.filter((line) => {
-        return (line.starttime <= this.currentTime) && (line.starttime > this.initialTime)
+        return (line.starttime <= this.currentTime) && (line.starttime >= this.initialTime)
       })
     },
     ...mapState({
