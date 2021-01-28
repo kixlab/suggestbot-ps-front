@@ -10,27 +10,15 @@
     </v-card-title>
     <v-card-text style="padding-bottom: 0;">
       <v-row>
-          <!-- <v-col md="12">
-            <div>Among the meeting participants, who's psychological safety is affected the most?</div>
-            <v-btn-toggle v-model="speaker" mandatory>
-              <v-btn v-for="s in speakers" :key="s" :value="s">
-                {{s}}
-              </v-btn>
-            </v-btn-toggle>
-          </v-col> -->
         <v-col md="12" v-if="page >= 1" key="page1">
           <div>
             Would this line reinforce or harm the psychological safety of the meeting participants?
           </div>
-            <!-- how would the meeting participants think about the statement <span class="red--text">"In this group, it is easy to speak up about what is on my mind."</span>?  </div> -->
           <v-btn-toggle block v-model="direction">
-            <v-btn value="POSITIVE" text color="green" @click="page = 2">
+            <v-btn value="POSITIVE" text color="green" @click="page = 2; reason = ''">
               Reinforce
             </v-btn>
-            <!-- <v-btn value="NEUTRAL" text color="grey">
-              Neutral
-            </v-btn> -->
-            <v-btn value="NEGATIVE" text color="red"  @click="page = 2">
+            <v-btn value="NEGATIVE" text color="red"  @click="page = 2; reason = ''">
               Harm
             </v-btn>
           </v-btn-toggle>
@@ -99,12 +87,14 @@
         <v-slide-y-transition>
           <v-col md="12" v-if="page === 3" key="page3">
             <template v-if="reasoning">
-              Please explain why the selected line would {{direction === 'POSITIVE' ? 'reinforce' : 'harm'}} the psychological safety in detail.
-              <v-text-field
-                dense
-                :value="possibleComment"
-                @change="v => possibleComment = v">
-              </v-text-field>
+              <div>
+                Please explain why the selected line would {{direction === 'POSITIVE' ? 'reinforce' : 'harm'}} the psychological safety in detail.
+                <v-text-field
+                  dense
+                  :value="possibleComment"
+                  @change="v => possibleComment = v">
+                </v-text-field>
+              </div>
             </template>
             <template v-if="moderating">
               <div>
@@ -114,21 +104,16 @@
                 </v-avatar>
                 that the selected line {{direction === 'POSITIVE' ? 'reinforced' : 'harmed'}} the psychological safety
                 ?
+                <v-text-field
+                  dense
+                  :value="possibleComment"
+                  @change="v => possibleComment = v">
+                </v-text-field>
               </div>
             </template>
-            <!-- <template md="12" v-else-if="moderating">
-              <div v-if="plain">If you were the moderator of this meeting, what would you advise to {{currentLine ? currentLine.speaker : ''}} to support others in easily speaking up their mind? </div>
-              <div v-else>As a moderator, I'd like to say to {{currentLine ? currentLine.speaker : ''}}</div>
-              <v-text-field
-                dense
-                :value="possibleComment"
-                @change="v => possibleComment = v">
-              </v-text-field>
-            </template> -->
             <template v-else-if="roletaking">
               <div v-if="plain">If you could phrase {{currentLine ? currentLine.speaker : ''}}'s words differently, what would you like to say? </div>
               <div v-else>Next time, {{currentLine ? currentLine.speaker : ''}} might want to say </div>
-
               <v-text-field
                 dense
                 :value="possibleLine"
@@ -136,7 +121,7 @@
               </v-text-field>
             </template>
             <template v-if="long">
-              <span class="red--text">Please respond to the question with more than 25 characters.</span>
+              <span class="red--text">Please respond to the question with more than 15 characters.</span>
             </template>
           </v-col>
         </v-slide-y-transition>

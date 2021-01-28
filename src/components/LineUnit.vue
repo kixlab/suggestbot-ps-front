@@ -1,32 +1,59 @@
 <template>
   <div>
     <v-list-item ripple @click="onLineClick">
-      <v-list-item-avatar>
-        <v-avatar
-          :color="color">
-          {{line.speaker}}
-        </v-avatar>
-      </v-list-item-avatar>
-      <v-list-item-content>
-        <v-list-item-subtitle>{{formattedStartTime}} - {{formattedEndTime}}</v-list-item-subtitle>
-        {{line.text}}
-      </v-list-item-content>
+      <template>
+        <v-list-item-avatar>
+          <v-avatar
+            :color="color">
+            {{line.speaker}}
+          </v-avatar>
+        </v-list-item-avatar>
+        <v-list-item-content>
+          <v-list-item-subtitle>{{formattedStartTime}} - {{formattedEndTime}}</v-list-item-subtitle>
+          {{line.text}}
+        </v-list-item-content>
+
+      </template>
     </v-list-item>
     <v-divider>
     </v-divider>
+    <div v-if="interactive">
+      <moment-box v-if="selected"
+        :plain="false"
+        :type="'moderating'"
+        @close-moment-box="onCloseMomentBox"
+        @moment-saved="onMomentSaved"
+        :moment="line.starttime"
+        :currentLine="line">
+      </moment-box>
+      <v-divider v-if="selected">
+      </v-divider>
+    </div>
   </div>
 </template>
 
 <script>
+import MomentBox from './MomentBox.vue'
 export default {
   name: 'LineUnit',
+  components: {
+    MomentBox
+  },
   props: {
     line: Object,
-    idx: Number
+    idx: Number,
+    selected: Boolean,
+    interactive: Boolean
   },
   methods: {
     onLineClick: function () {
       this.$emit('line-click', this.line.starttime, this.idx)
+    },
+    onMomentSaved: function (data) {
+      this.$emit('moment-saved', data)
+    },
+    onCloseMomentBox: function () {
+      this.$emit('close-moment-box')
     }
   },
   computed: {

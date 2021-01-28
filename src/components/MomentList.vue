@@ -3,7 +3,7 @@
     <v-card-title>
       <span>Your Annotations</span>
       <v-spacer />
-      <span>{{moments.length}} / 5</span>
+      <!-- <span>{{moments.length}} / 5</span> -->
     </v-card-title>
     <v-card-text class="scroll-box">
       <v-list dense>

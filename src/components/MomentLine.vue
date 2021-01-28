@@ -13,7 +13,7 @@
            <!-- to {{moment.affected_speaker}} -->
         </v-list-item-title>
         <v-list-item-subtitle class="text-truncate">
-          {{moment.reason}}
+          {{moment.reason}} - {{moment.possible_comment}}
         </v-list-item-subtitle>
       </v-list-item-content>
       <v-list-item-action>
