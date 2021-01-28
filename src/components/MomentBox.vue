@@ -26,65 +26,6 @@
         </v-col>
         <v-slide-y-transition>
           <v-col md="12" v-if="page >= 2" key="page2">
-            <span v-if="direction && direction !== ''">Why do you think so? </span>
-            <v-radio-group v-model="reason" v-if="direction === 'POSITIVE'" @change="page = reason === '' ? 2 : 3; possibleComment = ''">
-              <v-row no-gutters>
-                <v-col md="6">
-                  <v-radio label="Being positive" value="Being positive">
-                  </v-radio>
-                  <v-radio label="Being respectful" value="Being respectful">
-                  </v-radio>
-                </v-col>
-                <v-col md="6">
-                  <v-radio label="Being agreeable" value="Being agreeable">
-                  </v-radio>
-                </v-col>
-                <v-col md="12">
-                  <v-radio value="Other">
-                    <template v-slot:label>
-                      <span style="padding-right: 1em;">Other</span>
-                      <v-text-field v-model="reasonOther" :disabled="reason !== 'Other'"  placeholder="Please describe the reason">
-                      </v-text-field>
-                    </template>
-                  </v-radio>
-                </v-col>
-              </v-row>
-            </v-radio-group>
-            <v-radio-group v-model="reason" v-if="direction === 'NEGATIVE'" @change="page = reason === '' ? 2 : 3; possibleComment = ''">
-              <v-row no-gutters>
-                <v-col md="6">
-                  <v-radio label="Causing annoyance" value="Causing annoyance">
-                  </v-radio>
-                  <v-radio label="Causing frusturation" value="Causing frusturation">
-                  </v-radio>
-                  <v-radio label="Being sarcastic" value="Being sarcastic">
-                  </v-radio>
-                  <v-radio label="Causing embarrassment" value="Causing embarrassment">
-                  </v-radio>
-                </v-col>
-                <v-col md="6">
-                  <v-radio label="Being passive-aggressive" value="Being passive-aggressive">
-                  </v-radio>
-                  <v-radio label="Dismissing others" value="Dismissing others">
-                  </v-radio>
-                  <v-radio label="Punishing others" value="Punishing others">
-                  </v-radio>
-                </v-col>
-                <v-col md="12">
-                  <v-radio value="Other">
-                    <template v-slot:label>
-                      <span style="padding-right: 1em;">Other</span>
-                      <v-text-field v-model="reasonOther" :disabled="reason !== 'Other'"  placeholder="Please describe the reason">
-                      </v-text-field>
-                    </template>
-                  </v-radio>
-                </v-col>
-              </v-row>
-            </v-radio-group>
-          </v-col>
-        </v-slide-y-transition>
-        <v-slide-y-transition>
-          <v-col md="12" v-if="page >= 2" key="page2">
             <span v-if="direction === 'POSITIVE'">How did the selected line reinforced the psychological safety of the group?</span>
             <v-radio-group v-model="reason" v-if="direction === 'POSITIVE'" @change="page = reason === '' ? 2 : 3; possibleComment = ''">
               <v-row no-gutters>
@@ -162,7 +103,6 @@
                   {{currentLine ? currentLine.speaker : ''}}
                 </v-avatar>
                 that the selected line {{direction === 'POSITIVE' ? 'reinforced' : 'harmed'}} the psychological safety
-                ?
                 <v-text-field
                   dense
                   :value="possibleComment"

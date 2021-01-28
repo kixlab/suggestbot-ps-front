@@ -25,7 +25,7 @@
         <v-list>
           <v-list-item-group v-model="selectedItem">
             <line-unit v-for="(l, idx) in filteredLines" :key="idx"
-              :interactive="false"
+              :interactive="true"
               :line="l"
               :idx="idx"
               :selected="idx === selectedItem"
