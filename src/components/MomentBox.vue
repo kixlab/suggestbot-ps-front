@@ -1,12 +1,12 @@
 <template>
   <v-card class="moment--box" shaped>
     <v-card-title style="padding-bottom: 0;">
-      <span v-if="plain">Annotations for </span>
-      <span v-else>Moderate the meeting for </span>
+      <span v-if="plain">Annotate on </span>
+      <span v-else-if="moderating">Please give feedback on </span>
 
       <v-avatar size="1.1em" :color="color" style="margin-left: 0.25em;">
         {{currentLine ? currentLine.speaker : ''}}
-      </v-avatar>'s words
+      </v-avatar>'s line!
     </v-card-title>
     <v-card-text style="padding-bottom: 0;">
       <v-row>
@@ -102,7 +102,7 @@
                 <v-avatar size="1.2em" :color="color" style="margin-left: 0.2em;">
                   {{currentLine ? currentLine.speaker : ''}}
                 </v-avatar>
-                that the selected line {{direction === 'POSITIVE' ? 'reinforced' : 'harmed'}} the psychological safety
+                how the selected line {{direction === 'POSITIVE' ? 'reinforced' : 'harmed'}} the psychological safety
                 <v-text-field
                   dense
                   :value="possibleComment"
