@@ -1,6 +1,10 @@
 <template>
   <v-card>
-    <v-card-title>Your Annotations</v-card-title>
+    <v-card-title>
+      <span>Your Annotations</span>
+      <v-spacer />
+      <!-- <span>{{moments.length}} / 5</span> -->
+    </v-card-title>
     <v-card-text class="scroll-box">
       <v-list dense>
         <moment-line v-for="m in moments" :key="m.pk"

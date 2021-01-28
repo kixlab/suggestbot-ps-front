@@ -13,9 +13,7 @@
            <!-- to {{moment.affected_speaker}} -->
         </v-list-item-title>
         <v-list-item-subtitle class="text-truncate">
-          <span v-if="reasoning">{{moment.reason}}</span>
-          <span v-else-if="moderating">{{moment.possible_comment}}</span>
-          <span v-else-if="roletaking"> {{moment.possible_line}} </span>
+          {{moment.reason}} - {{moment.possible_comment}}
         </v-list-item-subtitle>
       </v-list-item-content>
       <v-list-item-action>

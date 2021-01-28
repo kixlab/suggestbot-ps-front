@@ -4,7 +4,17 @@
       <h3> 
         Please choose <span class="red--text"> all lines (at least five)</span> 
         that would significantly boost or harm the psychological safety 
-        and tell us how you'd give feedback to the speaker.</h3>
+        and tell us how you'd give feedback to the speaker.
+      </h3>
+      <v-progress-linear 
+        height="20"
+        striped dark
+        :value="moments.length / 5 * 100">
+        
+        <template v-slot:default="{ value }">
+          <span class="white--text text--darken-3 font-weight-bold">{{value  * 5 / 100}} / 5 annotations done for qualification!</span>
+        </template>
+      </v-progress-linear>
       <!-- <h3>Please carefully read this meeting transcript and annotate the lines that negatively affected the psychological safety of the group. </h3> -->
     </v-col>
     <v-col md="7">
@@ -15,6 +25,7 @@
         <v-list>
           <v-list-item-group v-model="selectedItem">
             <line-unit v-for="(l, idx) in filteredLines" :key="idx"
+              :interactive="false"
               :line="l"
               :idx="idx"
               :selected="idx === selectedItem"
@@ -37,12 +48,13 @@
       </moment-list>
 
       <!-- <moment-box
-        :plain="false"
-        v-show="isMomentBoxShown"
+        :plain="true"
+        v-if="isMomentBoxShown"
         @close-moment-box="closeMomentBox"
         @moment-saved="onMomentSaved"
         :moment="currentMoment"
         :currentLine="selectedLine"
+        type="reasoning"
         ></moment-box> -->
     </v-col>
     <v-col md="12" class="d-flex flex-row-reverse" v-if="(seeMore || filteredLines.length === lines.length) && (moments.length >= 5)">
@@ -81,7 +93,7 @@ export default {
   },
   watch: {
     currentTime: function (newTime) {
-      if (newTime > 1 && (newTime - Math.floor(newTime) > 0.5) && (Math.floor(newTime) % 150 === 0)) {
+      if (newTime > 1 && (newTime - Math.floor(newTime) > 0.5) && (Math.floor(newTime) % (this.$store.state.windowSize / 2) === 0)) {
         this.pauseTimer()
         this.seeMore = true
         this.$nextTick(() => {
@@ -104,6 +116,16 @@ export default {
       return this.lines.filter(l => {
         return (l.starttime <= this.currentTime * 2) && (this.initialTime <= l.starttime)
       })
+    },
+    positives: function () {
+      return this.moments.filter(m => {
+        return m.direction === 'POSITIVE'
+      }).length
+    },
+    negatives: function () {
+      return this.moments.filter(m => {
+        return m.direction === 'NEGATIVE'
+      }).length
     },
     ...mapState({
       token: state => state.token,

@@ -67,7 +67,7 @@ export default {
       initialTime: this.$store.state.initialTime || 0,
       currentMoment: 0,
       selectedItem: undefined,
-      currentTime: this.$store.state.initialTime + 300,
+      currentTime: this.$store.state.initialTime + this.$store.state.windowSize,
       touchBottom: false
     }
   },
@@ -81,7 +81,7 @@ export default {
     },
     filteredLines: function () {
       return this.lines.filter((line) => {
-        return (line.starttime <= this.currentTime) && (line.starttime > this.initialTime)
+        return (line.starttime <= this.currentTime) && (line.starttime >= this.initialTime)
       })
     },
     ...mapState({
@@ -120,10 +120,10 @@ export default {
       }
     },
     seeMoreLines: async function () {
-      if (this.lines[this.lines.length - 1].endtime < (this.currentTime + 450)) {
+      if (this.lines[this.lines.length - 1].endtime < (this.currentTime + this.$store.state.windowSize * 1.5)) {
         this.currentTime  = this.lines[this.lines.length - 1].endtime + 100
       } else {
-        this.currentTime += 300
+        this.currentTime += this.$store.state.windowSize
       }
       // const condition = process.env.VUE_APP_COND
       const dataset = this.dataset
@@ -142,7 +142,7 @@ export default {
       })
     },
     seePriorLines: async function () {
-      this.initialTime -= 300 
+      this.initialTime -= this.$store.state.windowSize
       const dataset = this.dataset
       axios.post(`${process.env.VUE_APP_API_URL}/logs/`, {
         event_name: 'SeePriorLines',
@@ -226,10 +226,10 @@ export default {
       this.lines = lines.data
       this.moments = moments.data
 
-      if (this.lines[this.lines.length - 1].endtime < (this.initialTime + 450)) {
+      if (this.lines[this.lines.length - 1].endtime < (this.initialTime + this.$store.state.windowSize * 1.5)) {
         this.currentTime  = this.lines[this.lines.length - 1].endtime + 100
       } else {
-        this.currentTime = this.initialTime + 300
+        this.currentTime = this.initialTime + this.$store.state.windowSize
       }
 
       // this.timerHandle = window.setInterval(function() {

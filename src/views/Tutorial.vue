@@ -73,8 +73,9 @@
             The picture above shows the task interface. On the left side of
             the interface, you'll see the actual line-by-line transcript of
             the meeting.
-            At the top of each line, you can see the timestamp to see 
-            whether the lines were overlapped.             
+            The lines will be automatically presented as in the actual meeting.
+            At the top of each line, you can see the timestamp to check 
+            whether the lines were overlapped.           
           </p>
           <p>
             On the right side, you can see the list of feedback you gave. For each line in the
@@ -115,28 +116,28 @@
           <p>
             <img class="screenshots" src="../assets/Screenshot4.gif" />
             The script is divided into several segments. Each segment presents
-            transcript from a five-minute slice of the meeting. 
+            transcript from a two-minute slice of the meeting. 
             When you reached the end of the segment you can click "SEE MORE" button to
             proceed to the next segment.
             You can freely proceed to the next segment to give more feedback.
           </p>
           <p>
-            You need to annotate all lines that would significantly reinforce or harm the psychological safety of the group.
+            You need to give feedback to all lines that would significantly reinforce or harm the psychological safety of the group.
             You also need to make 
             <span class="font-weight-bold">
               at least **five** annotations</span
             > to get the task accepted.
-            We'll pay you $0.10 for each extra annotation if more than two workers (excluding yourself) agreed on whether the line would reinforce or harm the psychological safety of the group.
+            We'll pay you $0.10 for each extra piece of feedback if more than two workers (excluding yourself) agreed on the annotation.
             <!-- We'll pay you $0.60 for each segment annotated.  -->
           </p>
         </v-col>
         <v-col md="8" v-else-if="page === 5" key="page5">
           <p>
             <img class="screenshots" src="../assets/Screenshot3-1.gif" />
-            If you added at least five annotations and finished reading the
+            If you made at least five annotations and finished reading the
             current segment, you can see a green "NEXT" button at the bottom of
-            the page. If you left enough annotations as many as you want, click
-            it to continue.
+            the page. If you made annotations as many as you want, click
+            it to continue to the post-task survey.
           </p>
         </v-col>
       </v-slide-x-transition>

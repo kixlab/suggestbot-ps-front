@@ -11,32 +11,24 @@
         <v-list-item-content>
           <v-list-item-subtitle>{{formattedStartTime}} - {{formattedEndTime}}</v-list-item-subtitle>
           {{line.text}}
-          <!-- <div v-if="slotProps.active">
-            <v-divider></v-divider>
-            <moment-box 
-              :plain="false"
-              @close-moment-box="closeMomentBox"
-              @moment-saved="onMomentSaved"
-              :moment="line.starttime"
-              :currentLine="line">
-            </moment-box>
-          </div> -->
         </v-list-item-content>
 
       </template>
     </v-list-item>
     <v-divider>
     </v-divider>
-    <moment-box v-if="selected"
-      :plain="false"
-      :type="'moderating'"
-      @close-moment-box="onCloseMomentBox"
-      @moment-saved="onMomentSaved"
-      :moment="line.starttime"
-      :currentLine="line">
-    </moment-box>
-    <v-divider v-if="selected">
-    </v-divider>
+    <div v-if="interactive">
+      <moment-box v-if="selected"
+        :plain="false"
+        :type="'moderating'"
+        @close-moment-box="onCloseMomentBox"
+        @moment-saved="onMomentSaved"
+        :moment="line.starttime"
+        :currentLine="line">
+      </moment-box>
+      <v-divider v-if="selected">
+      </v-divider>
+    </div>
   </div>
 </template>
 
@@ -50,7 +42,8 @@ export default {
   props: {
     line: Object,
     idx: Number,
-    selected: Boolean
+    selected: Boolean,
+    interactive: Boolean
   },
   methods: {
     onLineClick: function () {

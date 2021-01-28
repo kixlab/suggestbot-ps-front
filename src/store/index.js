@@ -11,7 +11,8 @@ export default new Vuex.Store({
     dataset: '',
     turkerId: '',
     taskType: '',
-    initialTime: 0
+    initialTime: 0,
+    windowSize: 120
   },
   mutations: {
     setToken(state, token) {
