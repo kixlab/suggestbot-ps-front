@@ -16,17 +16,13 @@
           </p>
           <p>
             We are asking your help to collect <span class="font-weight-bold">examples of the utterances</span> that
-            improves or harms the discussion and appropriate <span class="font-weight-bold">private feedback messages</span>
-            in such cases.
+            improves or harms the discussion with <span class="font-weight-bold">the reasoning behind your decision</span>.
           </p>
           <p>
-            In detail, you will act as an AI agent while reading a transcript of a meeting 
-            for designing a new remote control.
-          </p>
-          <p>
-            As an agent, your goal is to find moments that would significantly reinforce or harm the
+            In this task, you will read a transcript from a meeting and
+            annotate lines that would significantly reinforce or harm the
             <span class="font-weight-bold">**psychological safety**</span> of
-            the group and give private feedback to the speaker. In psychologcially safe
+            the meeting. In psychologcially safe
             environments, meeting participants feel easy to speak up about
             what is on their minds, without fear of negative consequences of
             self-image, status or career.
@@ -78,37 +74,34 @@
             whether the lines were overlapped.           
           </p>
           <p>
-            On the right side, you can see the list of feedback you gave. For each line in the
+            On the right side, you can see the list of annotations you made. For each line in the
             meeting transcript, the colored circle denotes who was the speaker,
-            and the text shows the actual words from each participant. 
+            and the text shows the actual line from each participant. 
           </p>
           <p> 
             If you find a line that would make the participants either feel easier or
-            harder to speak up about their own minds from the transcript, click on it to start labeling.
+            harder to speak up about their own minds, click on it to start annotation.
           </p>
         </v-col>
 
         <v-col md="8" v-else-if="page === 3" key="page3">
           <p>
-            <img class="screenshots" src="../assets/Moderating2-1.gif" />
-            Upon clicking a line, the system will show a box to ask how you
-            would give feedback to the speaker on the current situation.
+            <img class="screenshots" src="../assets/Screenshot2-4.gif" />
+            Upon clicking a line, Upon clicking a line, the system will stop the transcript and show a box to ask your reasoning behind annotation.
           </p>
           <p>
-            First, please annotate whether
-            the selected line would reinforce or harm the psychological safety
-            of the group.
+            First, please choose whether the selected line would reinforce 
+            or harm the psychological safety of the group.
           </p>
           <p>
-            <!-- meeting participants would feel easier or harder to speak up about their minds. -->
-            Then, please answer why you thought the line would affect the psychological safety.
-            Finally, please write how you would give private feedback to the
-            speaker as an AI moderator, and click "SUBMIT" button.
+            Then, please answer why you thought the line would affect the psychological safety of the group. 
+            <!-- Finally, please write how you would give private feedback to the
+            speaker as an AI moderator, and click "SUBMIT" button. -->
           </p>
           <p>
             If you made a mistake on selecting the line, you can click the red
             "DISCARD" button to cancel. After you click the "SUBMIT" button, you
-            can see the list of feedback you gave.
+            can see it on the list of annotations.
           </p>
         </v-col>
 
@@ -119,15 +112,15 @@
             transcript from a two-minute slice of the meeting. 
             When you reached the end of the segment you can click "SEE MORE" button to
             proceed to the next segment.
-            You can freely proceed to the next segment to give more feedback.
+            You can freely proceed to the next segment to make more annotations.
           </p>
           <p>
-            You need to give feedback to all lines that would significantly reinforce or harm the psychological safety of the group.
+            You need to annotate all lines that would significantly reinforce or harm the psychological safety of the group.
             You also need to make 
             <span class="font-weight-bold">
               at least **five** annotations</span
             > to get the task accepted.
-            We'll pay you $0.10 for each extra piece of feedback if more than two workers (excluding yourself) agreed on the annotation.
+            We'll pay you $0.10 for each extra annotation if more than two workers (excluding yourself) agreed on the annotation.
             <!-- We'll pay you $0.60 for each segment annotated.  -->
           </p>
         </v-col>
@@ -164,7 +157,7 @@ export default {
   name: "tutorial",
   methods: {
     onNextClick: function () {
-      this.$router.push("AnnotatePlain");
+      this.$router.push("/Annotate");
     },
   },
   data: function () {

@@ -16,8 +16,7 @@
           </p>
           <p>
             We are asking your help to collect <span class="font-weight-bold">examples of the utterances</span> that
-            improves or harms the discussion and appropriate <span class="font-weight-bold">private feedback messages</span>
-            in such cases.
+            improves or harms the discussion with <span class="font-weight-bold">the reasoning behind your decision</span>.
           </p>
           <p>
             In detail, you will act as an AI agent while reading a transcript of a meeting 
@@ -26,7 +25,7 @@
           <p>
             As an agent, your goal is to find moments that would significantly reinforce or harm the
             <span class="font-weight-bold">**psychological safety**</span> of
-            the group and give private feedback to the speaker. In psychologcially safe
+            the group and explain your decision to the speaker. In psychologcially safe
             environments, meeting participants feel easy to speak up about
             what is on their minds, without fear of negative consequences of
             self-image, status or career.
@@ -69,7 +68,7 @@
 
         <v-col md="8" v-else-if="page === 2" key="page2">
           <p>
-            <img class="screenshots" src="../assets/Interactive-1.gif" />
+            <img class="screenshots" src="../assets/Interactive1-1.gif" />
             The picture above shows the task interface. On the left side of the
             interface, you'll see the actual line-by-line transcript of the
             meeting. 
@@ -82,7 +81,7 @@
           <p>
             On the right side, you can see the list of feedback you gave. For each line in the
             meeting transcript, the colored circle denotes who was the speaker,
-            and the text shows the actual words from each participant. 
+            and the text shows the actual line from each participant. 
           </p>
           <p> 
             If you find a line that would make the participants either feel easier or
@@ -92,7 +91,7 @@
 
         <v-col md="8" v-else-if="page === 3" key="page3">
           <p>
-            <img class="screenshots" src="../assets/Interactive-2.gif" />
+            <img class="screenshots" src="../assets/Interactive2-1.gif" />
             Upon clicking a line, the system will stop the transcript and ask how you
             would give feedback to the speaker on the current situation. 
           </p>
@@ -105,7 +104,7 @@
             Then, please answer why you thought the line would affect the psychological safety of the group.
           </p>
           <p>
-            Finally, please write how you would give private feedback to the
+            Finally, please write how you would explain your decision to the
             speaker as an AI moderator, and click "SUBMIT" button.
           </p>
           <p>
@@ -118,9 +117,9 @@
 
         <v-col md="8" v-else-if="page === 4" key="page4">
           <p>
-            <img class="screenshots" src="../assets/Interactive-3.gif" />
+            <img class="screenshots" src="../assets/Interactive3.gif" />
             The script is divided into several segments. Each segment presents
-            transcript from a five-minute slice of the meeting. 
+            transcript from a two-minute slice of the meeting. 
             When you reached the end of the segment you can click "SEE MORE" button to
             proceed to the next segment.
             You can freely proceed to the next segment to give more feedback.
@@ -137,8 +136,8 @@
         </v-col>
         <v-col md="8" v-else-if="page === 5" key="page5">
           <p>
-            <img class="screenshots" src="../assets/Interactive-4.gif" />
-            If you gave feedback to at least five lines and finished the
+            <img class="screenshots" src="../assets/Interactive4-1.gif" />
+            If you left feedback to at least five lines and finished the
             current segment, you can see a green "NEXT" button at the bottom of
             the page. If you left feedback as much as you want, click
             it to continue.

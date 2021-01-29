@@ -12,7 +12,8 @@
         :value="moments.length / 5 * 100">
         
         <template v-slot:default="{ value }">
-          <span class="white--text text--darken-3 font-weight-bold">{{value  * 5 / 100}} / 5 annotations done for qualification!</span>
+          <span v-if="value < 100" class="white--text text--darken-3 font-weight-bold">{{value  * 5 / 100}} / 5 annotations done!</span>
+          <span v-else-if="value >= 100" class="white--text text--darken-3 font-weight-bold">{{value  * 5 / 100}} annotations done!</span>
         </template>
       </v-progress-linear>
       <!-- <h3>Please carefully read this meeting transcript and annotate the lines that negatively affected the psychological safety of the group. </h3> -->
@@ -142,10 +143,10 @@ export default {
       this.timerHandle = window.setInterval(function() {
         const now = new Date()
         this.currentTime += (now - this.startTime) / 1000
-        this.startTime = now
         const container = this.$refs.scrollBox
         // console.log(container)
         container.scrollTop = container.scrollHeight
+        this.startTime = now
 
       }.bind(this), 500)
     },
