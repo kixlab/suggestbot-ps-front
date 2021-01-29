@@ -42,7 +42,7 @@ export default {
     onNextClick: async function () {
       this.err = false
       this.msg = ''
-      const taskType = 'Reason-Plain'
+      const taskType = 'Reason-Interactive'
       const id = `${this.id}-${this.$route.params.dataset}-${taskType}`
       console.log(id)
       console.log(process.env.VUE_APP_API_URL)
