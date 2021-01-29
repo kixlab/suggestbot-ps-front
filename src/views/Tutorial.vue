@@ -16,7 +16,7 @@
           </p>
           <p>
             We are asking your help to collect <span class="font-weight-bold">examples of the utterances</span> that
-            improves or harms the discussion and <span class="font-weight-bold">the reasoning behind your decision</span>.
+            improves or harms the discussion with <span class="font-weight-bold">the reasoning behind your decision</span>.
           </p>
           <p>
             In this task, you will read a transcript from a meeting and
@@ -112,15 +112,15 @@
             transcript from a two-minute slice of the meeting. 
             When you reached the end of the segment you can click "SEE MORE" button to
             proceed to the next segment.
-            You can freely proceed to the next segment to give more feedback.
+            You can freely proceed to the next segment to make more annotations.
           </p>
           <p>
-            You need to give feedback to all lines that would significantly reinforce or harm the psychological safety of the group.
+            You need to annotate all lines that would significantly reinforce or harm the psychological safety of the group.
             You also need to make 
             <span class="font-weight-bold">
               at least **five** annotations</span
             > to get the task accepted.
-            We'll pay you $0.10 for each extra piece of feedback if more than two workers (excluding yourself) agreed on the annotation.
+            We'll pay you $0.10 for each extra annotation if more than two workers (excluding yourself) agreed on the annotation.
             <!-- We'll pay you $0.60 for each segment annotated.  -->
           </p>
         </v-col>
@@ -157,7 +157,7 @@ export default {
   name: "tutorial",
   methods: {
     onNextClick: function () {
-      this.$router.push("AnnotatePlain");
+      this.$router.push("/Annotate");
     },
   },
   data: function () {

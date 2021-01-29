@@ -1,12 +1,12 @@
 <template>
   <v-card class="moment--box">
     <v-card-title style="padding-bottom: 0;">
-      <span v-if="plain">Annotations for </span>
-      <span v-else>Moderate the meeting for </span>
+      <span v-if="plain">Annotate on </span>
+      <span v-else-if="moderating">Please give feedback on </span>
 
       <v-avatar size="1.1em" :color="color" style="margin-left: 0.25em;">
         {{currentLine ? currentLine.speaker : ''}}
-      </v-avatar>'s words
+      </v-avatar>'s line!
     </v-card-title>
     <v-card-text style="padding-bottom: 0;">
       <v-row>
@@ -26,7 +26,7 @@
         </v-col>
         <v-slide-y-transition>
           <v-col md="12" v-if="page >= 2" key="page2">
-            <span v-if="direction === 'POSITIVE'">How did the selected line reinforced the psychological safety of the group?</span>
+            <span v-if="direction === 'POSITIVE'">How did the selected line reinforce the psychological safety of the group?</span>
             <v-radio-group v-model="reason" v-if="direction === 'POSITIVE'" @change="page = reason === '' ? 2 : 3; possibleComment = ''">
               <v-row no-gutters>
                 <v-col md="6">
@@ -50,7 +50,7 @@
                 </v-col>
               </v-row>
             </v-radio-group>
-            <span v-if="direction === 'NEGATIVE'"> How did the selected line harmed the psychological safety of the group? </span>
+            <span v-if="direction === 'NEGATIVE'"> How did the selected line harm the psychological safety of the group? </span>
             <v-radio-group v-model="reason" v-if="direction === 'NEGATIVE'" @change="page = reason === '' ? 2 : 3; possibleComment = ''">
               <v-row no-gutters>
                 <v-col md="6">
@@ -102,8 +102,7 @@
                 <v-avatar size="1.2em" :color="color" style="margin-left: 0.2em;">
                   {{currentLine ? currentLine.speaker : ''}}
                 </v-avatar>
-                that the selected line {{direction === 'POSITIVE' ? 'reinforced' : 'harmed'}} the psychological safety
-                ?
+                how the selected line {{direction === 'POSITIVE' ? 'reinforced' : 'harmed'}} the psychological safety
                 <v-text-field
                   dense
                   :value="possibleComment"
