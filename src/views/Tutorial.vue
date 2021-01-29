@@ -65,7 +65,7 @@
 
         <v-col md="8" v-else-if="page === 2" key="page2">
           <p>
-            <img class="screenshots" src="../assets/Screenshot1-3.gif" />
+            <img class="screenshots" src="../assets/Screenshot1-5.gif" />
             The picture above shows the task interface. On the left side of
             the interface, you'll see the actual line-by-line transcript of
             the meeting.
@@ -86,8 +86,8 @@
 
         <v-col md="8" v-else-if="page === 3" key="page3">
           <p>
-            <img class="screenshots" src="../assets/Screenshot2-4.gif" />
-            Upon clicking a line, Upon clicking a line, the system will stop the transcript and show a box to ask your reasoning behind annotation.
+            <img class="screenshots" src="../assets/Screenshot2-5.gif" />
+            Upon clicking a line, the system will stop the transcript and show a box to ask your reasoning behind annotation.
           </p>
           <p>
             First, please choose whether the selected line would reinforce 
@@ -107,7 +107,7 @@
 
         <v-col md="8" v-else-if="page === 4" key="page4">
           <p>
-            <img class="screenshots" src="../assets/Screenshot4.gif" />
+            <img class="screenshots" src="../assets/Screenshot3-2.gif" />
             The script is divided into several segments. Each segment presents
             transcript from a two-minute slice of the meeting. 
             When you reached the end of the segment you can click "SEE MORE" button to
@@ -126,7 +126,7 @@
         </v-col>
         <v-col md="8" v-else-if="page === 5" key="page5">
           <p>
-            <img class="screenshots" src="../assets/Screenshot3-1.gif" />
+            <img class="screenshots" src="../assets/Screenshot4-1.gif" />
             If you made at least five annotations and finished reading the
             current segment, you can see a green "NEXT" button at the bottom of
             the page. If you made annotations as many as you want, click
