@@ -7,7 +7,7 @@
       <div ref="scrollBox" class="scroll-box">
         <v-list>
           <v-list-item-group v-model="selectedItem">
-            <line-unit v-for="(l, idx) in lines" :key="idx"
+            <line-unit v-for="(l, idx) in filteredLines" :key="idx"
               :line="l"
               :idx="idx"
               :class="getClass(l)">
@@ -28,7 +28,9 @@
       
     </v-col>
     <v-col md="12" class="d-flex flex-row-reverse">
-      <v-btn color="green" @click="onNextClick">NEXT</v-btn>
+
+      <v-btn color="primary" @click="onNextClick">NEXT</v-btn>
+      <v-btn color="success" @click="onAnnotateMoreClick" class="button-margin">Annotate More</v-btn>
     </v-col>
   </v-row>
 </template>
@@ -76,6 +78,68 @@ export default {
         return undefined
       }
     },
+    filteredLines: function () {
+      return this.lines.filter((l) => {
+        return (l.starttime < this.$store.state.finishTime) && (l.starttime >= this.$store.state.initialTime)
+      })
+    },
+    // debriefingBoxData: function () {
+    //   const obj = {
+    //     negNegByOthers: 0,
+    //     negNeuByOthers: 0,
+    //     negPosByOthers: 0,
+    //     neuNegByOthers: 0,
+    //     neuNeuByOthers: 0,
+    //     neuPosByOthers: 0,
+    //     posNegByOthers: 0,
+    //     posNeuByOthers: 0,
+    //     posPosByOthers: 0
+    //   }
+    //   this.filteredLines.forEach(line => {
+    //     const myMoment = this.moments.find((m) => {
+    //       return m.line.id === line.id
+    //     })
+
+    //     if (myMoment) {
+    //       if (myMoment.direction === 'POSITIVE') {
+    //         if ((line.moments_positive + line.moments_negative > 5) && (line.moments_positive >= 2 * line.moments_negative)) {
+    //           this.debriefingBoxData.posPosByOthers += 1
+    //           line.posPosByOthers = true
+    //         } else if ((line.moments_positive + line.moments_negative > 5) && (line.moments_positive * 2 <= line.moments_negative)) {
+    //           this.debriefingBoxData.posNegByOthers += 1            
+    //           line.posNegByOthers = true
+    //         } else {
+    //           this.debriefingBoxData.posNeuByOthers += 1
+    //           line.posNeuByOthers = true
+    //         }
+    //       } else {
+    //         if ((line.moments_positive + line.moments_negative > 5) && (line.moments_positive >= 2 * line.moments_negative)) {
+    //           this.debriefingBoxData.negPosByOthers += 1  
+    //           line.negPosByOthers = true
+    //         } else if ((line.moments_positive + line.moments_negative > 5) && (line.moments_positive * 2 <= line.moments_negative)) {
+    //           this.debriefingBoxData.negNegByOthers += 1  
+    //           line.negNegByOthers = true
+    //         } else {
+    //           this.debriefingBoxData.negNeuByOthers += 1
+    //           line.negNeuByOthers = true
+    //         }
+    //       }
+    //     } else {
+    //       if ((line.moments_positive + line.moments_negative > 5) && (line.moments_positive >= 2 * line.moments_negative)) {
+    //         this.debriefingBoxData.neuPosByOthers += 1
+    //         line.neuPosByOthers = true
+    //       } else if ((line.moments_positive + line.moments_negative > 5) && (line.moments_positive * 2 <= line.moments_negative)) {
+    //         this.debriefingBoxData.neuNegByOthers += 1
+    //         line.neuNegByOthers = true
+    //       } else {
+    //         this.debriefingBoxData.neuNeuByOthers += 1
+    //         line.neuNeuByOthers = true
+    //       }
+    //     }
+    //   })
+
+    //   return obj
+    // },
     ...mapState({
       token: state => state.token,
       dataset: state => state.dataset,
@@ -85,6 +149,10 @@ export default {
   methods: {
     onNextClick: function () {
       this.$router.push('/Survey')
+    },
+    onAnnotateMoreClick: function () {
+      this.$store.commit('setInitialTime', this.$store.state.finishTime)
+      this.$router.push('/Annotate')
     },
     getClass: function (line) {
       // if (line.posPosByOthers) {
@@ -203,6 +271,9 @@ export default {
       console.log(err)
     }
     this.lines.forEach(line => {
+      if (line.starttime > this.$store.state.finishTime || line.starttime < this.$store.state.initialTime) {
+        return
+      }
       const myMoment = this.moments.find((m) => {
         return m.line.id === line.id
       })
@@ -271,5 +342,7 @@ export default {
   rgba(255, 255, 255, 0.25) 0, rgba(255, 255, 255, 0.25) 90%, 
   transparent 0, transparent);
 }
-
+.button-margin {
+  margin-right: 1em;
+}
 </style>

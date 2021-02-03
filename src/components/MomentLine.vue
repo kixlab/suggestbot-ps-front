@@ -16,7 +16,7 @@
           {{moment.reason}} - {{moment.possible_comment}}
         </v-list-item-subtitle>
       </v-list-item-content>
-      <v-list-item-action v-if="!revising">
+      <v-list-item-action v-if="!revising && !moment.disableDelete">
         <v-btn icon @click="onRemoveClick">
           <v-icon>mdi-delete</v-icon>
         </v-btn>

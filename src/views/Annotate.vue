@@ -21,7 +21,7 @@
     </v-col>
     <v-col md="7">
       <div ref="scrollBox" class="scroll-box">
-        <v-btn v-if="initialTime > 0" block @click="seePriorLines" class="primary">
+        <v-btn v-if="initialTime > 0" block @click="seePriorLines" depressed class="primary">
           See previous lines
         </v-btn>
         <v-list>
@@ -31,13 +31,14 @@
               :line="l"
               :idx="idx"
               :selected="idx === selectedItem"
+              :disabled="l.starttime < $store.state.initialTime"
               @close-moment-box="closeMomentBox"
               @moment-saved="onMomentSaved"
               @line-click="openMomentBox">
             </line-unit>
           </v-list-item-group>
         </v-list>
-        <v-btn v-if="seeMore && lines[lines.length - 1].starttime > currentTime * 2" block @click="seeMoreLines" class="primary">
+        <v-btn v-if="seeMore && lines[lines.length - 1].starttime > currentTime * 2" depressed block @click="seeMoreLines" class="primary">
           See more
         </v-btn>
       </div>
@@ -60,7 +61,7 @@
         ></moment-box>
     </v-col>
     <v-col md="12" class="d-flex flex-row-reverse" v-if="(seeMore || filteredLines.length === lines.length) && (moments.length >= 5)">
-      <v-btn color="green" @click="onNextClick">NEXT</v-btn>
+      <v-btn color="primary" @click="onNextClick">NEXT</v-btn>
     </v-col>
   </v-row>
 </template>
@@ -83,7 +84,7 @@ export default {
       lines: [],
       moments: [],
       isMomentBoxShown: false,
-      initialTime: 0,
+      initialTime: this.$store.state.initialTime || 0,
       currentMoment: 0,
       selectedItem: undefined,
       timerHandle: 0,
@@ -116,7 +117,7 @@ export default {
     },
     filteredLines: function () {
       return this.lines.filter(l => {
-        return (l.starttime <= this.currentTime * 2) && (this.initialTime <= l.starttime)
+        return (l.starttime <= this.$store.state.initialTime + this.currentTime * 2) && (this.initialTime <= l.starttime)
       })
     },
     positives: function () {
@@ -173,7 +174,7 @@ export default {
       })
     },
     seePriorLines: async function () {
-      this.initialTime -= 300 
+      this.initialTime -= this.$store.state.windowSize
       const dataset = this.dataset
       axios.post(`${process.env.VUE_APP_API_URL}/logs/`, {
         event_name: 'SeePriorLines',
@@ -249,7 +250,8 @@ export default {
         }
       })
       console.log(res)
-      this.$router.push('/Survey')
+      this.$store.commit('setFinishTime', this.$store.state.initialTime + Math.floor(this.currentTime) * 2)
+      this.$router.push('/Debriefing')
     },
     onRemoveClick: async function (id) {
       const momentIdx = this.moments.findIndex((o) => {
@@ -302,6 +304,7 @@ export default {
       // console.log(lines)
       this.lines = lines.data
       this.moments = moments.data
+      this.moments.forEach(m => m.disableDelete = true)
       this.startTimer()
     } catch (err) {
       console.log(err)

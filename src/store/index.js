@@ -12,7 +12,8 @@ export default new Vuex.Store({
     turkerId: '',
     taskType: '',
     initialTime: 0,
-    windowSize: 120
+    windowSize: 120,
+    finishTime: 0
   },
   mutations: {
     setToken(state, token) {
@@ -32,6 +33,9 @@ export default new Vuex.Store({
     },
     setInitialTime(state, initialTime) {
       state.initialTime = initialTime
+    },
+    setFinishTime(state, finishTime) {
+      state.finishTime = finishTime
     }
   },
   actions: {

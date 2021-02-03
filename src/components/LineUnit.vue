@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-list-item ripple @click="onLineClick">
+    <v-list-item ripple @click="onLineClick" :disabled="disabled">
       <template>
         <v-list-item-avatar>
           <v-avatar
@@ -49,10 +49,14 @@ export default {
     line: Object,
     idx: Number,
     selected: Boolean,
-    interactive: Boolean
+    interactive: Boolean,
+    disabled: Boolean
   },
   methods: {
     onLineClick: function () {
+      // if (this.disabled) {
+      //   return
+      // }
       this.$emit('line-click', this.line.starttime, this.idx)
     },
     onMomentSaved: function (data) {
