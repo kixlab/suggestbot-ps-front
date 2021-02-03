@@ -12,8 +12,8 @@
         :value="moments.length / 5 * 100">
         
         <template v-slot:default="{ value }">
-          <span v-if="value < 100" class="white--text text--darken-3 font-weight-bold">{{value  * 5 / 100}} / 5 annotations done!</span>
-          <span v-else-if="value >= 100" class="white--text text--darken-3 font-weight-bold">{{value  * 5 / 100}} annotations done!</span>
+          <span v-if="value < 100" class="white--text text--darken-3 font-weight-bold">{{Math.floor(value  * 5 / 100)}} / 5 annotations done!</span>
+          <span v-else-if="value >= 100" class="white--text text--darken-3 font-weight-bold">{{Math.floor(value  * 5 / 100)}} annotations done!</span>
 
         </template>
       </v-progress-linear>
@@ -32,6 +32,7 @@
               :idx="idx"
               :selected="idx === selectedItem"
               :disabled="l.starttime < $store.state.initialTime"
+              :class="colors[l.result]"
               @close-moment-box="closeMomentBox"
               @moment-saved="onMomentSaved"
               @line-click="openMomentBox">
@@ -130,6 +131,19 @@ export default {
         return m.direction === 'NEGATIVE'
       }).length
     },
+    colors: function () {
+      return {
+        posPosByOthers: 'light-green lighten-4',
+        posNegByOthers: 'light-green lighten-4',
+        posNeuByOthers: 'light-green lighten-4',
+        negPosByOthers: 'red lighten-4',
+        negNegByOthers: 'red lighten-4',
+        negNeuByOthers: 'red lighten-4',
+        neuPosByOthers: '',
+        neuNegByOthers: '',
+        neuNeuByOthers: ''
+      }
+    },
     ...mapState({
       token: state => state.token,
       dataset: state => state.dataset,
@@ -192,6 +206,26 @@ export default {
     },
     onMomentSaved: function (moment) {
       this.moments.push(moment)
+      const line = this.lines.find(line => {
+        return line.id === moment.line.id
+      })
+      if (moment.direction === 'POSITIVE') {
+        if ((line.moments_positive + line.moments_negative > 5) && (line.moments_positive >= 2 * line.moments_negative)) {
+          line.result = 'posPosByOthers'
+        } else if ((line.moments_positive + line.moments_negative > 5) && (line.moments_positive * 2 <= line.moments_negative)) {
+          line.result = 'posNegByOthers'
+        } else {
+          line.result = 'posNeuByOthers'
+        }
+      } else {
+        if ((line.moments_positive + line.moments_negative > 5) && (line.moments_positive >= 2 * line.moments_negative)) {
+          line.result = 'negPosByOthers'
+        } else if ((line.moments_positive + line.moments_negative > 5) && (line.moments_positive * 2 <= line.moments_negative)) {
+          line.result = 'negNegByOthers'
+        } else {
+          line.result = 'negNeuByOthers'
+        }
+      }
       this.isMomentBoxShown = false
       this.currentMoment = 0
       this.selectedItem = undefined
@@ -302,9 +336,44 @@ export default {
       })
       // this.$store.commit('setDataset', 'ES2016a')
       // console.log(lines)
-      this.lines = lines.data
+
       this.moments = moments.data
       this.moments.forEach(m => m.disableDelete = true)
+
+      this.lines = lines.data
+      this.lines.forEach(line => {
+        const myMoment = this.moments.find((m) => {
+          return m.line.id === line.id
+        })
+
+      if (myMoment) {
+        if (myMoment.direction === 'POSITIVE') {
+          if ((line.moments_positive + line.moments_negative > 5) && (line.moments_positive >= 2 * line.moments_negative)) {
+            line.result = 'posPosByOthers'
+          } else if ((line.moments_positive + line.moments_negative > 5) && (line.moments_positive * 2 <= line.moments_negative)) {
+            line.result = 'posNegByOthers'
+          } else {
+            line.result = 'posNeuByOthers'
+          }
+        } else {
+          if ((line.moments_positive + line.moments_negative > 5) && (line.moments_positive >= 2 * line.moments_negative)) {
+            line.result = 'negPosByOthers'
+          } else if ((line.moments_positive + line.moments_negative > 5) && (line.moments_positive * 2 <= line.moments_negative)) {
+            line.result = 'negNegByOthers'
+          } else {
+            line.result = 'negNeuByOthers'
+          }
+        }
+      } else {
+        if ((line.moments_positive + line.moments_negative > 5) && (line.moments_positive >= 2 * line.moments_negative)) {
+          line.result = 'neuPosByOthers'
+        } else if ((line.moments_positive + line.moments_negative > 5) && (line.moments_positive * 2 <= line.moments_negative)) {
+          line.result = 'neuNegByOthers'
+        } else {
+          line.result = 'neuNeuByOthers'
+        }
+      }
+      })
       this.startTimer()
     } catch (err) {
       console.log(err)

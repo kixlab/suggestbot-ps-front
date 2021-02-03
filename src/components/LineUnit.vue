@@ -9,14 +9,20 @@
           </v-avatar>
         </v-list-item-avatar>
         <v-list-item-content>
-          <v-progress-linear
-            v-if="(line.moments_positive + line.moments_negative) >= 5"
-            color="green"
-            background-color="red"
-            :value="line.moments_positive / (line.moments_positive + line.moments_negative) * 100"
-        ></v-progress-linear>
           <v-list-item-subtitle>{{formattedStartTime}} - {{formattedEndTime}}</v-list-item-subtitle>
           {{line.text}}
+          <template v-if="!line.result.startsWith('neu')">
+            <v-divider/>
+            <v-progress-linear
+              v-if="(line.moments_positive + line.moments_negative) >= 5"
+              color="green"
+              background-color="red"
+              :value="line.moments_positive / (line.moments_positive + line.moments_negative) * 100"
+            ></v-progress-linear>
+            <span class="text-body-2 black--text">
+              {{message[line.result]}}
+            </span>
+          </template>
         </v-list-item-content>
 
       </template>
@@ -91,6 +97,23 @@ export default {
       const seconds = Math.round((this.line.endtime % 60) * 100 ) / 100
 
       return `${minutes}:${seconds >= 10 ? seconds : '0' + seconds}`
+    },
+    message: function () {
+                    // {{line.moments_positive}} / {{line.moments_positive + line.moments_negative}} fellow workers agreed with your annotation!
+      const countPos = this.line.moments_positive
+      const countNeg = this.line.moments_negative
+      const count = countPos + countNeg
+      return {
+        posPosByOthers: `${countPos} / ${count} workers agreed with you!`,
+        posNegByOthers: `While ${countPos} / ${count} workers agreed with you, your contribution would give valuable insight!`,
+        posNeuByOthers: `${countPos} / ${count} workers agreed with you. Your annotation would be valuable for the final decision!`,
+        negPosByOthers: `While ${countPos} / ${count} workers agreed with you, your contribution would give valuable insight!`,
+        negNegByOthers: `${countNeg} out of ${count} workers agreed with you!`,
+        negNeuByOthers: `${countNeg} / ${count} workers agreed with you. Your annotation would be valuable for the final decision!`,
+        neuPosByOthers: '',
+        neuNegByOthers: '',
+        neuNeuByOthers: ''
+      }
     }
   }
 }
