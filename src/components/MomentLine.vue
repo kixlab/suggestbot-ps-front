@@ -8,6 +8,9 @@
         </v-avatar>
       </v-list-item-avatar>
       <v-list-item-content>
+        <v-progress-linear
+          v-if="revising"
+        ></v-progress-linear>
         <v-list-item-title class="text-truncate">
           {{moment.direction}} - "{{moment.line.text}}"
            <!-- to {{moment.affected_speaker}} -->

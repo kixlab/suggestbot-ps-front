@@ -25,13 +25,13 @@
           <tbody>
             <tr>
               <th>Labeled as <br />negative influence</th>
-              <td class="blue lighten-4">
+              <td :class="colors['negNegByOthers']">
                 {{negNegByOthers}}
               </td>
-              <td class="red lighten-4">
+              <td :class="colors['negNeuByOthers']">
                 {{negNeuByOthers}}
               </td>
-              <td>
+              <td :class="colors['negPosByOthers']">
                 {{negPosByOthers}}
               </td>
             </tr>
@@ -39,13 +39,13 @@
               <th>
                 Not labeled 
               </th>
-              <td class="lime lighten-4">
+              <td :class="colors['neuNegByOthers']">
                 {{neuNegByOthers}}
               </td>
-              <td>
+              <td :class="colors['neuNeuByOthers']">
                 {{neuNeuByOthers}}
               </td>
-              <td>
+              <td :class="colors['neuPosByOthers']">
                 {{neuPosByOthers}}
               </td>
             </tr>
@@ -53,13 +53,13 @@
               <th>
                 Labeled as <br /> positive influence
               </th>
-              <td class="lime lighten-4">
+              <td :class="colors['posNegByOthers']">
                 {{posNegByOthers}}
               </td>
-              <td>
+              <td :class="colors['posNeuByOthers']">
                 {{posNeuByOthers}}
               </td>
-              <td>
+              <td :class="colors['posPosByOthers']">
                 {{posPosByOthers}}
               </td>
             </tr>
@@ -83,6 +83,21 @@ export default {
     posNegByOthers: Number,
     posNeuByOthers: Number,
     posPosByOthers: Number
+  },
+  computed: {
+    colors: function () {
+      return {
+        posPosByOthers: 'light-green lighten-4',
+        posNegByOthers: 'light-green lighten-4',
+        posNeuByOthers: 'light-green lighten-4',
+        negPosByOthers: 'red lighten-4',
+        negNegByOthers: 'red lighten-4',
+        negNeuByOthers: 'red lighten-4',
+        neuPosByOthers: '',
+        neuNegByOthers: '',
+        neuNeuByOthers: ''
+      }
+    }
   }
 }
 </script>

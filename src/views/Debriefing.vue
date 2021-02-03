@@ -83,6 +83,19 @@ export default {
         return (l.starttime < this.$store.state.finishTime) && (l.starttime >= this.$store.state.initialTime)
       })
     },
+    colors: function () {
+      return {
+        posPosByOthers: 'light-green lighten-4',
+        posNegByOthers: 'red lighten-4',
+        posNeuByOthers: '',
+        negPosByOthers: 'light-green lighten-4',
+        negNegByOthers: 'red lighten-4',
+        negNeuByOthers: '',
+        neuPosByOthers: 'light-green lighten-4',
+        neuNegByOthers: 'red lighten-4',
+        neuNeuByOthers: ''
+      }
+    },
     // debriefingBoxData: function () {
     //   const obj = {
     //     negNegByOthers: 0,
@@ -175,23 +188,23 @@ export default {
       //   return ''
       // }
       if (line.posPosByOthers) {
-        return 'light-green lighten-4' // deep light-green
+        return this.colors['posPosByOthers'] // deep light-green
       } else if (line.posNegByOthers) {
-        return 'red lighten-4' // deep red stripe
+        return this.colors['posNegByOthers'] // deep red stripe
       } else if (line.posNeuByOthers) {
-        return 'light-green lighten-4'
+        return this.colors['posNeuByOthers']
       } else if (line.negPosByOthers) {
-        return 'light-green lighten-4'
+        return this.colors['negPosByOthers']
       } else if (line.negNegByOthers) {
-        return 'red lighten-4' // deep red
+        return this.colors['negNegByOthers']
       } else if (line.negNeuByOthers) {
-        return 'red lighten-4' // light red
+        return this.colors['negNeuByOthers']
       } else if (line.neuPosByOthers) {
-        return 'light-green lighten-4' // deep light-green stripe
+        return this.colors['neuPosByOthers']
       } else if (line.neuNegByOthers) {
-        return 'red lighten-4' // deep red stripe
+        return this.colors['neuNegByOthers']
       } else {
-        return ''
+        return this.colors['neuNeuByOthers']
       }
     }
       // }
