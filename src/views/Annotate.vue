@@ -32,7 +32,6 @@
               :idx="idx"
               :selected="idx === selectedItem"
               :disabled="l.starttime < $store.state.initialTime"
-              :class="colors[l.result]"
               @close-moment-box="closeMomentBox"
               @moment-saved="onMomentSaved"
               @line-click="openMomentBox">

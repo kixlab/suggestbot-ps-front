@@ -8,27 +8,29 @@
             {{line.speaker}}
           </v-avatar>
         </v-list-item-avatar>
-        <v-list-item-content >
-          <div :class="`${interactive? 'chat-bubble' : ''} ${line.speaker}`">
-            <v-list-item-subtitle>{{formattedStartTime}} - {{formattedEndTime}}</v-list-item-subtitle>
-            {{line.text}}
-          </div>
-          <template v-if="!line.result.startsWith('neu')">
-            <v-divider/>
-            <v-progress-linear
-              v-if="(line.moments_positive + line.moments_negative) >= 5"
-              color="green"
-              background-color="red"
-              :value="line.moments_positive / (line.moments_positive + line.moments_negative) * 100"
-            ></v-progress-linear>
-            <span class="text-body-2 black--text">
-              {{message[line.result]}}
-            </span>
-          </template>
+        <v-list-item-content :class="`${interactive? 'chat-bubble' : ''} ${line.speaker}`">
+          <v-list-item-subtitle>{{formattedStartTime}} - {{formattedEndTime}}</v-list-item-subtitle>
+          {{line.text}}
         </v-list-item-content>
-
       </template>
     </v-list-item>
+    <div v-if="!line.result.startsWith('neu')" class="feedback">
+      <v-progress-linear
+        rounded
+        v-if="(line.moments_positive + line.moments_negative) >= 5"
+        color="green"
+        background-color="red"
+        height="20"
+        :value="line.moments_positive / (line.moments_positive + line.moments_negative) * 100"
+      >
+        <template v-slot:default>
+          <span class="white--text">{{message[line.result]}}</span>
+        </template>
+      </v-progress-linear>
+      <span class="text-body-2 black--text">
+        
+      </span>
+    </div>
     <!-- <v-divider>
     </v-divider> -->
     <div v-if="interactive">
@@ -160,17 +162,13 @@ export default {
 
 }
 
-.v-list-item__content {
-  padding: 0;
-}
-
 .chat-bubble {
   // border: 2px solid #666666;
-  padding-top: 0.75em;
-  padding-bottom: 0.75em;
+  margin-top: 0.25em;
+  margin-bottom: 0.25em;
   border-radius: 0.5em;
-  margin-top: 0.5em;
-  padding-left: 1.5em;
+  // margin-bottom: 0.5em;
+  padding-left: 1em;
   // background-color:;
   // box-shadow: 0 0 6px #B2B2B2;
   &.A {
@@ -203,7 +201,7 @@ export default {
   content: ' ';
   height: 0em;
   width: 0em;
-  padding: 0.7em;
+  padding: 0.6em;
   position: absolute;
   left: 4em;
   // background-color: ;
@@ -213,6 +211,9 @@ export default {
   -ms-transform: rotate(45deg);
   -webkit-transform: rotate(45deg);
   // box-shadow: 2px -2px 2px 0 #B2B2B2;
+}
 
+.feedback {
+  padding: 0 1em 1em 4.5em;
 }
 </style>
