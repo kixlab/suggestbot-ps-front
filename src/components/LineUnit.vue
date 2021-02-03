@@ -11,8 +11,8 @@
         <v-list-item-content>
           <v-list-item-subtitle>{{formattedStartTime}} - {{formattedEndTime}}</v-list-item-subtitle>
           {{line.text}}
-          <template v-if="!line.result.startsWith('neu')">
-            <v-divider/>
+          <template v-if="!line.result.startsWith('neu') || disabled">
+            <v-divider v-if="(line.moments_positive + line.moments_negative) >= 5"/>
             <v-progress-linear
               v-if="(line.moments_positive + line.moments_negative) >= 5"
               color="green"
@@ -115,9 +115,9 @@ export default {
         negPosByOthers: `While ${countPos} / ${count} workers agreed with you, your contribution would give valuable insight!`,
         negNegByOthers: `${countNeg} out of ${count} workers agreed with you!`,
         negNeuByOthers: `${countNeg} / ${count} workers agreed with you. Your annotation would be valuable for the final decision!`,
-        neuPosByOthers: '',
-        neuNegByOthers: '',
-        neuNeuByOthers: ''
+        neuPosByOthers: `Reinforce: ${countPos} / ${count}, Harm: ${countNeg} / ${count}`,
+        neuNegByOthers: `Reinforce: ${countPos} / ${count}, Harm: ${countNeg} / ${count}`,
+        neuNeuByOthers: `Reinforce: ${countPos} / ${count}, Harm: ${countNeg} / ${count}`
       }
     }
   }

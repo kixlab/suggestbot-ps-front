@@ -31,7 +31,7 @@
               :line="l"
               :idx="idx"
               :selected="idx === selectedItem"
-              :disabled="l.starttime < $store.state.initialTime"
+              :disabled="seeResults"
               :class="colors[l.result]"
               @close-moment-box="closeMomentBox"
               @moment-saved="onMomentSaved"
@@ -39,7 +39,7 @@
             </line-unit>
           </v-list-item-group>
         </v-list>
-        <v-btn v-if="seeMore && lines[lines.length - 1].starttime > currentTime * 2" depressed block @click="seeMoreLines" class="primary">
+        <v-btn v-if="!seeResults && seeMore && lines[lines.length - 1].starttime > currentTime * 2" depressed block @click="seeMoreLines" class="primary">
           See more
         </v-btn>
       </div>
@@ -63,6 +63,7 @@
     </v-col>
     <v-col md="12" class="d-flex flex-row-reverse" v-if="(seeMore || filteredLines.length === lines.length) && (moments.length >= 5)">
       <v-btn color="primary" @click="onNextClick">NEXT</v-btn>
+      <v-btn color="primary" class="button-margin" v-if="!seeResults" @click="onSeeOthersAnnotationClick">SEE OTHERS' ANNOTATIONS</v-btn>
     </v-col>
   </v-row>
 </template>
@@ -92,7 +93,8 @@ export default {
       currentTime: 0,
       startTime: new Date(),
       touchBottom: false,
-      seeMore: false
+      seeMore: false,
+      seeResults: false
     }
   },
   watch: {
@@ -206,24 +208,25 @@ export default {
     },
     onMomentSaved: function (moment) {
       this.moments.push(moment)
-      const line = this.lines.find(line => {
+      const lineIdx = this.lines.findIndex(line => {
         return line.id === moment.line.id
       })
+      const line = this.lines[lineIdx]
       if (moment.direction === 'POSITIVE') {
         if ((line.moments_positive + line.moments_negative > 5) && (line.moments_positive >= 2 * line.moments_negative)) {
-          line.result = 'posPosByOthers'
+          this.$set(this.lines[lineIdx], 'result', 'posPosByOthers')
         } else if ((line.moments_positive + line.moments_negative > 5) && (line.moments_positive * 2 <= line.moments_negative)) {
-          line.result = 'posNegByOthers'
+          this.$set(this.lines[lineIdx], 'result', 'posNegByOthers')
         } else {
-          line.result = 'posNeuByOthers'
+          this.$set(this.lines[lineIdx], 'result', 'posNeuByOthers')
         }
       } else {
         if ((line.moments_positive + line.moments_negative > 5) && (line.moments_positive >= 2 * line.moments_negative)) {
-          line.result = 'negPosByOthers'
+          this.$set(this.lines[lineIdx], 'result', 'negPosByOthers')
         } else if ((line.moments_positive + line.moments_negative > 5) && (line.moments_positive * 2 <= line.moments_negative)) {
-          line.result = 'negNegByOthers'
+          this.$set(this.lines[lineIdx], 'result', 'negNegByOthers')
         } else {
-          line.result = 'negNeuByOthers'
+          this.$set(this.lines[lineIdx], 'result', 'negNeuByOthers')
         }
       }
       this.isMomentBoxShown = false
@@ -269,6 +272,9 @@ export default {
         this.currentMoment = 0
       }
       // this.$refs.momentBox.scrollIntoView()
+    },
+    onSeeOthersAnnotationClick: function () {
+      this.seeResults = true
     },
     onNextClick: async function () {
       const res = await axios.post(`${process.env.VUE_APP_API_URL}/logs/`, {
@@ -340,8 +346,7 @@ export default {
       this.moments = moments.data
       this.moments.forEach(m => m.disableDelete = true)
 
-      this.lines = lines.data
-      this.lines.forEach(line => {
+      lines.data.forEach(line => {
         const myMoment = this.moments.find((m) => {
           return m.line.id === line.id
         })
@@ -374,6 +379,8 @@ export default {
         }
       }
       })
+      this.lines = lines.data
+
       this.startTimer()
     } catch (err) {
       console.log(err)
@@ -386,5 +393,8 @@ export default {
 .scroll-box 
   height: 70vh
   overflow-y: scroll
+
+.button-margin 
+  margin-right: 1em
 
 </style>
