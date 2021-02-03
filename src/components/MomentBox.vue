@@ -1,5 +1,5 @@
 <template>
-  <v-card class="moment--box">
+  <v-card class="moment--box" shaped>
     <v-card-title style="padding-bottom: 0;">
       <span v-if="plain">Annotate on </span>
       <span v-else-if="moderating">Please give feedback on </span>

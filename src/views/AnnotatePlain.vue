@@ -37,7 +37,7 @@
         @moment-saved="onMomentSaved"
         :moment="currentMoment"
         :currentLine="selectedLine"
-        type="reasoning"
+        type="moderating"
         ></moment-box>
     </v-col>
     <v-col md="12" class="d-flex flex-row-reverse" v-if="touchBottom && (moments.length >= 5)">
@@ -118,8 +118,6 @@ export default {
         this.isMomentBoxShown = false
         this.currentMoment = 0
       }
-
-      console.log('aaaa')
     },
     seeMoreLines: async function () {
       if (this.lines[this.lines.length - 1].endtime < (this.currentTime + this.$store.state.windowSize * 1.5)) {

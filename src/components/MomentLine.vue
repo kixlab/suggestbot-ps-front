@@ -68,7 +68,16 @@ export default {
       } else {
         return 'cyan'
       }
-    }
+    }, 
+    reasoning: function () {
+      return this.type === 'reasoning'
+    },
+    moderating: function () {
+      return this.type === 'moderating'
+    },
+    roletaking: function () {
+      return this.type === 'roletaking'
+    },
   }
 }
 </script>

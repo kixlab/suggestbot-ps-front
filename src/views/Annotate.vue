@@ -27,7 +27,7 @@
         <v-list>
           <v-list-item-group v-model="selectedItem">
             <line-unit v-for="(l, idx) in filteredLines" :key="idx"
-              :interactive="false"
+              :interactive="true"
               :line="l"
               :idx="idx"
               :selected="idx === selectedItem"
@@ -51,7 +51,7 @@
         @remove-click="onRemoveClick">
       </moment-list>
 
-      <moment-box
+      <!-- <moment-box
         :plain="true"
         v-if="isMomentBoxShown"
         @close-moment-box="closeMomentBox"
@@ -59,7 +59,7 @@
         :moment="currentMoment"
         :currentLine="selectedLine"
         type="reasoning"
-        ></moment-box>
+        ></moment-box> -->
     </v-col>
     <v-col md="12" class="d-flex flex-row-reverse" v-if="(seeMore || filteredLines.length === lines.length) && (moments.length >= 5)">
       <v-btn color="primary" @click="onNextClick">NEXT</v-btn>
@@ -69,14 +69,14 @@
 
 <script>
 import { mapState } from 'vuex'
-import MomentBox from '../components/MomentBox.vue'
+// import MomentBox from '../components/MomentBox.vue'
 import LineUnit from '../components/LineUnit.vue'
 import MomentList from '../components/MomentList.vue'
 import axios from 'axios'
 export default {
   name: 'Annotate',
   components: {
-    MomentBox,
+    // MomentBox,
     LineUnit,
     MomentList
   },
@@ -159,10 +159,10 @@ export default {
       this.timerHandle = window.setInterval(function() {
         const now = new Date()
         this.currentTime += (now - this.startTime) / 1000
-        this.startTime = now
         const container = this.$refs.scrollBox
         // console.log(container)
         container.scrollTop = container.scrollHeight
+        this.startTime = now
 
       }.bind(this), 500)
     },

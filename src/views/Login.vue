@@ -44,7 +44,7 @@ export default {
     onNextClick: async function () {
       this.err = false
       this.msg = ''
-      const taskType = 'Reason-Interactive'
+      const taskType = 'Moderate-Interactive'
       const id = `${this.id}-${this.$route.params.dataset}-${taskType}`
       console.log(id)
       console.log(process.env.VUE_APP_API_URL)
@@ -61,7 +61,7 @@ export default {
         this.$store.commit('setUsername', result.username)
         this.$store.commit('setTurkerId', result.turker_id)
         this.$store.commit('setTaskType', taskType)
-        this.$router.push('/Tutorial')
+        this.$router.push('/Scenario')
       } catch (err) {
         console.log(err.response)
         if (err.response.status === 403) {

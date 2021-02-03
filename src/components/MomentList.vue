@@ -10,6 +10,7 @@
         <moment-line v-for="m in moments" :key="m.pk"
           :moment="m"
           :revising="revising"
+          :type="'moderating'"
           @remove-click="onRemoveClick">
         </moment-line>
       </v-list>
