@@ -8,9 +8,11 @@
             {{line.speaker}}
           </v-avatar>
         </v-list-item-avatar>
-        <v-list-item-content :class="`${interactive? 'chat-bubble' : ''} ${line.speaker}`">
-          <v-list-item-subtitle>{{formattedStartTime}} - {{formattedEndTime}}</v-list-item-subtitle>
-          {{line.text}}
+        <v-list-item-content >
+          <div :class="`${interactive? 'chat-bubble' : ''} ${line.speaker}`">
+            <v-list-item-subtitle>{{formattedStartTime}} - {{formattedEndTime}}</v-list-item-subtitle>
+            {{line.text}}
+          </div>
           <template v-if="!line.result.startsWith('neu')">
             <v-divider/>
             <v-progress-linear
@@ -158,13 +160,17 @@ export default {
 
 }
 
+.v-list-item__content {
+  padding: 0;
+}
+
 .chat-bubble {
   // border: 2px solid #666666;
-  margin-top: 0.25em;
-  margin-bottom: 0.25em;
+  padding-top: 0.75em;
+  padding-bottom: 0.75em;
   border-radius: 0.5em;
-  // margin-bottom: 0.5em;
-  padding-left: 1em;
+  margin-top: 0.5em;
+  padding-left: 1.5em;
   // background-color:;
   // box-shadow: 0 0 6px #B2B2B2;
   &.A {
