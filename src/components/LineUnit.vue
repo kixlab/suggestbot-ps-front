@@ -121,9 +121,9 @@ export default {
         negPosByOthers: `While ${countPos} / ${count} workers agreed with you, your contribution would give valuable insight!`,
         negNegByOthers: `${countNeg} out of ${count} workers agreed with you!`,
         negNeuByOthers: `${countNeg} / ${count} workers agreed with you. Your annotation would be valuable for the final decision!`,
-        neuPosByOthers: '',
-        neuNegByOthers: '',
-        neuNeuByOthers: ''
+        neuPosByOthers: `Reinforce: ${countPos} / ${count}, Harm: ${countNeg} / ${count}`,
+        neuNegByOthers: `Reinforce: ${countPos} / ${count}, Harm: ${countNeg} / ${count}`,
+        neuNeuByOthers: `Reinforce: ${countPos} / ${count}, Harm: ${countNeg} / ${count}`
       }
     }
   }
