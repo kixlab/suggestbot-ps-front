@@ -17,11 +17,16 @@
               v-if="(line.moments_positive + line.moments_negative) >= 5"
               color="green"
               background-color="red"
+              height="20"
               :value="line.moments_positive / (line.moments_positive + line.moments_negative) * 100"
-            ></v-progress-linear>
-            <span class="text-body-2 black--text">
-              {{message[line.result]}}
-            </span>
+            >
+              <template v-slot:default>
+                <span class="text-body-2 white--text">
+                  {{message[line.result]}}
+                </span>
+              </template>
+            </v-progress-linear>
+
           </template>
         </v-list-item-content>
 

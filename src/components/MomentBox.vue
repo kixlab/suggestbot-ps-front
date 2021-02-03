@@ -1,5 +1,5 @@
 <template>
-  <v-card class="moment--box">
+  <v-card class="moment--box" shaped>
     <v-card-title style="padding-bottom: 0;">
       <span v-if="plain">Annotate on </span>
       <span v-else-if="moderating">Please give feedback on </span>
@@ -120,7 +120,7 @@
               </v-text-field>
             </template>
             <template v-if="long">
-              <span class="red--text">Please respond to the question with more than 15 characters.</span>
+              <span class="red--text">Please respond to the question with more than 20 characters.</span>
             </template>
           </v-col>
         </v-slide-y-transition>
@@ -212,8 +212,8 @@ export default {
         if ((this.reason === 'Other')) {
           this.reason = this.reasonOther
         } 
-        if ((this.reasoning && ((this.reason.length < 10) || (this.possibleComment.length < 15))) 
-          || (this.moderating && ((this.reason.length < 10) || (this.possibleComment.length < 15))) 
+        if ((this.reasoning && ((this.reason.length < 10) || (this.possibleComment.length < 20))) 
+          || (this.moderating && ((this.reason.length < 10) || (this.possibleComment.length < 20))) 
           || (this.roletaking && (this.possibleLine.length < 15))) {
             console.log('aaaa')
             this.long = true
