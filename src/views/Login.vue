@@ -44,7 +44,7 @@ export default {
     onNextClick: async function () {
       this.err = false
       this.msg = ''
-      const taskType = 'Moderate-Interactive'
+      const taskType = 'Moderate-Debriefing'
       const id = `${this.id}-${this.$route.params.dataset}-${taskType}`
       console.log(id)
       console.log(process.env.VUE_APP_API_URL)

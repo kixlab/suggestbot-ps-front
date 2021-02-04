@@ -8,23 +8,22 @@
             {{line.speaker}}
           </v-avatar>
         </v-list-item-avatar>
-        <v-list-item-content :class="`${interactive? 'chat-bubble' : ''} ${line.speaker}`">
+        <v-list-item-content :class="`${interactive? 'chat-bubble' : ''} ${line.speaker} ${(!line.result.startsWith('neu') || (disabled && (line.moments_positive + line.moments_negative) >= 2)) ? 'striped' : ''}`">
           <v-list-item-subtitle>{{formattedStartTime}} - {{formattedEndTime}}</v-list-item-subtitle>
           {{line.text}}
         </v-list-item-content>
       </template>
     </v-list-item>
-    <div v-if="!line.result.startsWith('neu')" class="feedback">
+    <div v-if="(!line.result.startsWith('neu') || (disabled && (line.moments_positive + line.moments_negative) >= 2)) " class="feedback">
       <v-progress-linear
         rounded
-        v-if="(line.moments_positive + line.moments_negative) >= 5"
         color="green"
         background-color="red"
-        height="20"
+        height="25"
         :value="line.moments_positive / (line.moments_positive + line.moments_negative) * 100"
       >
         <template v-slot:default>
-          <span class="white--text text-body-2">{{message[line.result]}}</span>
+          <span class="white--text text-caption">{{message[line.result]}}</span>
         </template>
       </v-progress-linear>
       <span class="text-body-2 black--text">
@@ -117,10 +116,10 @@ export default {
       return {
         posPosByOthers: `${countPos} / ${count} workers agreed with you that this line reinforces the psychological safety!`,
         posNegByOthers: `While ${countPos} / ${count} workers agreed with you, your contribution still gives a valuable insight!`,
-        posNeuByOthers: `${countPos} / ${count} workers agreed with you. Your annotation would be critical for determining the final label!`,
+        posNeuByOthers: `${countPos} / ${count} workers agreed with you. Your annotation would be critical to decide the final label!`,
         negPosByOthers: `While ${countNeg} / ${count} workers agreed with you, your contribution still gives a valuable insight!`,
         negNegByOthers: `${countNeg} out of ${count} workers agreed with you that this line harms the psychological safety!`,
-        negNeuByOthers: `${countNeg} / ${count} workers agreed with you. Your annotation would be critical for determining the final label!`,
+        negNeuByOthers: `${countNeg} / ${count} workers agreed with you. Your annotation would be critical to decide the final label!`,
         neuPosByOthers: `Reinforce: ${countPos} / ${count}, Harm: ${countNeg} / ${count}`,
         neuNegByOthers: `Reinforce: ${countPos} / ${count}, Harm: ${countNeg} / ${count}`,
         neuNeuByOthers: `Reinforce: ${countPos} / ${count}, Harm: ${countNeg} / ${count}`
@@ -215,5 +214,25 @@ export default {
 
 .feedback {
   padding: 0 1em 1em 4.5em;
+}
+
+.striped {
+  background-image: linear-gradient(135deg, 
+  rgba(255, 255, 255, 0.25) 0%, 
+  transparent 0, transparent 10%, 
+    rgba(255, 255, 255, 0.25) 0, rgba(255, 255, 255, 0.25) 20%, 
+
+  transparent 0, transparent 30%, 
+    rgba(255, 255, 255, 0.25) 0, rgba(255, 255, 255, 0.25) 40%, 
+
+  transparent 0, transparent 50%, 
+    rgba(255, 255, 255, 0.25) 0, rgba(255, 255, 255, 0.25) 60%, 
+
+  transparent 0, transparent 70%, 
+
+  rgba(255, 255, 255, 0.25) 0, rgba(255, 255, 255, 0.25) 80%, 
+  transparent 0, transparent 90%,
+   rgba(255, 255, 255, 0.25) 0, rgba(255, 255, 255, 0.25)
+  );
 }
 </style>

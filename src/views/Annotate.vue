@@ -47,6 +47,7 @@
 
       <moment-list
         :moments="moments"
+        :revising="true"
         @remove-click="onRemoveClick">
       </moment-list>
 
@@ -61,7 +62,7 @@
         ></moment-box> -->
     </v-col>
     <v-col md="12" class="d-flex flex-row-reverse" v-if="(seeMore || filteredLines.length === lines.length) && (moments.length >= 5)">
-      <v-btn color="primary" @click="onNextClick">NEXT</v-btn>
+      <v-btn color="success" @click="onNextClick">NEXT</v-btn>
       <v-btn color="primary" class="button-margin" v-if="!seeResults" @click="onSeeOthersAnnotationClick">SEE OTHERS' FEEDBACK</v-btn>
     </v-col>
   </v-row>
@@ -272,8 +273,22 @@ export default {
       }
       // this.$refs.momentBox.scrollIntoView()
     },
-    onSeeOthersAnnotationClick: function () {
+    onSeeOthersAnnotationClick: async function () {
       this.seeResults = true
+      const res = await axios.post(`${process.env.VUE_APP_API_URL}/logs/`, {
+        event_name: 'SeeOthersAnnotation',
+        status: this.taskType,
+        payload: JSON.stringify({
+          clientTime: new Date(),
+          dataset: this.dataset
+        })
+      }, {
+        headers: {
+          Authorization: `Token ${this.token}`
+        }
+      })
+      console.log(res)
+
     },
     onNextClick: async function () {
       const res = await axios.post(`${process.env.VUE_APP_API_URL}/logs/`, {
@@ -290,7 +305,7 @@ export default {
       })
       console.log(res)
       this.$store.commit('setFinishTime', this.$store.state.initialTime + Math.floor(this.currentTime) * 2)
-      this.$router.push('/Debriefing')
+      this.$router.push('/Survey')
     },
     onRemoveClick: async function (id) {
       const momentIdx = this.moments.findIndex((o) => {
