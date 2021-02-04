@@ -105,18 +105,16 @@
           </p>
           <p>
             Finally, please write how you would explain your decision to the
-            speaker as an AI moderator, and click "SUBMIT" button.
+            speaker as an AI moderator, and click "SUBMIT" button. If you made a mistake on selecting the line, you can click the red
+            "DISCARD" button to cancel.
             <br>
             <span class="red--text font-weight-bold">* Please respond sincerely. Any invalid open-ended response would make the HIT be rejected.</span>
           </p>
           <p>
             <!-- what you would tell the speaker to improve the psychological safety of the group as a moderator, and click "SUBMIT" button.  -->
-            If you made a mistake on selecting the line, you can click the red
-            "DISCARD" button to cancel. After you click the "SUBMIT" button, you
+             After you click the "SUBMIT" button, you
             can see the list of feedback you gave.
-          </p>
-          <p>
-            After submitting the feedback, you can see how your fellow workers annotated the line to reflect on your own annotation.
+            You can also see how your fellow workers annotated the line to reflect on your own annotation.
           </p>
         </v-col>
 
@@ -138,7 +136,7 @@
           </p>
           <p>
             <span class="red--text font-weight-bold">
-              We will reject HITs with any invalid open-ended feedback (e.g. repeated responses to multiple lines, irrelevant responses, copy & paste of example response).
+              We will reject HITs with any invalid open-ended feedback (e.g. repeated responses to multiple lines, irrelevant responses, copy & paste of the example response).
             </span>
 
             <!-- We'll pay you $0.60 for each segment annotated.  -->
@@ -146,7 +144,7 @@
         </v-col>
         <v-col md="8" v-else-if="page === 5" key="page5">
           <p>
-            <img class="screenshots" src="../assets/Debriefing5.gif" />
+            <img class="screenshots" src="../assets/Debriefing5-1.gif" />
           </p>
           <p>
             If you made at least five annotations and finished reading the
@@ -157,10 +155,7 @@
             When you click "SEE OTHERS' FEEDBACK" button, you can see how 
             your fellow workers gave feedback on the transcript to see how you performed
             on the task. 
-            The lines will be in green background if you gave feedback on them as
-            reinforcing the psychological safety. They will be in red 
-            background if you gave feedback on them as harming the psychological
-            safety.
+            The lines that you've given feedback to will be emphasized with stripes.  
             
             Please beware that <span class="font-weight-bold">after clicking the button, you are NOT ALLOWED to 
             give more feedback. </span> 
