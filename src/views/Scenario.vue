@@ -136,7 +136,7 @@
           </p>
           <p>
             <span class="red--text font-weight-bold">
-              We will reject HITs with any invalid open-ended feedback (e.g. repeated responses to multiple lines, irrelevant responses, copy & paste of the example response).
+              We will reject HITs with any invalid open-ended feedback (e.g. repeated responses to multiple lines, irrelevant responses such as "Good task", copy & paste of the example response, copy & paste of random sentence from the Internet).
             </span>
 
             <!-- We'll pay you $0.60 for each segment annotated.  -->
