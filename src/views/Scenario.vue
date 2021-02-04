@@ -115,6 +115,9 @@
             "DISCARD" button to cancel. After you click the "SUBMIT" button, you
             can see the list of feedback you gave.
           </p>
+          <p>
+            After submitting the feedback, you can see how your fellow workers annotated the line to reflect on your own annotation.
+          </p>
         </v-col>
 
         <v-col md="8" v-else-if="page === 4" key="page4">
@@ -144,10 +147,26 @@
         <v-col md="8" v-else-if="page === 5" key="page5">
           <p>
             <img class="screenshots" src="../assets/Interactive4-1.gif" />
-            If you left feedback to at least five lines and finished the
-            current segment, you can see a green "NEXT" button at the bottom of
-            the page. If you left feedback as much as you want, click
-            it to continue.
+          </p>
+          <p>
+            If you made at least five annotations and finished reading the
+            current segment, you can see "SEE OTHERS' FEEDBACK" button and 
+            "NEXT" button at the bottom of the page.
+          </p>
+          <p>  
+            When you click "SEE OTHERS' FEEDBACK" button, you can see how 
+            your fellow workers gave feedback on the transcript to see how you performed
+            on the task. 
+            The lines will be in green background if you gave feedback on them as
+            reinforcing the psychological safety. They will be in red 
+            background if you gave feedback on them as harming the psychological
+            safety.
+            
+            Please beware that <span class="font-weight-bold">after clicking the button, you are NOT ALLOWED to 
+            give more feedback. </span> 
+          </p>
+          <p>
+            You can click the "NEXT" button to continue to the post-task survey.
           </p>
         </v-col>
       </v-slide-x-transition>

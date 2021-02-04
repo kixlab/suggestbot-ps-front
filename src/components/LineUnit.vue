@@ -115,12 +115,12 @@ export default {
       const countNeg = this.line.moments_negative
       const count = countPos + countNeg
       return {
-        posPosByOthers: `${countPos} / ${count} workers agreed with you!`,
-        posNegByOthers: `While ${countPos} / ${count} workers agreed with you, your contribution still gives valuable insight!`,
-        posNeuByOthers: `${countPos} / ${count} workers agreed with you. Your annotation would be critical for the final label!`,
-        negPosByOthers: `While ${countNeg} / ${count} workers agreed with you, your contribution still gives valuable insight!`,
-        negNegByOthers: `${countNeg} out of ${count} workers agreed with you!`,
-        negNeuByOthers: `${countNeg} / ${count} workers agreed with you. Your annotation would be critical for the final label!`,
+        posPosByOthers: `${countPos} / ${count} workers agreed with you that this line reinforces the psychological safety!`,
+        posNegByOthers: `While ${countPos} / ${count} workers agreed with you, your contribution still gives a valuable insight!`,
+        posNeuByOthers: `${countPos} / ${count} workers agreed with you. Your annotation would be critical for determining the final label!`,
+        negPosByOthers: `While ${countNeg} / ${count} workers agreed with you, your contribution still gives a valuable insight!`,
+        negNegByOthers: `${countNeg} out of ${count} workers agreed with you that this line harms the psychological safety!`,
+        negNeuByOthers: `${countNeg} / ${count} workers agreed with you. Your annotation would be critical for determining the final label!`,
         neuPosByOthers: `Reinforce: ${countPos} / ${count}, Harm: ${countNeg} / ${count}`,
         neuNegByOthers: `Reinforce: ${countPos} / ${count}, Harm: ${countNeg} / ${count}`,
         neuNeuByOthers: `Reinforce: ${countPos} / ${count}, Harm: ${countNeg} / ${count}`
