@@ -9,12 +9,6 @@
           </v-avatar>
         </v-list-item-avatar>
         <v-list-item-content>
-          <v-progress-linear
-            v-if="(line.moments_positive + line.moments_negative) >= 5"
-            color="green"
-            background-color="red"
-            :value="line.moments_positive / (line.moments_positive + line.moments_negative) * 100"
-        ></v-progress-linear>
           <v-list-item-subtitle>{{formattedStartTime}} - {{formattedEndTime}}</v-list-item-subtitle>
           {{line.text}}
         </v-list-item-content>
