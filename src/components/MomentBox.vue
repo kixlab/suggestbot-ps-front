@@ -212,8 +212,8 @@ export default {
         if ((this.reason === 'Other')) {
           this.reason = this.reasonOther
         } 
-        if ((this.reasoning && ((this.reason.length < 10) || (this.possibleComment.length < 15) || this.possibleComment.split(' ').length >= 10 )) 
-          || (this.moderating && ((this.reason.length < 10) || (this.possibleComment.length < 15) || this.possibleComment.split(' ').length >= 10 )) 
+        if ((this.reasoning && ((this.reason.length < 10) || (this.possibleComment.length < 15) || this.possibleComment.split(' ').length < 10 )) 
+          || (this.moderating && ((this.reason.length < 10) || (this.possibleComment.length < 15) || this.possibleComment.split(' ').length < 10 )) 
           || (this.roletaking && (this.possibleLine.length < 15))) {
             console.log('aaaa')
             this.long = true
