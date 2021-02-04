@@ -106,6 +106,8 @@
           <p>
             Finally, please write how you would explain your decision to the
             speaker as an AI moderator, and click "SUBMIT" button.
+            <br>
+            <span class="red--text font-weight-bold">* Please respond sincerely. Any invalid open-ended response would make the HIT be rejected.</span>
           </p>
           <p>
             <!-- what you would tell the speaker to improve the psychological safety of the group as a moderator, and click "SUBMIT" button.  -->
@@ -132,6 +134,11 @@
             We'll pay you $0.10 for each extra piece of feedback if more than two workers (excluding yourself) agreed on whether the line would reinforce or harm the psychological safety of the group. 
           </p>
           <p>
+            <span class="red--text font-weight-bold">
+              We will reject HITs with any invalid open-ended feedback (e.g. repeated responses to multiple lines, irrelevant responses, copy & paste of example response).
+            </span>
+
+            <!-- We'll pay you $0.60 for each segment annotated.  -->
           </p>
         </v-col>
         <v-col md="8" v-else-if="page === 5" key="page5">

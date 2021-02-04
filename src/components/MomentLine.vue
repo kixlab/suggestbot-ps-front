@@ -34,6 +34,7 @@ export default {
   name: 'MomentLineUnit',
   props: {
     moment: Object,
+    type: String,
     revising: Boolean
   },
   methods: {
