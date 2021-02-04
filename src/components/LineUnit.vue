@@ -24,7 +24,7 @@
         :value="line.moments_positive / (line.moments_positive + line.moments_negative) * 100"
       >
         <template v-slot:default>
-          <span class="white--text">{{message[line.result]}}</span>
+          <span class="white--text text-body-2">{{message[line.result]}}</span>
         </template>
       </v-progress-linear>
       <span class="text-body-2 black--text">
@@ -116,11 +116,11 @@ export default {
       const count = countPos + countNeg
       return {
         posPosByOthers: `${countPos} / ${count} workers agreed with you!`,
-        posNegByOthers: `While ${countPos} / ${count} workers agreed with you, your contribution would give valuable insight!`,
-        posNeuByOthers: `${countPos} / ${count} workers agreed with you. Your annotation would be valuable for the final decision!`,
-        negPosByOthers: `While ${countPos} / ${count} workers agreed with you, your contribution would give valuable insight!`,
+        posNegByOthers: `While ${countPos} / ${count} workers agreed with you, your contribution still gives valuable insight!`,
+        posNeuByOthers: `${countPos} / ${count} workers agreed with you. Your annotation would be critical for the final label!`,
+        negPosByOthers: `While ${countNeg} / ${count} workers agreed with you, your contribution still gives valuable insight!`,
         negNegByOthers: `${countNeg} out of ${count} workers agreed with you!`,
-        negNeuByOthers: `${countNeg} / ${count} workers agreed with you. Your annotation would be valuable for the final decision!`,
+        negNeuByOthers: `${countNeg} / ${count} workers agreed with you. Your annotation would be critical for the final label!`,
         neuPosByOthers: `Reinforce: ${countPos} / ${count}, Harm: ${countNeg} / ${count}`,
         neuNegByOthers: `Reinforce: ${countPos} / ${count}, Harm: ${countNeg} / ${count}`,
         neuNeuByOthers: `Reinforce: ${countPos} / ${count}, Harm: ${countNeg} / ${count}`
