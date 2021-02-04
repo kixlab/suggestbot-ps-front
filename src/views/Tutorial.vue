@@ -103,7 +103,10 @@
           <p>
             If you made a mistake on selecting the line, you can click the red
             "DISCARD" button to cancel. After you click the "SUBMIT" button, you
-            can see it on the list of annotations.
+            can see it from the list of annotations on the right.
+          </p>
+          <p>
+            After submitting the annotation, you can see how your fellow workers annotated the line to reflect on your own annotation.
           </p>
         </v-col>
 
@@ -135,10 +138,26 @@
         <v-col md="8" v-else-if="page === 5" key="page5">
           <p>
             <img class="screenshots" src="../assets/Screenshot4-1.gif" />
+          </p>
+          <p>
             If you made at least five annotations and finished reading the
-            current segment, you can see a green "NEXT" button at the bottom of
-            the page. If you made annotations as many as you want, click
-            it to continue to the post-task survey.
+            current segment, you can see "SEE OTHERS ANNOTATION" button and 
+            "NEXT" button at the bottom of the page.
+          </p>
+          <p>  
+            When you click "SEE OTHERS ANNOTATION" button, you can see how 
+            your fellow workers annotated the transcript to see how you performed
+            on the task. 
+            The lines will be in green background if you annotated them as
+            reinforcing the psychological safety. They will be in red 
+            background if you annotated them as harming the psychological
+            safety.
+            
+            Please beware that <span class="font-weight-bold">after clicking the button, you are NOT ALLOWED to 
+            make more annotations. </span> 
+          </p>
+          <p>
+            You can click the "NEXT" button to continue to the post-task survey.
           </p>
         </v-col>
       </v-slide-x-transition>

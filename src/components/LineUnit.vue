@@ -110,11 +110,11 @@ export default {
       const count = countPos + countNeg
       return {
         posPosByOthers: `${countPos} / ${count} workers agreed with you!`,
-        posNegByOthers: `While ${countPos} / ${count} workers agreed with you, your contribution would give valuable insight!`,
-        posNeuByOthers: `${countPos} / ${count} workers agreed with you. Your annotation would be valuable for the final decision!`,
-        negPosByOthers: `While ${countPos} / ${count} workers agreed with you, your contribution would give valuable insight!`,
+        posNegByOthers: `While ${countPos} / ${count} workers agreed with you, your contribution still gives a valuable insight!`,
+        posNeuByOthers: `${countPos} / ${count} workers agreed with you. Your annotation would be critical for determining the final label!`,
+        negPosByOthers: `While ${countNeg} / ${count} workers agreed with you, your contribution still gives a valuable insight!`,
         negNegByOthers: `${countNeg} out of ${count} workers agreed with you!`,
-        negNeuByOthers: `${countNeg} / ${count} workers agreed with you. Your annotation would be valuable for the final decision!`,
+        negNeuByOthers: `${countNeg} / ${count} workers agreed with you. Your annotation would be critical for determining the final label!`,
         neuPosByOthers: `Reinforce: ${countPos} / ${count}, Harm: ${countNeg} / ${count}`,
         neuNegByOthers: `Reinforce: ${countPos} / ${count}, Harm: ${countNeg} / ${count}`,
         neuNeuByOthers: `Reinforce: ${countPos} / ${count}, Harm: ${countNeg} / ${count}`
