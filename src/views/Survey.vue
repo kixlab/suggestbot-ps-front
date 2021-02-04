@@ -14,8 +14,15 @@
             </v-radio-group>
           </v-col>
           <v-col md="12">
+            Please briefly summarize the main topic of the meeting with more than 10 words.
+            <v-textarea rows="2" :value="answers.topic"
+                  @change="v => topic = v" counter required :rules="[validateTopic]">
+            </v-textarea>
+          </v-col>
+          <v-col md="12">
             Please leave any comments on the task.
-            <v-textarea rows="5" v-model="answers.free_response" required :rules="[validateTxt]">
+            <v-textarea rows="2" :value="answers.free_response"
+                  @change="v => free_response = v" counter required :rules="[validateTxt]">
             </v-textarea>
             <!-- <span v-if="isTextBlank" class="red--text">Please leave comments on the task!</span> -->
           </v-col>
@@ -80,7 +87,8 @@ export default {
       err: '',
       isTextBlank: false,
       validate: value => (value > 0 && value <= 5) ? true : 'Please select the value',
-      validateTxt: value => value.length >= 20 ? true : 'Please leave comments on the task!',
+      validateTxt: value => (value.length >= 20 && value.split(' ').length >= 5) ? true : 'Please leave comments on the task!',
+      validateTopic: value => (value.length >= 30 && value.split(' ').length >= 10) ? true : 'Please summarize the discussion!',
       questions: {
         fas1: 'I lost myself in this experience.',
         fas2: 'The time I spent on this task just slipped away.',
@@ -111,6 +119,7 @@ export default {
         rws3: 0,
         sanity_check: 0,
         free_response: '',
+        topic: '',
         status: process.env.VUE_APP_COND
       },
       scales: {

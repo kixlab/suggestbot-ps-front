@@ -95,6 +95,8 @@
           </p>
           <p>
             Then, please answer why you thought the line would affect the psychological safety of the group. 
+            <br>
+            <span class="red--text font-weight-bold">* Please respond sincerely. Any invalid open-ended response would make the HIT be rejected.</span>
             <!-- Finally, please write how you would give private feedback to the
             speaker as an AI moderator, and click "SUBMIT" button. -->
           </p>
@@ -121,6 +123,12 @@
               at least **five** annotations</span
             > to get the task accepted.
             We'll pay you $0.10 for each extra annotation if more than two workers (excluding yourself) agreed on the annotation.
+          </p>
+          <p>
+            <span class="red--text font-weight-bold">
+              We will reject HITs with any invalid open-ended responses (e.g. repeated responses to multiple lines, irrelevant responses, copy & paste of example response).
+            </span>
+
             <!-- We'll pay you $0.60 for each segment annotated.  -->
           </p>
         </v-col>
