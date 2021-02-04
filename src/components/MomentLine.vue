@@ -16,7 +16,7 @@
           {{moment.reason}} - {{moment.possible_comment}}
         </v-list-item-subtitle>
       </v-list-item-content>
-      <v-list-item-action>
+      <v-list-item-action v-if="!revising">
         <v-btn icon @click="onRemoveClick">
           <v-icon>mdi-delete</v-icon>
         </v-btn>
@@ -31,7 +31,8 @@ export default {
   name: 'MomentLineUnit',
   props: {
     moment: Object,
-    type: String
+    type: String,
+    revising: Boolean
   },
   methods: {
     onRemoveClick: function () {

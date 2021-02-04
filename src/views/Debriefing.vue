@@ -10,8 +10,7 @@
             <line-unit v-for="(l, idx) in lines" :key="idx"
               :line="l"
               :idx="idx"
-              :class="getClass(l)"
-              @line-click="openMomentBox">
+              :class="getClass(l)">
             </line-unit>
           </v-list-item-group>
         </v-list>
@@ -20,18 +19,13 @@
     <v-col md="5">
 
       <moment-list
+        :revising="true"
         :moments="moments">
       </moment-list>
-      <debrief-box>
+      <debrief-box
+        v-bind="debriefingBoxData">
       </debrief-box>
       
-
-      <!-- <moment-box
-        v-show="isMomentBoxShown"
-        @moment-saved="onMomentSaved"
-        :moment="currentMoment"
-        :currentLine="selectedLine"
-        ></moment-box> -->
     </v-col>
     <v-col md="12" class="d-flex flex-row-reverse">
       <v-btn color="green" @click="onNextClick">NEXT</v-btn>
@@ -47,7 +41,7 @@ import LineUnit from '../components/LineUnit.vue'
 import MomentList from '../components/MomentList.vue'
 import axios from 'axios'
 export default {
-  name: 'Annotate',
+  name: 'Debriefing',
   components: {
     // MomentBox,
     LineUnit,
@@ -61,6 +55,17 @@ export default {
       isMomentBoxShown: false,
       currentMoment: 0,
       selectedItem: undefined,
+      debriefingBoxData: {
+        negNegByOthers: 0,
+        negNeuByOthers: 0,
+        negPosByOthers: 0,
+        neuNegByOthers: 0,
+        neuNeuByOthers: 0,
+        neuPosByOthers: 0,
+        posNegByOthers: 0,
+        posNeuByOthers: 0,
+        posPosByOthers: 0
+      }
     }
   },
   computed: {
@@ -82,15 +87,88 @@ export default {
       this.$router.push('/Survey')
     },
     getClass: function (line) {
-      // if (moments)
-      if (line.moments > 5) {
-        return 'lime lighten-4'
-      } else if (line.moments > 1) {
-        return 'pink lighten-4'
+      // if (line.posPosByOthers) {
+      //   return 'light-green darken-2' // deep light-green
+      // } else if (line.posNegByOthers) {
+      //   return 'red darken-2 striped' // deep red stripe
+      // } else if (line.posNeuByOthers) {
+      //   return 'light-green lighten-2'
+      // } else if (line.negPosByOthers) {
+      //   return 'light-green darken-2 striped'
+      // } else if (line.negNegByOthers) {
+      //   return 'red darken-2' // deep red
+      // } else if (line.negNeuByOthers) {
+      //   return 'red lighten-2' // light red
+      // } else if (line.neuPosByOthers) {
+      //   return 'light-green darken-2 striped' // deep light-green stripe
+      // } else if (line.neuNegByOthers) {
+      //   return 'red darken-2 striped' // deep red stripe
+      // } else {
+      //   return ''
+      // }
+      if (line.posPosByOthers) {
+        return 'light-green lighten-4' // deep light-green
+      } else if (line.posNegByOthers) {
+        return 'red lighten-4' // deep red stripe
+      } else if (line.posNeuByOthers) {
+        return 'light-green lighten-4'
+      } else if (line.negPosByOthers) {
+        return 'light-green lighten-4'
+      } else if (line.negNegByOthers) {
+        return 'red lighten-4' // deep red
+      } else if (line.negNeuByOthers) {
+        return 'red lighten-4' // light red
+      } else if (line.neuPosByOthers) {
+        return 'light-green lighten-4' // deep light-green stripe
+      } else if (line.neuNegByOthers) {
+        return 'red lighten-4' // deep red stripe
       } else {
         return ''
       }
     }
+      // }
+      // const myMoment = this.moments.find((m) => {
+      //   return m.line.id === line.id
+      // })
+
+      // if (myMoment) {
+      //   if (myMoment.direction === 'POSITIVE') {
+      //     if ((line.moments_positive + line.moments_negative > 5) && (line.moments_positive >= 2 * line.moments_negative)) {
+      //       this.debriefingBoxData.posPosByOthers += 1
+      //       return 'light-green darken-2' // deep light-green
+      //     } else if ((line.moments_positive + line.moments_negative > 5) && (line.moments_positive * 2 <= line.moments_negative)) {
+      //       this.debriefingBoxData.posNegByOthers += 1
+      //       return 'red darken-2 striped' // deep red stripe
+      //     } else {
+      //       this.debriefingBoxData.posNeuByOthers += 1
+      //       return 'light-green lighten-2' // light light-green
+      //     }
+      //   } else {
+      //     if ((line.moments_positive + line.moments_negative > 5) && (line.moments_positive >= 2 * line.moments_negative)) {
+      //       this.debriefingBoxData.negPosByOthers += 1            
+      //       return 'light-green darken-2 striped' // deep light-green stripe
+      //     } else if ((line.moments_positive + line.moments_negative > 5) && (line.moments_positive * 2 <= line.moments_negative)) {
+      //       this.debriefingBoxData.negNegByOthers += 1       
+      //       return 'red darken-2' // deep red
+      //     } else {
+      //       this.debriefingBoxData.negNeuByOthers += 1
+
+      //       return 'red lighten-2' // light red
+      //     }
+      //   }
+      // } else {
+      //   if ((line.moments_positive + line.moments_negative > 5) && (line.moments_positive >= 2 * line.moments_negative)) {
+      //     this.debriefingBoxData.neuPosByOthers += 1
+
+      //     return 'light-green darken-2 striped' // deep light-green stripe
+      //   } else if ((line.moments_positive + line.moments_negative > 5) && (line.moments_positive * 2 <= line.moments_negative)) {
+      //     this.debriefingBoxData.neuNegByOthers += 1
+      //     return 'red darken-2 striped' // deep red stripe
+      //   } else {
+      //     this.debriefingBoxData.neuNeuByOthers += 1
+      //     return '' // grey
+      //   }
+      // }
   },
   mounted: async function () {
     const dataset = this.dataset
@@ -108,7 +186,7 @@ export default {
     })
     console.log(res)
     try {
-      const lines = await axios.get(`${process.env.VUE_APP_API_URL}/lines/get_dataset/`, {
+      const lines = await axios.get(`${process.env.VUE_APP_API_URL}/lines/get_dataset_counts/`, {
         params: {
           dataset: dataset
         }
@@ -124,13 +202,74 @@ export default {
     } catch (err) {
       console.log(err)
     }
+    this.lines.forEach(line => {
+      const myMoment = this.moments.find((m) => {
+        return m.line.id === line.id
+      })
+
+      if (myMoment) {
+        if (myMoment.direction === 'POSITIVE') {
+          if ((line.moments_positive + line.moments_negative > 5) && (line.moments_positive >= 2 * line.moments_negative)) {
+            this.debriefingBoxData.posPosByOthers += 1
+            line.posPosByOthers = true
+          } else if ((line.moments_positive + line.moments_negative > 5) && (line.moments_positive * 2 <= line.moments_negative)) {
+            this.debriefingBoxData.posNegByOthers += 1            
+            line.posNegByOthers = true
+          } else {
+            this.debriefingBoxData.posNeuByOthers += 1
+            line.posNeuByOthers = true
+          }
+        } else {
+          if ((line.moments_positive + line.moments_negative > 5) && (line.moments_positive >= 2 * line.moments_negative)) {
+            this.debriefingBoxData.negPosByOthers += 1  
+            line.negPosByOthers = true
+          } else if ((line.moments_positive + line.moments_negative > 5) && (line.moments_positive * 2 <= line.moments_negative)) {
+            this.debriefingBoxData.negNegByOthers += 1  
+            line.negNegByOthers = true
+          } else {
+            this.debriefingBoxData.negNeuByOthers += 1
+            line.negNeuByOthers = true
+          }
+        }
+      } else {
+        if ((line.moments_positive + line.moments_negative > 5) && (line.moments_positive >= 2 * line.moments_negative)) {
+          this.debriefingBoxData.neuPosByOthers += 1
+          line.neuPosByOthers = true
+        } else if ((line.moments_positive + line.moments_negative > 5) && (line.moments_positive * 2 <= line.moments_negative)) {
+          this.debriefingBoxData.neuNegByOthers += 1
+          line.neuNegByOthers = true
+        } else {
+          this.debriefingBoxData.neuNeuByOthers += 1
+          line.neuNeuByOthers = true
+        }
+      }
+    })
   }
 }
 </script>
 
-<style lang="sass" scoped>
-.scroll-box 
-  height: 80vh
-  overflow-y: scroll
+<style lang="scss" scoped>
+.scroll-box {
+  height: 80vh;
+  overflow-y: scroll;
+}
+
+.striped {
+  background-image: linear-gradient(135deg, 
+  rgba(255, 255, 255, 0.25) 10%, 
+  transparent 0, transparent 20%, 
+    rgba(255, 255, 255, 0.25) 0, rgba(255, 255, 255, 0.25) 30%, 
+
+  transparent 0, transparent 40%, 
+    rgba(255, 255, 255, 0.25) 0, rgba(255, 255, 255, 0.25) 50%, 
+
+  transparent 0, transparent 60%, 
+    rgba(255, 255, 255, 0.25) 0, rgba(255, 255, 255, 0.25) 70%, 
+
+  transparent 0, transparent 80%, 
+
+  rgba(255, 255, 255, 0.25) 0, rgba(255, 255, 255, 0.25) 90%, 
+  transparent 0, transparent);
+}
 
 </style>

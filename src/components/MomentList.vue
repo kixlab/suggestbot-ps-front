@@ -10,6 +10,7 @@
         <moment-line v-for="m in moments" :key="m.pk"
           :moment="m"
           :type="'moderating'"
+          :revising="revising"
           @remove-click="onRemoveClick">
         </moment-line>
       </v-list>
@@ -22,7 +23,8 @@ import MomentLine from './MomentLine.vue'
 export default {
   name: 'MomentList',
   props: {
-    moments: Array
+    moments: Array,
+    revising: Boolean
   },
   components: {
     MomentLine

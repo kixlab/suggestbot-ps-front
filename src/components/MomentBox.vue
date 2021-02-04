@@ -26,7 +26,7 @@
         </v-col>
         <v-slide-y-transition>
           <v-col md="12" v-if="page >= 2" key="page2">
-            <span v-if="direction === 'POSITIVE'">How did the selected line reinforced the psychological safety of the group?</span>
+            <span v-if="direction === 'POSITIVE'">How did the selected line reinforce the psychological safety of the group?</span>
             <v-radio-group v-model="reason" v-if="direction === 'POSITIVE'" @change="page = reason === '' ? 2 : 3; possibleComment = ''">
               <v-row no-gutters>
                 <v-col md="6">
@@ -50,7 +50,7 @@
                 </v-col>
               </v-row>
             </v-radio-group>
-            <span v-if="direction === 'NEGATIVE'"> How did the selected line harmed the psychological safety of the group? </span>
+            <span v-if="direction === 'NEGATIVE'"> How did the selected line harm the psychological safety of the group? </span>
             <v-radio-group v-model="reason" v-if="direction === 'NEGATIVE'" @change="page = reason === '' ? 2 : 3; possibleComment = ''">
               <v-row no-gutters>
                 <v-col md="6">
@@ -120,7 +120,7 @@
               </v-text-field>
             </template>
             <template v-if="long">
-              <span class="red--text">Please respond to the question with more than 15 characters.</span>
+              <span class="red--text">Please respond to the question using more than 10 words.</span>
             </template>
           </v-col>
         </v-slide-y-transition>
@@ -212,8 +212,8 @@ export default {
         if ((this.reason === 'Other')) {
           this.reason = this.reasonOther
         } 
-        if ((this.reasoning && ((this.reason.length < 10) || (this.possibleComment.length < 15))) 
-          || (this.moderating && ((this.reason.length < 10) || (this.possibleComment.length < 15))) 
+        if ((this.reasoning && ((this.reason.length < 10) || (this.possibleComment.length < 15) || this.possibleComment.split(' ').length >= 10 )) 
+          || (this.moderating && ((this.reason.length < 10) || (this.possibleComment.length < 15) || this.possibleComment.split(' ').length >= 10 )) 
           || (this.roletaking && (this.possibleLine.length < 15))) {
             console.log('aaaa')
             this.long = true

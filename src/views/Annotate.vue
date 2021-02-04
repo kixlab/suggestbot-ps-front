@@ -3,8 +3,8 @@
     <v-col md="12">
       <h3> 
         Please choose <span class="red--text"> all lines (at least five)</span> 
-        that would significantly boost or harm the psychological safety 
-        and tell us how you'd give feedback to the speaker.
+        that would significantly reinforce or harm the psychological safety 
+        and explain why you thought so.
       </h3>
       <v-progress-linear 
         height="20"
