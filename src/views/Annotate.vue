@@ -51,6 +51,12 @@
         @remove-click="onRemoveClick">
       </moment-list>
 
+      <debrief-box
+        v-bind="debriefingBoxData"
+      >
+
+      </debrief-box>
+
       <!-- <moment-box
         :plain="true"
         v-if="isMomentBoxShown"
@@ -73,13 +79,15 @@ import { mapState } from 'vuex'
 // import MomentBox from '../components/MomentBox.vue'
 import LineUnit from '../components/LineUnit.vue'
 import MomentList from '../components/MomentList.vue'
+import DebriefBox from '../components/DebriefBox.vue'
 import axios from 'axios'
 export default {
   name: 'Annotate',
   components: {
     // MomentBox,
     LineUnit,
-    MomentList
+    MomentList,
+    DebriefBox
   },
   data: function () {
     return {
@@ -145,6 +153,24 @@ export default {
         neuNegByOthers: '',
         neuNeuByOthers: ''
       }
+    },
+    debriefingBoxData: function () {
+      const data = {
+        posPosByOthers: 0,
+        posNegByOthers: 0,
+        posNeuByOthers: 0,
+        negPosByOthers: 0,
+        negNegByOthers: 0,
+        negNeuByOthers: 0,
+        neuPosByOthers: 0,
+        neuNegByOthers: 0,
+        neuNeuByOthers: 0
+      }
+      this.filteredLines.forEach((l) => {
+        data[l.result] += 1
+      })
+      console.log(data)
+      return data
     },
     ...mapState({
       token: state => state.token,

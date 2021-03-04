@@ -1,6 +1,8 @@
 <template>
   <v-card class="debriefing--box">
     <v-card-text>
+      Among your annotations, {{precision}}% agreed with others' annotations.
+      There are {{missed}} annotations you missed while others have agreed on.
       <v-simple-table>
         <template v-slot:default>
           <thead>
@@ -85,6 +87,24 @@ export default {
     posPosByOthers: Number
   },
   computed: {
+    precision: function () {
+      const numerator = this.negNegByOthers + this.posPosByOthers
+      const denominator = this.negNegByOthers + this.negNeuByOthers + this.negPosByOthers + this.posNegByOthers + this.posNeuByOthers + this.posPosByOthers
+      
+      return denominator === 0 ? 0 : (Math.floor(numerator / denominator * 100) )
+    },
+    recall: function () {
+      const numerator = this.negNegByOthers + this.posPosByOthers
+      const denominator = this.negNegByOthers + this.neuNegByOthers + this.posNegByOthers + this.negPosByOthers + this.neuPosByOthers + this.posPosByOthers
+
+      return denominator === 0 ? 0 : Math.floor(numerator / denominator * 100) 
+    },
+    missed: function () {
+      const numerator = this.negNegByOthers + this.posPosByOthers
+      const denominator = this.negNegByOthers + this.neuNegByOthers + this.posNegByOthers + this.negPosByOthers + this.neuPosByOthers + this.posPosByOthers
+
+      return (denominator - numerator)
+    },
     colors: function () {
       return {
         posPosByOthers: 'light-green lighten-4',
