@@ -271,7 +271,6 @@ export default {
         this.isMomentBoxShown = false
         this.currentMoment = 0
       }
-      // this.$refs.momentBox.scrollIntoView()
     },
     onSeeOthersAnnotationClick: function () {
       this.seeResults = true

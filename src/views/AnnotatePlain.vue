@@ -1,25 +1,50 @@
 <template>
   <v-row>
     <v-col md="12">
-      <!-- <h3> Now, you'll see a replay of a chat stream of a collaboration meeting. Please label the line that harms psychological safety of the group and let us know how you'd intervene in such situations.</h3> -->
-      <h3>Please carefully read this meeting transcript and annotate <span class="red--text">all lines (at least five)</span> that would significantly boost or harm the psychological safety of the group. </h3>
-      <!-- <h3 class="text-center red--text">"In this group, it is easy to speak up about what is on my mind." </h3> -->
+      <h3> 
+        Please choose <span class="red--text"> all lines (at least five)</span> 
+        that would significantly reinforce or harm the psychological safety 
+        and explain why you thought so.
+      </h3>
+      <v-progress-linear 
+        height="20"
+        striped dark
+        :value="moments.length / 5 * 100">
+        
+        <template v-slot:default="{ value }">
+          <span v-if="value < 100" class="white--text text--darken-3 font-weight-bold">{{Math.floor(value  * 5 / 100)}} / 5 annotations done!</span>
+          <span v-else-if="value >= 100" class="white--text text--darken-3 font-weight-bold">{{Math.floor(value  * 5 / 100)}} annotations done!</span>
+
+        </template>
+      </v-progress-linear>
+      <!-- <h3>Please carefully read this meeting transcript and annotate the lines that negatively affected the psychological safety of the group. </h3> -->
     </v-col>
     <v-col md="7">
       <div ref="scrollBox" @scroll="handleScroll" class="scroll-box">
-        <v-btn v-if="initialTime > 0" block @click="seePriorLines" class="primary">
+        <v-btn v-if="initialTime > 0" block @click="seePriorLines" depressed class="primary">
           See previous lines
         </v-btn>
         <v-list>
           <v-list-item-group v-model="selectedItem">
             <line-unit v-for="(l, idx) in filteredLines" :key="idx"
+              :interactive="false"
               :line="l"
               :idx="idx"
+              :selected="idx === selectedItem"
+              :disabled="seeResults"
+              :class="colors[l.result]"
+              @close-moment-box="closeMomentBox"
+              @moment-saved="onMomentSaved"
               @line-click="openMomentBox">
             </line-unit>
           </v-list-item-group>
         </v-list>
-        <v-btn v-if="lines.length && lines[lines.length - 1].starttime > currentTime" block @click="seeMoreLines" class="primary">
+        <v-btn 
+          v-if="!seeResults && lines.length && lines[lines.length - 1].starttime > currentTime" 
+          depressed 
+          block 
+          @click="seeMoreLines" 
+          class="primary">
           See more
         </v-btn>
       </div>
@@ -41,7 +66,8 @@
         ></moment-box>
     </v-col>
     <v-col md="12" class="d-flex flex-row-reverse" v-if="touchBottom && (moments.length >= 5)">
-      <v-btn color="green" @click="onNextClick">NEXT</v-btn>
+      <v-btn color="success" @click="onNextClick">NEXT</v-btn>
+      <v-btn color="primary" class="button-margin" v-if="!seeResults" @click="onSeeOthersAnnotationClick">SEE OTHERS' ANNOTATIONS</v-btn>
     </v-col>
   </v-row>
 </template>
@@ -84,6 +110,29 @@ export default {
         return (line.starttime <= this.currentTime) && (line.starttime >= this.initialTime)
       })
     },
+    positives: function () {
+      return this.moments.filter(m => {
+        return m.direction === 'POSITIVE'
+      }).length
+    },
+    negatives: function () {
+      return this.moments.filter(m => {
+        return m.direction === 'NEGATIVE'
+      }).length
+    },
+    colors: function () {
+      return {
+        posPosByOthers: 'light-green lighten-4',
+        posNegByOthers: 'light-green lighten-4',
+        posNeuByOthers: 'light-green lighten-4',
+        negPosByOthers: 'red lighten-4',
+        negNegByOthers: 'red lighten-4',
+        negNeuByOthers: 'red lighten-4',
+        neuPosByOthers: '',
+        neuNegByOthers: '',
+        neuNeuByOthers: ''
+      }
+    },
     ...mapState({
       token: state => state.token,
       dataset: state => state.dataset,
@@ -91,36 +140,6 @@ export default {
     })
   },
   methods: {
-    onMomentSaved: function (moment) {
-      this.moments.push(moment)
-      this.isMomentBoxShown = false
-      this.currentMoment = 0
-      this.selectedItem = undefined
-    },
-    handleScroll: function(el) {
-      if ((el.srcElement.offsetHeight + el.srcElement.scrollTop) >= el.srcElement.scrollHeight) {
-        this.touchBottom = true
-      }
-    },
-    closeMomentBox: function () {
-      this.currentMoment = 0
-      this.isMomentBoxShown = false
-      this.selectedItem = undefined
-    },
-    openMomentBox: function (starttime, idx) {
-      if (this.selectedItem === undefined) {
-        this.isMomentBoxShown = true
-        this.currentMoment = starttime
-      } else if (this.selectedItem !== idx) {
-        this.currentMoment = starttime
-        this.isMomentBoxShown = true
-      } else {
-        this.isMomentBoxShown = false
-        this.currentMoment = 0
-      }
-
-      console.log('aaaa')
-    },
     seeMoreLines: async function () {
       if (this.lines[this.lines.length - 1].endtime < (this.currentTime + this.$store.state.windowSize * 1.5)) {
         this.currentTime  = this.lines[this.lines.length - 1].endtime + 100
@@ -160,6 +179,58 @@ export default {
         }
       })
     },
+    onMomentSaved: function (moment) {
+      this.moments.push(moment)
+      const lineIdx = this.lines.findIndex(line => {
+        return line.id === moment.line.id
+      })
+      const line = this.lines[lineIdx]
+      if (moment.direction === 'POSITIVE') {
+        if ((line.moments_positive + line.moments_negative > 5) && (line.moments_positive >= 2 * line.moments_negative)) {
+          this.$set(this.lines[lineIdx], 'result', 'posPosByOthers')
+        } else if ((line.moments_positive + line.moments_negative > 5) && (line.moments_positive * 2 <= line.moments_negative)) {
+          this.$set(this.lines[lineIdx], 'result', 'posNegByOthers')
+        } else {
+          this.$set(this.lines[lineIdx], 'result', 'posNeuByOthers')
+        }
+      } else {
+        if ((line.moments_positive + line.moments_negative > 5) && (line.moments_positive >= 2 * line.moments_negative)) {
+          this.$set(this.lines[lineIdx], 'result', 'negPosByOthers')
+        } else if ((line.moments_positive + line.moments_negative > 5) && (line.moments_positive * 2 <= line.moments_negative)) {
+          this.$set(this.lines[lineIdx], 'result', 'negNegByOthers')
+        } else {
+          this.$set(this.lines[lineIdx], 'result', 'negNeuByOthers')
+        }
+      }
+      this.isMomentBoxShown = false
+      this.currentMoment = 0
+      this.selectedItem = undefined
+    },
+    handleScroll: function(el) {
+      if ((el.srcElement.offsetHeight + el.srcElement.scrollTop) >= el.srcElement.scrollHeight) {
+        this.touchBottom = true
+      }
+    },
+    closeMomentBox: function () {
+      this.currentMoment = 0
+      this.isMomentBoxShown = false
+      this.selectedItem = undefined
+    },
+    openMomentBox: function (starttime, idx) {
+      if (this.selectedItem === undefined) {
+        this.isMomentBoxShown = true
+        this.currentMoment = starttime
+      } else if (this.selectedItem !== idx) {
+        this.currentMoment = starttime
+        this.isMomentBoxShown = true
+      } else {
+        this.isMomentBoxShown = false
+        this.currentMoment = 0
+      }
+    },    
+    onSeeOthersAnnotationClick: function () {
+      this.seeResults = true
+    },
     onNextClick: async function () {
       const res = await axios.post(`${process.env.VUE_APP_API_URL}/logs/`, {
         event_name: 'EndTask',
@@ -174,7 +245,7 @@ export default {
         }
       })
       console.log(res)
-      this.$router.push('/Survey')
+      this.$router.push('/Debriefing')
     },
     onRemoveClick: async function (id) {
       const momentIdx = this.moments.findIndex((o) => {
@@ -225,8 +296,43 @@ export default {
       })
       // this.$store.commit('setDataset', dataset)
       // console.log(lines)
-      this.lines = lines.data
       this.moments = moments.data
+      this.moments.forEach(m => m.disableDelete = true)
+
+      lines.data.forEach(line => {
+        const myMoment = this.moments.find((m) => {
+          return m.line.id === line.id
+        })
+
+      if (myMoment) {
+        if (myMoment.direction === 'POSITIVE') {
+          if ((line.moments_positive + line.moments_negative > 5) && (line.moments_positive >= 2 * line.moments_negative)) {
+            line.result = 'posPosByOthers'
+          } else if ((line.moments_positive + line.moments_negative > 5) && (line.moments_positive * 2 <= line.moments_negative)) {
+            line.result = 'posNegByOthers'
+          } else {
+            line.result = 'posNeuByOthers'
+          }
+        } else {
+          if ((line.moments_positive + line.moments_negative > 5) && (line.moments_positive >= 2 * line.moments_negative)) {
+            line.result = 'negPosByOthers'
+          } else if ((line.moments_positive + line.moments_negative > 5) && (line.moments_positive * 2 <= line.moments_negative)) {
+            line.result = 'negNegByOthers'
+          } else {
+            line.result = 'negNeuByOthers'
+          }
+        }
+      } else {
+        if ((line.moments_positive + line.moments_negative > 5) && (line.moments_positive >= 2 * line.moments_negative)) {
+          line.result = 'neuPosByOthers'
+        } else if ((line.moments_positive + line.moments_negative > 5) && (line.moments_positive * 2 <= line.moments_negative)) {
+          line.result = 'neuNegByOthers'
+        } else {
+          line.result = 'neuNeuByOthers'
+        }
+      }
+      })
+      this.lines = lines.data
 
       if (this.lines[this.lines.length - 1].endtime < (this.initialTime + this.$store.state.windowSize * 1.5)) {
         this.currentTime  = this.lines[this.lines.length - 1].endtime + 100
