@@ -39,7 +39,7 @@ export default {
 
 <style scoped lang="scss">
 .scroll-box {
-  height: 25vh;
+  height: 65vh;
   overflow-y: scroll;
 }
 </style>
