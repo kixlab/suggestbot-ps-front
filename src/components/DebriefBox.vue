@@ -1,10 +1,24 @@
 <template>
   <v-card class="debriefing--box">
+    <v-card-title>
+      Summary of Your Feedback
+    </v-card-title>
     <v-card-text>
-      Among your annotations, {{precision}}% agreed with others' annotations.
+      <v-row>
+        <v-col md="4" class="text-center">
+          <div class="text-h2">{{precision}}%</div>
+          of your feedback agreed with others'.
+        </v-col>
+        <v-col md="4" class="text-center">
+          <div class="text-h2">{{needsAttention}}</div>
+          lines need your feedback to make the final decision!
+        </v-col>
+        <v-col md="4" class="text-center">
+          <div class="text-h2">{{missed}} </div>
+          lines annotated by the others are missing!
+        </v-col>
+      </v-row>
 
-      We need your help on {{needsAttention}} lines to decide the final annnotation.
-      There are {{missed}} annotations you missed while others have agreed on.
       <!-- <v-simple-table>
         <template v-slot:default>
           <thead>
@@ -130,6 +144,10 @@ export default {
 </script>
 <style lang="scss" scoped>
 .debriefing--box {
-  margin-top: 1em;
+  margin-bottom: 1em;
+}
+.large--number {
+  font-size: 5em;
+  height: auto;
 }
 </style>

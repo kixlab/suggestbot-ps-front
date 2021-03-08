@@ -8,7 +8,7 @@
             {{line.speaker}}
           </v-avatar>
         </v-list-item-avatar>
-        <v-list-item-content :class="`${interactive? 'chat-bubble' : ''} ${line.speaker} ${(!line.result.startsWith('neu')) ? 'striped' : ''}`">
+        <v-list-item-content :class="`${interactive? 'chat-bubble' : ''} ${line.speaker}`">
           <v-list-item-subtitle>{{formattedStartTime}} - {{formattedEndTime}}</v-list-item-subtitle>
           {{line.text}}
         </v-list-item-content>

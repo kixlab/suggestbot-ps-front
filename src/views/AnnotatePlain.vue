@@ -336,9 +336,9 @@ export default {
           line.result = 'neuPosByOthers'
         } else if ((line.moments_positive + line.moments_negative > 5) && (line.moments_positive * 2 <= line.moments_negative)) {
           line.result = 'neuNegByOthers'
-        } else if ((line.moments_positive + line.moments_negative > 5) && (line.moments_positive >= line.moments_negative)) {
+        } else if ((line.moments_positive >= line.moments_negative) && (line.moments_positive < line.moments_negative * 2)) {
           line.result = 'neuPosishByOthers'
-        } else if ((line.moments_positive + line.moments_negative > 5) && (line.moments_positive < line.moments_negative)) {
+        } else if ((line.moments_positive < line.moments_negative) && (line.moments_positive * 2 > line.moments_negative * 2)) {
           line.result = 'neuNegishByOthers'
         } else {
           line.result = 'neuNeuByOthers'
