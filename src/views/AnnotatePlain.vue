@@ -44,18 +44,17 @@
       </div>
     </v-col>
     <v-col md="5">
+      <debrief-box
+        v-bind="debriefingBoxData"
+      >
+
+      </debrief-box>
 
       <moment-list
         :moments="moments"
         :revising="true"
         @remove-click="onRemoveClick">
       </moment-list>
-
-      <debrief-box
-        v-bind="debriefingBoxData"
-      >
-
-      </debrief-box>
 
     </v-col>
     <v-col md="12" class="d-flex flex-row-reverse" v-if="(filteredLines.length === lines.length) && (moments.length >= 5)">
@@ -138,7 +137,9 @@ export default {
         negNegByOthers: 0,
         negNeuByOthers: 0,
         neuPosByOthers: 0,
+        neuPosishByOthers: 0,
         neuNegByOthers: 0,
+        neuNegishByOthers: 0,
         neuNeuByOthers: 0
       }
       this.filteredLines.forEach((l) => {
@@ -335,6 +336,10 @@ export default {
           line.result = 'neuPosByOthers'
         } else if ((line.moments_positive + line.moments_negative > 5) && (line.moments_positive * 2 <= line.moments_negative)) {
           line.result = 'neuNegByOthers'
+        } else if ((line.moments_positive + line.moments_negative > 5) && (line.moments_positive >= line.moments_negative)) {
+          line.result = 'neuPosishByOthers'
+        } else if ((line.moments_positive + line.moments_negative > 5) && (line.moments_positive < line.moments_negative)) {
+          line.result = 'neuNegishByOthers'
         } else {
           line.result = 'neuNeuByOthers'
         }

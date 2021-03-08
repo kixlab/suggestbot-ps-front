@@ -2,8 +2,10 @@
   <v-card class="debriefing--box">
     <v-card-text>
       Among your annotations, {{precision}}% agreed with others' annotations.
+
+      We need your help on {{needsAttention}} lines to decide the final annnotation.
       There are {{missed}} annotations you missed while others have agreed on.
-      <v-simple-table>
+      <!-- <v-simple-table>
         <template v-slot:default>
           <thead>
             <tr>
@@ -67,7 +69,7 @@
             </tr>
           </tbody>
         </template>
-      </v-simple-table>
+      </v-simple-table> -->
     </v-card-text>
   </v-card>
 </template>
@@ -79,7 +81,9 @@ export default {
     negNegByOthers: Number,
     negNeuByOthers: Number,
     negPosByOthers: Number,
+    neuPosishByOthers: Number,
     neuNegByOthers: Number,
+    neuNegishByOthers: Number,
     neuNeuByOthers: Number,
     neuPosByOthers: Number,
     posNegByOthers: Number,
@@ -104,6 +108,9 @@ export default {
       const denominator = this.negNegByOthers + this.neuNegByOthers + this.posNegByOthers + this.negPosByOthers + this.neuPosByOthers + this.posPosByOthers
 
       return (denominator - numerator)
+    },
+    needsAttention: function () {
+      return this.neuPosishByOthers + this.neuNegishByOthers
     },
     colors: function () {
       return {
