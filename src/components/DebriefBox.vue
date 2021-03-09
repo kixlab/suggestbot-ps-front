@@ -10,12 +10,12 @@
           of your feedback agrees with the feedback of the majority.
         </v-col>
         <v-col md="6" class="text-center">
-          <div class="text-h2">{{needsAttention}}</div>
-          lines need your feedback to make the final decision.
-        </v-col>
-        <v-col md="6" class="text-center">
           <div class="text-h2">{{missed}} </div>
           lines annotated by the others are missing from your list.
+        </v-col>
+        <v-col md="6" class="text-center">
+          <div class="text-h2">{{needsAttention}}</div>
+          lines need your feedback to make the final decision.
         </v-col>
         <v-col md="6" class="text-center">
           <div class="text-h2">{{unannotated}}</div>
