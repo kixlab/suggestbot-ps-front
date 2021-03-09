@@ -204,6 +204,7 @@ export default {
       }
       // const condition = process.env.VUE_APP_COND
       const dataset = this.dataset
+      this.touchBottom = false
       axios.post(`${process.env.VUE_APP_API_URL}/logs/`, {
         event_name: 'SeeMore',
         status: this.taskType,
