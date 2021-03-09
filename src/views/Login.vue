@@ -53,15 +53,15 @@ export default {
       this.err = false
       this.msg = ''
       const taskType = 'Moderate-Debriefing'
-      const id = `${this.id}-${this.$route.params.dataset}-${taskType} Token ${this.rw}`
+      const id = `${this.id}-${this.$route.params.dataset}-${taskType}`
       console.log(id)
       console.log(process.env.VUE_APP_API_URL)
       try {
         const response = await axios.post(`${process.env.VUE_APP_API_URL}/register/`, {
-          username: this.id,
+          username: this.id, // This should be changed to ID to be open to multiple submissions
           password: this.id,
           first_name: taskType,
-          last_name: id
+          last_name: `${this.id} Token ${this.rw}`
         })
         const result = response.data
 
