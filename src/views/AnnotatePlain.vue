@@ -20,7 +20,7 @@
       <!-- <h3>Please carefully read this meeting transcript and annotate the lines that negatively affected the psychological safety of the group. </h3> -->
     </v-col>
     <v-col md="7">
-      <div ref="scrollBox" class="scroll-box">
+      <div ref="scrollBox" class="scroll-box" @scroll="handleScroll">
         <v-btn v-if="initialTime > 0" block @click="seePriorLines" depressed class="primary">
           See previous lines
         </v-btn>
@@ -52,9 +52,8 @@
       </moment-list>
 
     </v-col>
-    <v-col md="12" class="d-flex flex-row-reverse" v-if="(filteredLines.length === lines.length) && (moments.length >= 5)">
+    <v-col md="12" class="d-flex flex-row-reverse" v-if="touchBottom && (moments.length >= 5)">
       <v-btn color="success" @click="onNextClick">NEXT</v-btn>
-      <v-btn color="primary" class="button-margin" v-if="!seeResults" @click="onSeeOthersAnnotationClick">SEE OTHERS' FEEDBACK</v-btn>
     </v-col>
   </v-row>
 </template>

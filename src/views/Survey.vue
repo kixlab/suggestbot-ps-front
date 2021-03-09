@@ -120,7 +120,7 @@ export default {
         sanity_check: 0,
         free_response: '',
         topic: '',
-        status: process.env.VUE_APP_COND
+        status: this.$store.state.taskType
       },
       scales: {
         '1': 'Strongly Disagree',
