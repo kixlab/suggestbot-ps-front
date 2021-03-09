@@ -68,21 +68,21 @@
 
         <v-col md="8" v-else-if="page === 2" key="page2">
           <p>
-            <img class="screenshots" src="../assets/Debriefing1.gif" />
+            <img class="screenshots" src="../assets/Debriefing1-1.gif" />
             The picture above shows the task interface. On the left side of the
             interface, you'll see the actual line-by-line transcript of the
             meeting. 
           </p>
           <p>
-            The lines will be automatically presented as in the actual meeting.
             At the top of each line, you can see the timestamp to check 
             whether the lines were overlapped. 
-          </p>
-          <p>
-            On the right side, you can see the list of feedback you gave. For each line in the
-            meeting transcript, the colored circle denotes who was the speaker,
+            For each line in the
+            meeting transcript, the colored circle denotes who the speaker was,
             and the text shows the actual line from each participant. 
           </p>
+          <p>
+            On the right side, you can see the list of feedback you gave. 
+            The right side also presents the numbers on how your feedback agreed with others and how many lines would need your attention.
           <p> 
             If you find a line that would make the participants either feel easier or
             harder to speak up about their own minds, click on it to start giving feedback.
@@ -91,8 +91,8 @@
 
         <v-col md="8" v-else-if="page === 3" key="page3">
           <p>
-            <img class="screenshots" src="../assets/Debriefing2.gif" />
-            Upon clicking a line, the system will stop the transcript and ask how you
+            <img class="screenshots" src="../assets/Debriefing2-1.gif" />
+            Upon clicking a line, the system will ask how you
             would give feedback to the speaker on the current situation. 
           </p>
           <p>
@@ -112,7 +112,7 @@
           </p>
           <p>
             <!-- what you would tell the speaker to improve the psychological safety of the group as a moderator, and click "SUBMIT" button.  -->
-             After you click the "SUBMIT" button, you
+            After you click the "SUBMIT" button, you
             can see the list of feedback you gave.
             You can also see how your fellow workers annotated the line to reflect on your own annotation.
           </p>
@@ -120,7 +120,7 @@
 
         <v-col md="8" v-else-if="page === 4" key="page4">
           <p>
-            <img class="screenshots" src="../assets/Debriefing3.gif" />
+            <img class="screenshots" src="../assets/Debriefing3-1.gif" />
             The script is divided into several segments. Each segment presents
             transcript from a two-minute slice of the meeting. 
             When you reached the end of the segment you can click "SEE MORE" button to
@@ -144,7 +144,7 @@
         </v-col>
         <v-col md="8" v-else-if="page === 5" key="page5">
           <p>
-            <img class="screenshots" src="../assets/Debriefing5-1.gif" />
+            <img class="screenshots" src="../assets/Debriefing4-1.gif" />
           </p>
           <p>
             If you made at least five annotations and finished reading the

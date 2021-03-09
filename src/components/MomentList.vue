@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <v-card-title>
-      <span>Your Annotations</span>
+      <span>Your Feedback</span>
       <v-spacer />
       <!-- <span>{{moments.length}} / 5</span> -->
     </v-card-title>

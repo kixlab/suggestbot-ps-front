@@ -211,6 +211,7 @@ export default {
       } else {
         this.currentTime += this.$store.state.windowSize
       }
+      this.touchBottom = false
       // const condition = process.env.VUE_APP_COND
       const dataset = this.dataset
       axios.post(`${process.env.VUE_APP_API_URL}/logs/`, {
