@@ -5,17 +5,21 @@
     </v-card-title>
     <v-card-text>
       <v-row>
-        <v-col md="4" class="text-center">
+        <v-col md="6" class="text-center">
           <div class="text-h2">{{precision}}%</div>
           of your feedback agreed with others'.
         </v-col>
-        <v-col md="4" class="text-center">
+        <v-col md="6" class="text-center">
           <div class="text-h2">{{needsAttention}}</div>
           lines need your feedback to make the final decision!
         </v-col>
-        <v-col md="4" class="text-center">
+        <v-col md="6" class="text-center">
           <div class="text-h2">{{missed}} </div>
           lines annotated by the others are missing!
+        </v-col>
+        <v-col md="6" class="text-center">
+          <div class="text-h2">{{unannotated}}</div>
+          lines need the first feedback from you!
         </v-col>
       </v-row>
 
@@ -125,6 +129,9 @@ export default {
     },
     needsAttention: function () {
       return this.neuPosishByOthers + this.neuNegishByOthers
+    },
+    unannotated: function () {
+      return this.neuNeuByOthers
     },
     colors: function () {
       return {

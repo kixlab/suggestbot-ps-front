@@ -8,15 +8,18 @@
 </template>
 
 <script>
-import randomWords from 'random-words'
 
 export default {
   name: 'finish',
   computed: {
     rw: function () {
-      const rw = randomWords({exactly: 4, maxLength: 5})
-      return rw.toString()
+      const res = this.$store.state.turkerId.split('Token')
+      return res[1]
     }
+    // rw: function () {
+    //   const rw = randomWords({exactly: 4, maxLength: 5})
+    //   return rw.toString()
+    // }
   }
 }
 </script>

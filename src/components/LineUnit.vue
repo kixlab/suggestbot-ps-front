@@ -121,7 +121,9 @@ export default {
         negNegByOthers: `${countNeg} out of ${count} workers agreed with you that this line harms the psychological safety!`,
         negNeuByOthers: `${countNeg} / ${count} workers agreed with you. Your annotation would be critical to decide the final label!`,
         neuPosByOthers: `Reinforce: ${countPos} / ${count}, Harm: ${countNeg} / ${count}`,
+        neuPosishByOthers: `Reinforce: ${countPos} / ${count}, Harm: ${countNeg} / ${count}`,
         neuNegByOthers: `Reinforce: ${countPos} / ${count}, Harm: ${countNeg} / ${count}`,
+        neuNegishByOthers: `Reinforce: ${countPos} / ${count}, Harm: ${countNeg} / ${count}`,
         neuNeuByOthers: `Reinforce: ${countPos} / ${count}, Harm: ${countNeg} / ${count}`
       }
     }

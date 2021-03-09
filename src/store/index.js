@@ -13,7 +13,8 @@ export default new Vuex.Store({
     taskType: '',
     initialTime: 0,
     windowSize: 120,
-    finishTime: 0
+    finishTime: 0,
+    randomWords: ''
   },
   mutations: {
     setToken(state, token) {
@@ -36,6 +37,9 @@ export default new Vuex.Store({
     },
     setFinishTime(state, finishTime) {
       state.finishTime = finishTime
+    },
+    setRandomWords(state, randomWords) {
+      state.randomWords = randomWords
     }
   },
   actions: {

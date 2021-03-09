@@ -24,6 +24,8 @@
 </template>
 
 <script>
+import randomWords from 'random-words'
+
 import axios from 'axios'
 export default {
   name: 'login',
@@ -40,12 +42,18 @@ export default {
     this.$store.commit('setFinishTime', (Number(this.$route.params.initialTime) || 0))
 
   },
+  computed: {
+    rw: function () {
+      const rw = randomWords({exactly: 4, maxLength: 5})
+      return rw.toString()
+    }
+  },
   methods: {
     onNextClick: async function () {
       this.err = false
       this.msg = ''
       const taskType = 'Moderate-Debriefing'
-      const id = `${this.id}-${this.$route.params.dataset}-${taskType}`
+      const id = `${this.id}-${this.$route.params.dataset}-${taskType} Token ${this.rw}`
       console.log(id)
       console.log(process.env.VUE_APP_API_URL)
       try {
@@ -53,7 +61,7 @@ export default {
           username: this.id,
           password: this.id,
           first_name: taskType,
-          last_name: this.id
+          last_name: id
         })
         const result = response.data
 

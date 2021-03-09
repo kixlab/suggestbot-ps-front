@@ -188,7 +188,7 @@ export default {
   name: "tutorial",
   methods: {
     onNextClick: function () {
-      this.$router.push("/Annotate");
+      this.$router.push("/AnnotatePlain");
     },
   },
   data: function () {

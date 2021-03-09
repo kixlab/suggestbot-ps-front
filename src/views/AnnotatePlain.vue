@@ -20,7 +20,7 @@
       <!-- <h3>Please carefully read this meeting transcript and annotate the lines that negatively affected the psychological safety of the group. </h3> -->
     </v-col>
     <v-col md="7">
-      <div ref="scrollBox" class="scroll-box">
+      <div ref="scrollBox" class="scroll-box" @scroll="handleScroll">
         <v-btn v-if="initialTime > 0" block @click="seePriorLines" depressed class="primary">
           See previous lines
         </v-btn>
@@ -38,7 +38,7 @@
             </line-unit>
           </v-list-item-group>
         </v-list>
-        <v-btn v-if="lines.length && lines[lines.length - 1].starttime > currentTime" block @click="seeMoreLines" class="primary">
+        <v-btn v-if="lines.length && lines[lines.length - 1].starttime > currentTime && !seeResults" block @click="seeMoreLines" class="primary">
           See more
         </v-btn>
       </div>
@@ -57,7 +57,7 @@
       </moment-list>
 
     </v-col>
-    <v-col md="12" class="d-flex flex-row-reverse" v-if="(filteredLines.length === lines.length) && (moments.length >= 5)">
+    <v-col md="12" class="d-flex flex-row-reverse" v-if="touchBottom && (moments.length >= 5)">
       <v-btn color="success" @click="onNextClick">NEXT</v-btn>
       <v-btn color="primary" class="button-margin" v-if="!seeResults" @click="onSeeOthersAnnotationClick">SEE OTHERS' FEEDBACK</v-btn>
     </v-col>
@@ -185,6 +185,7 @@ export default {
     handleScroll: function(el) {
       if ((el.srcElement.offsetHeight + el.srcElement.scrollTop) >= el.srcElement.scrollHeight) {
         this.touchBottom = true
+        console.log('aaaa')
       }
     },
     closeMomentBox: function () {
@@ -242,6 +243,23 @@ export default {
           Authorization: `Token ${this.token}`
         }
       })
+    },
+    onSeeOthersAnnotationClick: async function () {
+      this.seeResults = true
+      const res = await axios.post(`${process.env.VUE_APP_API_URL}/logs/`, {
+        event_name: 'SeeOthersAnnotation',
+        status: this.taskType,
+        payload: JSON.stringify({
+          clientTime: new Date(),
+          dataset: this.dataset
+        })
+      }, {
+        headers: {
+          Authorization: `Token ${this.token}`
+        }
+      })
+      console.log(res)
+
     },
     onNextClick: async function () {
       const res = await axios.post(`${process.env.VUE_APP_API_URL}/logs/`, {
@@ -374,4 +392,6 @@ export default {
   height: 70vh
   overflow-y: scroll
 
+.button-margin
+  margin-right: 1em
 </style>
