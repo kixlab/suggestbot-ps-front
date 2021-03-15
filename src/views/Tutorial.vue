@@ -69,14 +69,14 @@
             The picture above shows the task interface. On the left side of
             the interface, you'll see the actual line-by-line transcript of
             the meeting.
-            The lines will be automatically presented as in the actual meeting.
             At the top of each line, you can see the timestamp to check 
-            whether the lines were overlapped.           
-          </p>
-          <p>
-            On the right side, you can see the list of annotations you made. For each line in the
+            whether the lines were overlapped.
+            For each line in the
             meeting transcript, the colored circle denotes who was the speaker,
             and the text shows the actual line from each participant. 
+          </p>
+          <p>
+            On the right side, you can see the list of annotations you made. 
           </p>
           <p> 
             If you find a line that would make the participants either feel easier or
@@ -87,7 +87,7 @@
         <v-col md="8" v-else-if="page === 3" key="page3">
           <p>
             <img class="screenshots" src="../assets/Screenshot2-5.gif" />
-            Upon clicking a line, the system will stop the transcript and show a box to ask your reasoning behind annotation.
+            Upon clicking a line, the system will show a box to ask your reasoning behind annotation.
           </p>
           <p>
             First, please choose whether the selected line would reinforce 
