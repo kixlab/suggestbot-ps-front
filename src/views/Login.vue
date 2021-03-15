@@ -24,6 +24,8 @@
 </template>
 
 <script>
+import randomWords from 'random-words'
+
 import axios from 'axios'
 export default {
   name: 'login',
@@ -37,21 +39,29 @@ export default {
   mounted: function () {
     this.$store.commit('setDataset', this.$route.params.dataset)
     this.$store.commit('setInitialTime', (Number(this.$route.params.initialTime) || 0))
+    this.$store.commit('setFinishTime', (Number(this.$route.params.initialTime) || 0))
+
+  },
+  computed: {
+    rw: function () {
+      const rw = randomWords({exactly: 4, maxLength: 5})
+      return rw.toString()
+    }
   },
   methods: {
     onNextClick: async function () {
       this.err = false
       this.msg = ''
-      const taskType = 'Reason-Interactive'
+      const taskType = 'Reason-Plain'
       const id = `${this.id}-${this.$route.params.dataset}-${taskType}`
       console.log(id)
       console.log(process.env.VUE_APP_API_URL)
       try {
         const response = await axios.post(`${process.env.VUE_APP_API_URL}/register/`, {
-          username: this.id,
+          username: this.id, // This should be changed to ID to be open to multiple submissions
           password: this.id,
           first_name: taskType,
-          last_name: this.id
+          last_name: `${this.id} Token ${this.rw}`
         })
         const result = response.data
 
@@ -59,7 +69,7 @@ export default {
         this.$store.commit('setUsername', result.username)
         this.$store.commit('setTurkerId', result.turker_id)
         this.$store.commit('setTaskType', taskType)
-        this.$router.push('/Tutorial')
+        this.$router.push('/Scenario')
       } catch (err) {
         console.log(err.response)
         if (err.response.status === 403) {
