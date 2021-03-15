@@ -32,6 +32,8 @@
               :idx="idx"
               :selected="idx === selectedItem"
               :disabled="seeResults"
+              :highlightUnannotated="highlightUnannotated"
+              :highlightNeedsAttention="highlightNeedsAttention"
               @close-moment-box="closeMomentBox"
               @moment-saved="onMomentSaved"
               @line-click="openMomentBox">
@@ -46,6 +48,10 @@
     <v-col md="5">
       <debrief-box
         v-bind="debriefingBoxData"
+        :highlightUnannotated="highlightUnannotated"
+        :highlightNeedsAttention="highlightNeedsAttention"
+        @needs-attention-click="onNeedsAttentionClick"
+        @unannotated-click="onUnannotatedClick"
       >
 
       </debrief-box>
@@ -89,7 +95,9 @@ export default {
       currentTime: this.$store.state.initialTime + this.$store.state.windowSize,
       touchBottom: false,
       seeMore: false,
-      seeResults: false
+      seeResults: false,
+      highlightUnannotated: false,
+      highlightNeedsAttention: false
     }
   },
   computed: {
@@ -294,6 +302,14 @@ export default {
       } catch (err) {
         console.log(err)
       }
+    },
+    onUnannotatedClick: function () {
+      this.highlightNeedsAttention = false
+      this.highlightUnannotated = !this.highlightUnannotated
+    },
+    onNeedsAttentionClick: function () {
+      this.highlightUnannotated = false
+      this.highlightNeedsAttention = !this.highlightNeedsAttention
     }
   },
   mounted: async function () {

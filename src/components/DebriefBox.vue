@@ -13,11 +13,11 @@
           <div class="text-h2">{{missed}} </div>
           lines annotated by the others are missing from your list.
         </v-col>
-        <v-col md="6" class="text-center">
+        <v-col md="6" :class="`text-center pointer ${highlightNeedsAttention ? 'needs--attention' : ''}`" @click="onNeedsAttentionClick"> 
           <div class="text-h2">{{needsAttention}}</div>
           lines need your feedback to make the final decision.
         </v-col>
-        <v-col md="6" class="text-center">
+        <v-col md="6" :class="`text-center pointer ${highlightUnannotated ? 'unannotated' : ''}`" @click="onUnannotatedClick">
           <div class="text-h2">{{unannotated}}</div>
           lines need the first feedback from you.
         </v-col>
@@ -106,7 +106,9 @@ export default {
     neuPosByOthers: Number,
     posNegByOthers: Number,
     posNeuByOthers: Number,
-    posPosByOthers: Number
+    posPosByOthers: Number,
+    highlightNeedsAttention: Boolean,
+    highlightUnannotated: Boolean
   },
   computed: {
     precision: function () {
@@ -146,6 +148,14 @@ export default {
         neuNeuByOthers: ''
       }
     }
+  },
+  methods: {
+    onUnannotatedClick: function () {
+      this.$emit('unannotated-click')
+    },
+    onNeedsAttentionClick: function () {
+      this.$emit('needs-attention-click')
+    }
   }
 }
 </script>
@@ -156,5 +166,16 @@ export default {
 .large--number {
   font-size: 5em;
   height: auto;
+}
+.pointer {
+  cursor: pointer;
+}
+
+.highlight {
+  border: 1px solid red;
+}
+
+.needs--attention {
+  border: 1px solid red;
 }
 </style>

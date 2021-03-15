@@ -1,6 +1,8 @@
 <template>
   <div>
-    <v-list-item ripple @click="onLineClick" :disabled="disabled">
+    <v-list-item ripple @click="onLineClick" :disabled="disabled" 
+      :class="`${highlightNeedsAttention && line.result.includes('ish') ? 'needs--attention' : ''}
+        ${highlightUnannotated && line.result.startsWith('neuNeu') ? 'unannotated' : ''}`">
       <template>
         <v-list-item-avatar>
           <v-avatar
@@ -8,7 +10,9 @@
             {{line.speaker}}
           </v-avatar>
         </v-list-item-avatar>
-        <v-list-item-content :class="`${interactive? 'chat-bubble' : ''} ${line.speaker}`">
+        <v-list-item-content 
+          :class="`${interactive? 'chat-bubble' : ''} 
+            ${line.speaker}`">
           <v-list-item-subtitle>{{formattedStartTime}} - {{formattedEndTime}}</v-list-item-subtitle>
           {{line.text}}
         </v-list-item-content>
@@ -66,7 +70,9 @@ export default {
     idx: Number,
     selected: Boolean,
     interactive: Boolean,
-    disabled: Boolean
+    disabled: Boolean,
+    highlightUnannotated: Boolean,
+    highlightNeedsAttention: Boolean
   },
   methods: {
     onLineClick: function () {
@@ -216,6 +222,21 @@ export default {
 
 .feedback {
   padding: 0 1em 1em 4.5em;
+}
+
+@keyframes glowing {
+    0% { box-shadow: 0 0 0px 8px rgba(255,255,0,.8); }
+    30% { box-shadow: 0 0 10px 8px rgba(255,255,0,.8); }
+    60% { box-shadow: 0 0 10px 8px rgba(255,255,0,.8); }
+    100% { box-shadow: 0 0 0px 8px rgba(255,255,0,.8); }
+}
+
+.unannotated {
+  border: 2px solid red;
+}
+
+.needs--attention {
+  border: 2px solid blue;
 }
 
 .striped {
