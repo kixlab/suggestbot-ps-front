@@ -54,7 +54,7 @@
         ></moment-box>
     </v-col>
     <v-col md="12" class="d-flex flex-row-reverse" v-if="touchBottom && (moments.length >= 5)">
-      <v-btn color="green" @click="onNextClick">NEXT</v-btn>
+      <v-btn color="success" @click="onNextClick">NEXT</v-btn>
     </v-col>
   </v-row>
 </template>

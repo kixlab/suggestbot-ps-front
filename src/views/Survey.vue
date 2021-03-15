@@ -16,13 +16,13 @@
           <v-col md="12">
             Please briefly summarize the main topic of the meeting with more than 10 words.
             <v-textarea rows="2" :value="answers.topic"
-                  @change="v => topic = v" counter required :rules="[validateTopic]">
+                  @change="v => answers.topic = v" counter required :rules="[validateTopic]">
             </v-textarea>
           </v-col>
           <v-col md="12">
             Please leave any comments on the task.
             <v-textarea rows="2" :value="answers.free_response"
-                  @change="v => free_response = v" counter required :rules="[validateTxt]">
+                  @change="v => answers.free_response = v" counter required :rules="[validateTxt]">
             </v-textarea>
             <!-- <span v-if="isTextBlank" class="red--text">Please leave comments on the task!</span> -->
           </v-col>
@@ -120,7 +120,7 @@ export default {
         sanity_check: 0,
         free_response: '',
         topic: '',
-        status: process.env.VUE_APP_COND
+        status: this.$store.state.taskType
       },
       scales: {
         '1': 'Strongly Disagree',
@@ -139,7 +139,7 @@ export default {
         if (!this.$refs.form.validate()) {
           return
         }
-        if (this.answers.free_response.length <= 10) {
+        if (this.answers.free_response.length <= 10 || this.answers.topic.length < 30) {
           this.isTextBlank = true
           return
         }
