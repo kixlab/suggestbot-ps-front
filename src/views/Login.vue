@@ -69,7 +69,7 @@ export default {
         this.$store.commit('setUsername', result.username)
         this.$store.commit('setTurkerId', result.turker_id)
         this.$store.commit('setTaskType', taskType)
-        this.$router.push('/Scenario')
+        this.$router.push('/Tutorial')
       } catch (err) {
         console.log(err.response)
         if (err.response.status === 403) {
