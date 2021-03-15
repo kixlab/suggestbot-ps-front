@@ -1,9 +1,22 @@
 <template>
   <v-row>
     <v-col md="12">
-      <!-- <h3> Now, you'll see a replay of a chat stream of a collaboration meeting. Please label the line that harms psychological safety of the group and let us know how you'd intervene in such situations.</h3> -->
-      <h3>Please carefully read this meeting transcript and annotate <span class="red--text">all lines (at least five)</span> that would significantly boost or harm the psychological safety of the group. </h3>
-      <!-- <h3 class="text-center red--text">"In this group, it is easy to speak up about what is on my mind." </h3> -->
+      <h3> 
+        Please choose <span class="red--text"> all lines (at least five)</span> 
+        that would significantly reinforce or harm the psychological safety 
+        and explain why you thought so.
+      </h3>
+      <v-progress-linear 
+        height="20"
+        striped dark
+        :value="moments.length / 5 * 100">
+        
+        <template v-slot:default="{ value }">
+          <span v-if="value < 100" class="white--text text--darken-3 font-weight-bold">{{Math.floor(value  * 5 / 100)}} / 5 annotations done!</span>
+          <span v-else-if="value >= 100" class="white--text text--darken-3 font-weight-bold">{{Math.floor(value  * 5 / 100)}} annotations done!</span>
+
+        </template>
+      </v-progress-linear>
     </v-col>
     <v-col md="7">
       <div ref="scrollBox" @scroll="handleScroll" class="scroll-box">
@@ -142,6 +155,7 @@ export default {
           Authorization: `Token ${this.token}`
         }
       })
+      this.touchBottom = false
     },
     seePriorLines: async function () {
       this.initialTime -= this.$store.state.windowSize
