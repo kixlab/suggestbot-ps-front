@@ -137,9 +137,10 @@ export default {
       this.err = false
       try {
         if (!this.$refs.form.validate()) {
+          console.log('validation failure')
           return
         }
-        if (this.answers.free_response.length <= 10 || this.answers.topic.length < 30) {
+        if (this.answers.free_response.length < 20 || this.answers.topic.length < 30) {
           this.isTextBlank = true
           return
         }
