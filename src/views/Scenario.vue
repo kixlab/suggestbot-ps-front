@@ -19,8 +19,10 @@
             improves or harms the discussion with <span class="font-weight-bold">the reasoning behind your decision</span>.
           </p>
           <p>
-            In detail, you will act as an AI agent while reading a transcript of a meeting 
-            for designing a new remote control.
+            In detail, you will act as an AI agent involved in a design meeting 
+            for a new television remote control.
+            The meeting is in <span class="font-weight-bold">{{meetingPhase}}</span>, {{description}}.
+
           </p>
           <p>
             As an agent, your goal is to find moments that would significantly reinforce or harm the
@@ -118,12 +120,17 @@
 
         <v-col md="8" v-else-if="page === 4" key="page4">
           <p>
-            <img class="screenshots" src="../assets/Moderating3-2.gif" />
+            <img class="screenshots" src="../assets/Moderating3-3.gif" />
             The script is divided into several segments. Each segment presents
             transcript from a two-minute slice of the meeting. 
             When you reached the end of the segment you can click "SEE MORE" button to
             proceed to the next segment.
             You can freely proceed to the next segment to give more feedback.
+          </p>
+          <p>
+            In some cases, you'll be assigned to leave feedback from the middle of the meeting.
+            In such cases, you can use the "SEE PREVIOUS LINES" button to have a better understanding of the meeting context from previous lines.
+            You'll not be allowed to annotate previous lines. 
           </p>
           <p>
             You need to give feedback to all lines that would significantly reinforce or harm the psychological safety of the group.
@@ -181,6 +188,36 @@ export default {
       page: 1,
     };
   },
+  computed: {
+    meetingPhase: function () {
+      const dataset = this.$store.state.dataset
+      if (dataset.endsWith('a')) {
+        return 'the first phase'
+      } else if (dataset.endsWith('b')) {
+        return 'the second phase'
+      } else if (dataset.endsWith('c')) {
+        return 'the third phase'
+      } else if (dataset.endsWith('d')) {
+        return 'the fourth phase'
+      } else {
+        return ''
+      }
+    },
+    description: function () {
+      const dataset = this.$store.state.dataset
+      if (dataset.endsWith('a')) {
+        return 'where the participants are getting acquainted with each other and the task'
+      } else if (dataset.endsWith('b')) {
+        return 'in which the team sets the user requirements, the technical functionality, and the working design'
+      } else if (dataset.endsWith('c')) {
+        return 'in which the team determines the conceptual specification for the components, properties, materials, and user interface for the remote control'
+      } else if (dataset.endsWith('d')) {
+        return 'where the team finalizes the look-and-feel and user interface and evaluates the result'
+      } else {
+        return ''
+      }
+    }
+  }
 };
 </script>
 
