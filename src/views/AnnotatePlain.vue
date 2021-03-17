@@ -31,7 +31,7 @@
               :line="l"
               :idx="idx"
               :selected="idx === selectedItem"
-              :disabled="seeResults"
+              :disabled="seeResults || (l.starttime < initialLineTime)"
               :highlightUnannotated="highlightUnannotated"
               :highlightNeedsAttention="highlightNeedsAttention"
               @close-moment-box="closeMomentBox"
@@ -113,6 +113,11 @@ export default {
         return (line.starttime <= this.currentTime) && (line.starttime >= this.initialTime)
       })
     },
+    targetLines: function () {
+      return this.lines.filter((line) => {
+        return (line.starttime <= this.currentTime) && (line.starttime >= this.initialLineTime)
+      })
+    },
     positives: function () {
       return this.moments.filter(m => {
         return m.direction === 'POSITIVE'
@@ -150,7 +155,7 @@ export default {
         neuNegishByOthers: 0,
         neuNeuByOthers: 0
       }
-      this.filteredLines.forEach((l) => {
+      this.targetLines.forEach((l) => {
         data[l.result] += 1
       })
       console.log(data)
@@ -159,7 +164,8 @@ export default {
     ...mapState({
       token: state => state.token,
       dataset: state => state.dataset,
-      taskType: state => state.taskType
+      taskType: state => state.taskType,
+      initialLineTime: state => state.initialTime
     })
   },
   methods: {
