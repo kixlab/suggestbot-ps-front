@@ -77,12 +77,12 @@
           </p>
           <p>
             At the top of each line, you can see the timestamp to check 
-            whether the lines were overlapped. 
-          </p>
-          <p>
-            On the right side, you can see the list of feedback you gave. For each line in the
+            whether the lines were overlapped. For each line in the
             meeting transcript, the colored circle denotes who the speaker was,
             and the text shows the actual utterance from each participant. 
+          </p>
+          <p>
+            On the right side, you can see the list of feedback you gave. 
           </p>
           <p> 
             If you find a line that would make the participants either feel easier or
@@ -106,15 +106,14 @@
           </p>
           <p>
             Finally, please write how you would explain your decision to the
-            speaker as an AI moderator, and click "SUBMIT" button.
+            speaker as an AI moderator, and click "SUBMIT" button. If you made a mistake on selecting the line, you can click the red
+            "DISCARD" button to cancel.
             <br>
             <span class="red--text font-weight-bold">* Please respond sincerely. Any invalid open-ended response would make the HIT be rejected.</span>
           </p>
           <p>
             <!-- what you would tell the speaker to improve the psychological safety of the group as a moderator, and click "SUBMIT" button.  -->
-            If you made a mistake on selecting the line, you can click the red
-            "DISCARD" button to cancel. After you click the "SUBMIT" button, you
-            can see the list of feedback you gave.
+            After you click the "SUBMIT" button, you can see the list of feedback you gave.
           </p>
         </v-col>
 
@@ -141,7 +140,7 @@
           </p>
           <p>
             <span class="red--text font-weight-bold">
-              We will reject HITs with any invalid open-ended feedback (e.g. repeated responses to multiple lines, irrelevant responses, copy & paste of example response).
+              We will reject HITs with any invalid open-ended feedback (e.g. repeated responses to multiple lines, irrelevant responses such as "Good task", copy & paste of the example response, copy & paste of random sentence from the Internet).
             </span>
 
             <!-- We'll pay you $0.60 for each segment annotated.  -->
@@ -153,7 +152,7 @@
             If you left feedback to at least five lines and finished the
             current segment, you can see a green "NEXT" button at the bottom of
             the page. If you left feedback as much as you want, click
-            it to continue.
+            it to continue to the post-task survey.
           </p>
         </v-col>
       </v-slide-x-transition>
