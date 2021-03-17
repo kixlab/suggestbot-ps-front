@@ -31,7 +31,7 @@
               :line="l"
               :idx="idx"
               :selected="idx === selectedItem"
-              :disabled="seeResults"
+              :disabled="seeResults || l.starttime < initialLineTime"
               @close-moment-box="closeMomentBox"
               @moment-saved="onMomentSaved"
               @line-click="openMomentBox">
@@ -143,7 +143,8 @@ export default {
     ...mapState({
       token: state => state.token,
       dataset: state => state.dataset,
-      taskType: state => state.taskType
+      taskType: state => state.taskType,
+      initialLineTime: state => state.initialTime
     })
   },
   methods: {
