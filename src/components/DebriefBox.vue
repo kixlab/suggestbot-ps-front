@@ -171,11 +171,11 @@ export default {
   cursor: pointer;
 }
 
-.highlight {
+.unannotated {
   border: 1px solid red;
 }
 
 .needs--attention {
-  border: 1px solid red;
+  border: 1px solid blue;
 }
 </style>
