@@ -26,7 +26,8 @@
         </v-btn>
         <v-list>
           <v-list-item-group v-model="selectedItem">
-            <line-unit v-for="(l, idx) in filteredLines" :key="idx"
+            <line-unit v-for="(l, idx) in lines" :key="idx"
+              v-show="(l.starttime <= currentTime) && (l.starttime >= initialTime)"
               :interactive="true"
               :line="l"
               :idx="idx"
