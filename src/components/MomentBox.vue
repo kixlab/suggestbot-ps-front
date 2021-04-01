@@ -15,7 +15,7 @@
             Would this line reinforce or harm the psychological safety of the meeting participants?
           </div>
           <v-btn-toggle block v-model="direction">
-            <v-btn value="POSITIVE" text color="green" @click="page = 2; reason = ''">
+            <v-btn value="POSITIVE" text color="green" @click="onDirectionClick">
               Reinforce
             </v-btn>
             <v-btn value="NEGATIVE" text color="red"  @click="page = 2; reason = ''">
@@ -27,7 +27,7 @@
         <v-slide-y-transition>
           <v-col md="12" v-if="page >= 2" key="page2">
             <span v-if="direction === 'POSITIVE'">How did the selected line reinforce the psychological safety of the group?</span>
-            <v-radio-group v-model="reason" v-if="direction === 'POSITIVE'" @change="page = reason === '' ? 2 : 3; possibleComment = ''">
+            <v-radio-group v-model="reason" v-if="direction === 'POSITIVE'" @change="onReasonClick">
               <v-row no-gutters>
                 <v-col md="6">
                   <v-radio label="Being positive" value="Being positive">
@@ -51,7 +51,7 @@
               </v-row>
             </v-radio-group>
             <span v-if="direction === 'NEGATIVE'"> How did the selected line harm the psychological safety of the group? </span>
-            <v-radio-group v-model="reason" v-if="direction === 'NEGATIVE'" @change="page = reason === '' ? 2 : 3; possibleComment = ''">
+            <v-radio-group v-model="reason" v-if="direction === 'NEGATIVE'" @change="onReasonClick">
               <v-row no-gutters>
                 <v-col md="6">
                   <v-radio label="Causing annoyance" value="Causing annoyance">
@@ -200,6 +200,14 @@ export default {
       this.long = false
       this.choice = false
       this.page = 1
+    },
+    onDirectionClick: function () {
+      this.page = 2
+      this.reason = ''
+      this.possibleComment = ''
+    },
+    onReasonClick: function () {
+      this.page = (this.reason === '') ? 2 : 3
     },
     submitMoment: async function () {
       try {
