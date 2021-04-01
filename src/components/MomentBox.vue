@@ -15,7 +15,7 @@
             Would this line reinforce or harm the psychological safety of the meeting participants?
           </div>
           <v-btn-toggle block v-model="direction">
-            <v-btn value="POSITIVE" text color="green" @click="page = 2; reason = ''">
+            <v-btn value="POSITIVE" text color="green" @click="onDirectionClick">
               Reinforce
             </v-btn>
             <v-btn value="NEGATIVE" text color="red"  @click="page = 2; reason = ''">
@@ -27,7 +27,7 @@
         <v-slide-y-transition>
           <v-col md="12" v-if="page >= 2" key="page2">
             <span v-if="direction === 'POSITIVE'">How did the selected line reinforce the psychological safety of the group?</span>
-            <v-radio-group v-model="reason" v-if="direction === 'POSITIVE'" @change="page = reason === '' ? 2 : 3; possibleComment = ''">
+            <v-radio-group v-model="reason" v-if="direction === 'POSITIVE'" @change="onReasonClick">
               <v-row no-gutters>
                 <v-col md="6">
                   <v-radio label="Being positive" value="Being positive">
@@ -51,7 +51,7 @@
               </v-row>
             </v-radio-group>
             <span v-if="direction === 'NEGATIVE'"> How did the selected line harm the psychological safety of the group? </span>
-            <v-radio-group v-model="reason" v-if="direction === 'NEGATIVE'" @change="page = reason === '' ? 2 : 3; possibleComment = ''">
+            <v-radio-group v-model="reason" v-if="direction === 'NEGATIVE'" @change="onReasonClick">
               <v-row no-gutters>
                 <v-col md="6">
                   <v-radio label="Causing annoyance" value="Causing annoyance">
@@ -144,6 +144,15 @@
         DISCARD
       </v-btn>
     </v-card-actions>
+    <v-overlay
+      absolute
+      :value="submitting"
+      >
+      <v-progress-circular 
+        indeterminate
+        color="blue">
+      </v-progress-circular>
+    </v-overlay>
   </v-card>
 </template>
 
@@ -201,19 +210,28 @@ export default {
       this.choice = false
       this.page = 1
     },
+    onDirectionClick: function () {
+      this.page = 2
+      this.reason = ''
+      this.possibleComment = ''
+    },
+    onReasonClick: function () {
+      this.page = (this.reason === '') ? 2 : 3
+    },
     submitMoment: async function () {
       try {
         this.err = false
         this.long = false
         this.choice = false
+      
         if ((this.direction !== 'POSITIVE') && (this.direction !== 'NEGATIVE')) {
           this.choice = true
         }
         if ((this.reason === 'Other')) {
           this.reason = this.reasonOther
         } 
-        if ((this.reasoning && ((this.reason.length < 10) || (this.possibleComment.length < 30) || this.possibleComment.split(' ').length < 10 )) 
-          || (this.moderating && ((this.reason.length < 10) || (this.possibleComment.length < 30) || this.possibleComment.split(' ').length < 10 )) 
+        if ((this.reasoning && ((this.reason.length < 10) || (this.possibleComment.length < 15) || this.possibleComment.split(' ').length < 10 )) 
+          || (this.moderating && ((this.reason.length < 10) || (this.possibleComment.length < 15) || this.possibleComment.split(' ').length < 10 )) 
           || (this.roletaking && (this.possibleLine.length < 15))) {
             console.log('aaaa')
             this.long = true
@@ -221,6 +239,7 @@ export default {
         if (this.choice || this.long) {
           return
         }
+        this.submitting = true
         const res = await axios.post(`${process.env.VUE_APP_API_URL}/moments/`,
         {
           affected_speaker: this.speaker,
@@ -237,6 +256,7 @@ export default {
             'Authorization': `Token ${this.token}`
           }
         })
+        this.submitting = false
         this.direction = 'NEUTRAL'
         this.speaker = '-1'
         this.reason = ''
@@ -248,6 +268,8 @@ export default {
       } catch (err) {
         console.log(err)
         this.err = true
+        this.submitting = false
+
         //TODO: Error occured, try again
       }
 
@@ -266,7 +288,8 @@ export default {
       long: false,
       choice: false,
       page: 1,
-      reasonOther: ''
+      reasonOther: '',
+      submitting: false
     }
   },
 }

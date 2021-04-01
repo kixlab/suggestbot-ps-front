@@ -53,7 +53,7 @@ export default {
       this.err = false
       this.msg = ''
       const taskType = 'Moderate-Debriefing'
-      const id = `${this.id}-${this.$route.params.dataset}-${taskType}`
+      const id = `${this.id}-${this.$route.params.dataset}-${taskType}-${this.$route.params.initialTime}`
       console.log(id)
       console.log(process.env.VUE_APP_API_URL)
       try {
