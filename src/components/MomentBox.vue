@@ -144,6 +144,15 @@
         DISCARD
       </v-btn>
     </v-card-actions>
+    <v-overlay
+      absolute
+      :value="submitting"
+      >
+      <v-progress-circular 
+        indeterminate
+        color="blue">
+      </v-progress-circular>
+    </v-overlay>
   </v-card>
 </template>
 
@@ -214,6 +223,7 @@ export default {
         this.err = false
         this.long = false
         this.choice = false
+      
         if ((this.direction !== 'POSITIVE') && (this.direction !== 'NEGATIVE')) {
           this.choice = true
         }
@@ -229,6 +239,7 @@ export default {
         if (this.choice || this.long) {
           return
         }
+        this.submitting = true
         const res = await axios.post(`${process.env.VUE_APP_API_URL}/moments/`,
         {
           affected_speaker: this.speaker,
@@ -245,6 +256,7 @@ export default {
             'Authorization': `Token ${this.token}`
           }
         })
+        this.submitting = false
         this.direction = 'NEUTRAL'
         this.speaker = '-1'
         this.reason = ''
@@ -256,6 +268,8 @@ export default {
       } catch (err) {
         console.log(err)
         this.err = true
+        this.submitting = false
+
         //TODO: Error occured, try again
       }
 
@@ -274,7 +288,8 @@ export default {
       long: false,
       choice: false,
       page: 1,
-      reasonOther: ''
+      reasonOther: '',
+      submitting: false
     }
   },
 }
