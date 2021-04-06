@@ -37,15 +37,102 @@ export default {
     }
   },
   mounted: function () {
-    this.$store.commit('setDataset', this.$route.params.dataset)
-    this.$store.commit('setInitialTime', (Number(this.$route.params.initialTime) || 0))
-    this.$store.commit('setFinishTime', (Number(this.$route.params.initialTime) || 0))
+    if (this.$route.params.dataset) {
+      this.$store.commit('setDataset', this.$route.params.dataset)
+      this.$store.commit('setInitialTime', (Number(this.$route.params.initialTime) || 0))
+      this.$store.commit('setFinishTime', (Number(this.$route.params.initialTime) || 0))
+    } else if (this.$route.params.datasetSet) {
+      const datasetSet = this.$route.params.datasetSet
+      const random = Math.floor(Math.random() * 4)
+      const dataset = this.datasets[datasetSet][random].dataset
+      const initialTime = this.datasets[datasetSet][random].initialTime
+      this.$store.commit('setDataset', dataset)
+      this.$store.commit('setInitialTime', initialTime)
+      this.$store.commit('setFinishTime', initialTime)
+    }
+
 
   },
   computed: {
     rw: function () {
       const rw = randomWords({exactly: 4, maxLength: 5})
       return rw.toString()
+    },
+    datasets: function () {
+      return {
+        ES2005: [
+          {
+            dataset: 'ES2005a',
+            initialTime: 120
+          },
+          {
+            dataset: 'ES2005b',
+            initialTime: 840
+          },
+          {
+            dataset: 'ES2005c',
+            initialTime: 690
+          },
+          {
+            dataset: 'ES2005d',
+            initialTime: 540
+          }
+        ],
+        ES2006: [
+          {
+            dataset: 'ES2006a',
+            initialTime: 600
+          },
+          {
+            dataset: 'ES2006b',
+            initialTime: 990
+          },
+          {
+            dataset: 'ES2006c',
+            initialTime: 510
+          },
+          {
+            dataset: 'ES2006d',
+            initialTime: 570
+          }
+        ],
+        ES2007: [
+          {
+            dataset: 'ES2007a',
+            initialTime: 660
+          },
+          {
+            dataset: 'ES2007b',
+            initialTime: 630
+          },
+          {
+            dataset: 'ES2007c',
+            initialTime: 870
+          },
+          {
+            dataset: 'ES2007d',
+            initialTime: 480
+          }
+        ],
+        ES2008: [
+          {
+            dataset: 'ES2008a',
+            initialTime: 630
+          },
+          {
+            dataset: 'ES2008b',
+            initialTime: 480
+          },
+          {
+            dataset: 'ES2008c',
+            initialTime: 480
+          },
+          {
+            dataset: 'ES2008d',
+            initialTime: 570
+          }
+        ],
+      }
     }
   },
   methods: {
@@ -53,7 +140,7 @@ export default {
       this.err = false
       this.msg = ''
       const taskType = 'Moderate-Debriefing'
-      const id = `${this.id}-${this.$route.params.dataset}-${taskType}-${this.$route.params.initialTime}`
+      const id = `${this.id}-${this.$store.state.dataset}-${taskType}-${this.$store.state.initialTime}`
       console.log(id)
       console.log(process.env.VUE_APP_API_URL)
       try {

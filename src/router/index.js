@@ -10,6 +10,11 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/Login.vue')
   },
   {
+    path: '/begin/:datasetSet',
+    name: 'Begin',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Login.vue')
+  },
+  {
     path: '/annotate',
     name: 'Annotate',
     component: () => import(/* webpackChunkName: "about" */ '../views/Annotate.vue')
