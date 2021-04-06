@@ -186,7 +186,7 @@ export default {
     })
     console.log(res)
     try {
-      const lines = await axios.get(`${process.env.VUE_APP_API_URL}/lines/get_dataset_counts/`, {
+      const lines = await axios.get(`${process.env.VUE_APP_API_URL}/lines/get_dataset/`, {
         params: {
           dataset: dataset
         }
