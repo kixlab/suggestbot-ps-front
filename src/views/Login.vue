@@ -43,7 +43,7 @@ export default {
       this.$store.commit('setFinishTime', (Number(this.$route.params.initialTime) || 0))
     } else if (this.$route.params.datasetSet) {
       const datasetSet = this.$route.params.datasetSet
-      const random = Math.floor(Math.random() * 4)
+      const random = Math.floor(Math.random() * this.datasets[datasetSet].length)
       const dataset = this.datasets[datasetSet][random].dataset
       const initialTime = this.datasets[datasetSet][random].initialTime
       this.$store.commit('setDataset', dataset)
@@ -60,76 +60,86 @@ export default {
     },
     datasets: function () {
       return {
-        ES2005: [
+        ES2004: [
           {
-            dataset: 'ES2005a',
-            initialTime: 120
+            dataset: 'ES2004b',
+            initialTime: 1770
           },
           {
+            dataset: 'ES2004c',
+            initialTime: 1740
+          },
+          {
+            dataset: 'ES2004d',
+            initialTime: 1500
+          }
+        ],
+        ES2005: [
+          {
             dataset: 'ES2005b',
-            initialTime: 840
+            initialTime: 1080
           },
           {
             dataset: 'ES2005c',
-            initialTime: 690
+            initialTime: 960
           },
           {
             dataset: 'ES2005d',
-            initialTime: 540
+            initialTime: 780
           }
         ],
         ES2006: [
           {
             dataset: 'ES2006a',
-            initialTime: 600
+            initialTime: 1050
           },
           {
             dataset: 'ES2006b',
-            initialTime: 990
+            initialTime: 1500
           },
           {
             dataset: 'ES2006c',
-            initialTime: 510
+            initialTime: 930
           },
           {
             dataset: 'ES2006d',
-            initialTime: 570
+            initialTime: 840
           }
         ],
         ES2007: [
           {
             dataset: 'ES2007a',
-            initialTime: 660
+            initialTime: 1020
           },
           {
             dataset: 'ES2007b',
-            initialTime: 630
+            initialTime: 1110
           },
           {
             dataset: 'ES2007c',
-            initialTime: 870
+            initialTime: 990
           },
           {
             dataset: 'ES2007d',
-            initialTime: 480
+            initialTime: 720
           }
         ],
         ES2008: [
           {
             dataset: 'ES2008a',
-            initialTime: 630
+            initialTime: 900
           },
           {
             dataset: 'ES2008b',
-            initialTime: 480
+            initialTime: 960
           },
           {
             dataset: 'ES2008c',
-            initialTime: 480
+            initialTime: 840
           },
           {
             dataset: 'ES2008d',
-            initialTime: 570
+            initialTime: 690
           }
         ],
       }
