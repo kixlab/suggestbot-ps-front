@@ -93,29 +93,33 @@ export default {
           }
         ],
         ES2006: [
-          {
-            dataset: 'ES2006c',
-            initialTime: 1890
-          },
+          // {
+          //   dataset: 'ES2006c',
+          //   initialTime: 1890
+          // },
+          // {
+          //   dataset: 'ES2006d',
+          //   initialTime: 1530
+          // }, 
           {
             dataset: 'ES2006d',
-            initialTime: 1530
-          }, 
-          {
-            dataset: 'ES2006d',
-            initialTime: 1530
+            initialTime: 1770
           }
         ],
         ES2007: [
           {
             dataset: 'ES2007c',
-            initialTime: 1830
+            initialTime: 2190
           },
         ],
         ES2008: [
           {
             dataset: 'ES2008b',
-            initialTime: 1560
+            initialTime: 1800
+          },
+          {
+            dataset: 'ES2008b',
+            initialTime: 1800
           },
           {
             dataset: 'ES2008c',
@@ -123,43 +127,47 @@ export default {
           },
           {
             dataset: 'ES2008d',
-            initialTime: 1290
+            initialTime: 1650
+          },
+          {
+            dataset: 'ES2008d',
+            initialTime: 1650
           }
         ],
         ES2009: [
           {
             dataset: 'ES2009a',
-            initialTime: 480
+            initialTime: 720
           },
           {
             dataset: 'ES2009b',
-            initialTime: 360
+            initialTime: 480
           },
           {
             dataset: 'ES2009c',
-            initialTime: 360
+            initialTime: 600
           },
           {
             dataset: 'ES2009d',
-            initialTime: 480
+            initialTime: 600
           }
         ],
         ES2010: [
           {
             dataset: 'ES2010a',
-            initialTime: 0
+            initialTime: 240
           },
           {
             dataset: 'ES2010b',
-            initialTime: 0
+            initialTime: 240
           },
           {
             dataset: 'ES2010c',
-            initialTime: 0
+            initialTime: 120
           },
           {
             dataset: 'ES2010d',
-            initialTime: 0
+            initialTime: 120
           }
         ],
       }
